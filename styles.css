@@ -121,14 +121,24 @@ body {
 
 /* Nota: si quieres los elementos aún más juntos, puedo reducir gap a 0.02rem o usar margin negativo */
 
+/* -------------------------------
+   Estilos para evento.html
+   - Pegar al final de styles.css o sustituir los bloques equivalentes.
+   - Asegúrate de que <body> en evento.html tenga: <body class="evento-page">
+   ------------------------------- */
 
 /* Página de evento: fondo verde claro y texto en verde oscuro */
 body.evento-page {
+  /* quitar imagen de fondo heredada */
   background-image: none !important;
   background-color: #eaf6ea; /* verde muy clarito de fondo */
   color: #0b3d2e;            /* verde oscuro para la tipografía */
   min-height: 100vh;
   font-family: inherit;
+  /* Base de tipografía: ~18px (1rem = 16px por defecto) */
+  font-size: 1.125rem;      /* 1.125rem ≈ 18px */
+  line-height: 1.55;
+  text-align: center;       /* centra texto por defecto en la página */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -148,25 +158,25 @@ body.evento-page .section {
 body.evento-page .card {
   width: 100%;
   max-width: 920px;
-  margin: 0.9rem 0;
+  margin: 0.9rem auto; /* centrado horizontal */
   padding: 1.6rem;
   border-radius: 12px;
   background: rgba(255,255,255,0.82); /* blanco semitransparente */
   backdrop-filter: blur(6px);
   box-shadow: 0 8px 24px rgba(11,61,46,0.08); /* sombra suave en tono verde */
   color: inherit; /* hereda el color #0b3d2e */
-  text-align: left;
+  text-align: center; /* contenido de la card centrado */
 }
 
 /* Titulares y texto dentro de la card */
 body.evento-page h1 {
   text-align: center;
   margin-bottom: 1rem;
-  font-size: clamp(1.6rem, 4.5vw, 2.4rem);
+  font-size: clamp(1.9rem, 4.5vw, 2.6rem);
 }
-body.evento-page .card h2 {
+body.evento-page h2 {
   margin-top: 0;
-  font-size: clamp(1.15rem, 2.6vw, 1.5rem);
+  font-size: clamp(1.25rem, 2.6vw, 1.8rem);
 }
 body.evento-page .card p {
   margin: 0.35rem 0;
@@ -174,7 +184,9 @@ body.evento-page .card p {
 }
 
 /* Map iframe responsive */
-body.evento-page .map { margin-top: 0.6rem; }
+body.evento-page .map {
+  margin-top: 0.6rem;
+}
 body.evento-page .map iframe {
   width: 100%;
   height: 300px;
@@ -183,24 +195,35 @@ body.evento-page .map iframe {
   display: block;
 }
 
-/* Timeline dentro de la última card */
+/* Timeline dentro de la última card
+   Ahora centrada completamente (listas y items centrados). */
+body.evento-page .card .timeline,
+body.evento-page .card .list-left {
+  display: block;
+  margin: 0.5rem auto 0 auto; /* centra el bloque dentro de la card */
+  max-width: 780px;          /* evita que ocupe todo el ancho en pantallas grandes */
+  width: 100%;
+  text-align: center;        /* centra el contenido de la lista */
+}
 body.evento-page .timeline {
   list-style: none;
   padding-left: 0;
-  margin: 0.5rem 0 0 0;
+  margin: 0;
 }
 body.evento-page .timeline li {
   margin: 0.45rem 0;
   font-size: clamp(0.95rem, 1.8vw, 1rem);
+  text-align: center;        /* items centrados */
 }
 body.evento-page .timeline .time {
   font-weight: 700;
   margin-right: 0.6rem;
+  display: inline-block;     /* permite que el time permanezca junto al texto centrado */
 }
 
 /* Enlaces: color oscuro y efecto hover */
 body.evento-page a {
-  color: #064e2a;
+  color: #064e2a;            /* enlace en verde oscuro */
   text-decoration: underline;
 }
 body.evento-page a:hover,
@@ -216,6 +239,7 @@ body.evento-page input[type="submit"] {
   background-color: #0b3d2e;
   color: #ffffff;
   border: 1px solid rgba(11,61,46,0.9);
+  cursor: pointer;
 }
 
 /* Footer */
@@ -227,10 +251,29 @@ body.evento-page .footer {
 
 /* Ajustes para móvil */
 @media (max-width: 600px) {
+  body.evento-page {
+    font-size: 1rem;    /* 16px en móvil */
+    line-height: 1.5;
+  }
   body.evento-page .card {
     padding: 1.1rem;
     border-radius: 10px;
   }
+  body.evento-page .map iframe { height: 220px; }
+  body.evento-page .section { padding: 1.2rem; }
+  body.evento-page .timeline li { font-size: 0.95rem; }
+  body.evento-page .card .timeline,
+  body.evento-page .card .list-left {
+    display: block;
+    max-width: 100%;
+    margin: 0.4rem auto 0 auto;
+  }
+  body.evento-page h1 { font-size: 1.6rem; }
+}
+
+/* Si hay reglas anteriores que anulan estos estilos,
+   coloca este bloque al final del archivo para que tenga prioridad.
+   Evita usar !important salvo que sea estrictamente necesario. */
   body.evento-page .map iframe { height: 220px; }
   body.evento-page .section { padding: 1.2rem; }
   body.evento-page .timeline li { font-size: 0.95rem; }
