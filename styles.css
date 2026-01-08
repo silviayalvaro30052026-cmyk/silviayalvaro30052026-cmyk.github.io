@@ -23,6 +23,12 @@ body {
   position: relative;
   padding: 2rem;
   text-align: center;
+
+  /* imagen de fondo */
+  background-image: url('assets/images/cover.jpg'); /* <- ajusta la ruta */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 .landing__inner { z-index: 2; }
 .overlay {
