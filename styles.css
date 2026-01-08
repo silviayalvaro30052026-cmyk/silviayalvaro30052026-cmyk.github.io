@@ -1,190 +1,89 @@
-
-/* ==== Estilo rural elegante multipágina ==== */
-:root{
-  --bg:#faf6ef;
-  --alt:#f1eadf;
-  --text:#2f2b27;
-  --muted:#6b6b6b;
-  --accent:#6b8e23;
-  --accent2:#b08968;
-  --hero-img:url('img/hero.jpg');
+/* Basic reset */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: 'Dancing Script', 'Montserrat', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: #111; /* fallback color */
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;
-  font-family:'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial;
-  color:var(--text);
-  background:var(--bg);
-  line-height:1.6;
+/* Landing */
+.landing {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 2rem;
+  text-align: center;
+}
+.landing__inner { z-index: 2; }
+.overlay {
+  position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.5)); z-index:1;
 }
 
-/* Portada */
-.landing{
-  min-height:100vh;
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  background:#000;
-}
-.landing::before{
-  content:'';
-  position:absolute;
-  inset:0;
-  background-image:var(--hero-img);
-  background-size:cover;
-  background-position:center;
-  filter:brightness(.85);
-}
-.overlay{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(
-    180deg,
-    rgba(0,0,0,.15),
-    rgba(0,0,0,.25)
-  );
-}
-.landing__inner{
-  position:relative;
-  padding:2rem;
-  max-width:980px;
+.title {
+  font-size: 3.2rem;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.6rem;
+  font-weight: 700; /* Dancing Script bold */
 }
 
-/* Títulos */
-.title{
-  font-family:'Dancing Script', cursive;
-  color:#fff;
-  font-size:clamp(3.5rem, 7vw, 5.5rem);
-  margin:0 0 .5rem;
+/* Grouped meta: subtitle, fecha, location are closer together */
+.meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.18rem; /* small gap to bring items closer */
+  margin-bottom: 1.2rem;
 }
 
-/* Subtítulo, fecha y ubicación más pegados */
-.subtitle, .fecha, .location{
-  color:#fff;
-  opacity:.95;
-  font-size:clamp(1.1rem, 2.4vw, 1.4rem);
-  font-weight:500;
-  margin:0.15rem 0;
+.subtitle {
+  font-size: 1.9rem;
+  margin: 0;
+  line-height: 1.05;
+}
+.fecha {
+  font-size: 1rem;
+  margin: 0;
+  line-height: 1;
+  opacity: 0.95;
+}
+.location {
+  font-size: 1rem;
+  margin: 0;
+  line-height: 1;
 }
 
-.location{
-  margin-bottom:1rem;
+/* CTA buttons: oval and slightly translucent */
+.cta-grid { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; }
+.cta {
+  display: inline-block;
+  padding: 0.55rem 1.15rem;
+  border-radius: 999px; /* pill/oval */
+  background: rgba(255,255,255,0.85); /* translucent light */
+  color: #111;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
+  backdrop-filter: blur(4px);
+}
+.cta:hover, .cta:focus {
+  transform: translateY(-3px);
+  background: rgba(255,255,255,1);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.18);
 }
 
-/* Botones translúcidos y ovalados */
-.cta-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
-  gap:.85rem;
-  max-width:760px;
-  margin:0 auto;
-}
-.cta-grid.small{
-  grid-template-columns:repeat(2, 1fr);
-  max-width:420px;
+/* Small screens adjustments */
+@media (max-width: 480px) {
+  .title { font-size: 2.4rem; }
+  .subtitle { font-size: 1.6rem; }
+  .cta { padding: 0.5rem 1rem; }
 }
 
-.cta{
-  backdrop-filter:blur(10px);
-  background:rgba(255,255,255,0.25);
-  color:#fff;
-  text-decoration:none;
-  padding:.85rem 1rem;
-  border-radius:2rem; /* forma ovalada */
-  font-weight:600;
-  border:1px solid rgba(255,255,255,0.35);
-  transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
-}
-
-.cta:hover{
-  background:rgba(255,255,255,0.40);
-  transform:translateY(-2px);
-  box-shadow:0 6px 16px rgba(0,0,0,.25);
-}
-
-/* Secciones internas */
-.subnav{background:#fff; border-bottom:1px solid rgba(0,0,0,.06)}
-.subnav nav{
-  max-width:980px;
-  margin:0 auto;
-  padding:.75rem 1rem;
-  display:flex;
-  gap:1rem;
-  flex-wrap:wrap;
-}
-.subnav a{
-  color:var(--accent);
-  text-decoration:none;
-  font-weight:600;
-}
-.subnav a:hover{color:#3e5912}
-
-.section{
-  padding:3rem 1.25rem;
-  max-width:980px;
-  margin:0 auto;
-}
-.section.alt{background:var(--alt)}
-.section h1, .section h2{
-  margin-top:0;
-  color:var(--accent2);
-  font-family:'Playfair Display', serif;
-}
-
-.card{
-  background:#fff;
-  border-radius:.66rem;
-  padding:1rem 1.25rem;
-  margin:1rem 0;
-  box-shadow:0 2px 10px rgba(0,0,0,.06);
-}
-.grid2{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:1rem;
-}
-@media(min-width:900px){
-  .grid2{grid-template-columns:1fr 1fr}
-}
-
-.map iframe{
-  width:100%;
-  height:320px;
-  border:0;
-  border-radius:.5rem;
-  box-shadow:0 2px 8px rgba(0,0,0,.05);
-}
-
-.timeline{list-style:none; padding:0; margin:0}
-.timeline li{
-  display:flex;
-  gap:.75rem;
-  padding:.5rem 0;
-  border-bottom:1px dashed rgba(0,0,0,.08);
-}
-.time{
-  color:var(--accent);
-  font-weight:600;
-  min-width:80px;
-}
-
-.form iframe{
-  width:100%;
-  height:820px;
-  border:0;
-  background:#fff;
-  border-radius:.5rem;
-  box-shadow:0 2px 8px rgba(0,0,0,.05);
-}
-
-.hint{font-size:.9rem; color:var(--muted)}
-.footer{padding:2rem 1.25rem; text-align:center; color:var(--muted)}
-
-.form iframe{width:100%; height:820px; border:0; background:#fff; border-radius:.5rem; box-shadow:0 2px 8px rgba(0,0,0,.05)}
-.hint{font-size:.9rem; color:var(--muted)}
-.footer{padding:2rem 1.25rem; text-align:center; color:var(--muted)}
-
+/* If you prefer a darker translucent button instead, uncomment:
+.cta { background: rgba(0,0,0,0.45); color: #fff; }
+*/
