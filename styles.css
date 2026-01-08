@@ -122,14 +122,15 @@ body {
 /* Nota: si quieres los elementos aún más juntos, puedo reducir gap a 0.02rem o usar margin negativo */
 
 
-/* Estilos específicos para la página de evento */
+/* Página de evento: fondo verde claro y texto en verde oscuro */
 body.evento-page {
-  /* fondo oliva que reemplaza la imagen del index */
   background-image: none !important;
-  background-color: #6B8E23; /* tono oliva; cambia si prefieres otro */
-  color: #fff;
+  background-color: #eaf6ea; /* verde muy clarito de fondo */
+  color: #0b3d2e;            /* verde oscuro para la tipografía */
   min-height: 100vh;
   font-family: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Contenedor principal centrado */
@@ -143,18 +144,18 @@ body.evento-page .section {
   text-align: center;
 }
 
-/* Card: fondo semitransparente para legibilidad sobre el oliva */
+/* Card: fondo claro semitransparente para legibilidad sobre el fondo verde */
 body.evento-page .card {
   width: 100%;
   max-width: 920px;
   margin: 0.9rem 0;
   padding: 1.6rem;
   border-radius: 12px;
-  background: rgba(0,0,0,0.18);
+  background: rgba(255,255,255,0.82); /* blanco semitransparente */
   backdrop-filter: blur(6px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.22);
-  color: #fff;
-  text-align: left; /* si prefieres que el texto de la card no esté centrado */
+  box-shadow: 0 8px 24px rgba(11,61,46,0.08); /* sombra suave en tono verde */
+  color: inherit; /* hereda el color #0b3d2e */
+  text-align: left;
 }
 
 /* Titulares y texto dentro de la card */
@@ -173,9 +174,7 @@ body.evento-page .card p {
 }
 
 /* Map iframe responsive */
-body.evento-page .map {
-  margin-top: 0.6rem;
-}
+body.evento-page .map { margin-top: 0.6rem; }
 body.evento-page .map iframe {
   width: 100%;
   height: 300px;
@@ -199,11 +198,31 @@ body.evento-page .timeline .time {
   margin-right: 0.6rem;
 }
 
+/* Enlaces: color oscuro y efecto hover */
+body.evento-page a {
+  color: #064e2a;
+  text-decoration: underline;
+}
+body.evento-page a:hover,
+body.evento-page a:focus {
+  color: #083826;
+  text-decoration: none;
+}
+
+/* Botones primarios: fondo oscuro, texto claro */
+body.evento-page .btn-primary,
+body.evento-page button,
+body.evento-page input[type="submit"] {
+  background-color: #0b3d2e;
+  color: #ffffff;
+  border: 1px solid rgba(11,61,46,0.9);
+}
+
 /* Footer */
 body.evento-page .footer {
   text-align: center;
   padding: 1rem;
-  color: rgba(255,255,255,0.9);
+  color: rgba(11,61,46,0.9);
 }
 
 /* Ajustes para móvil */
@@ -215,48 +234,4 @@ body.evento-page .footer {
   body.evento-page .map iframe { height: 220px; }
   body.evento-page .section { padding: 1.2rem; }
   body.evento-page .timeline li { font-size: 0.95rem; }
-}
-
-body.evento,
-html body.evento {
-  background-color: #eaf6ea; /* verde muy clarito de fondo */
-  color: #0b3d2e;            /* verde oscuro para la tipografía */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* Asegurar que los encabezados y párrafos hereden el color */
-body.evento h1,
-body.evento h2,
-body.evento h3,
-body.evento h4,
-body.evento h5,
-body.evento h6,
-body.evento p,
-body.evento li,
-body.evento span,
-body.evento a,
-body.evento strong,
-body.evento em {
-  color: inherit;
-}
-
-/* Enlaces: color oscuro y un ligero subrayado/efecto hover */
-body.evento a {
-  color: #064e2a;            /* enlace en verde oscuro */
-  text-decoration: underline;
-}
-body.evento a:hover,
-body.evento a:focus {
-  color: #083826;
-  text-decoration: none;
-}
-
-/* Botones primarios: fondo oscuro, texto claro */
-body.evento .btn-primary,
-body.evento button,
-body.evento input[type="submit"] {
-  background-color: #0b3d2e;
-  color: #ffffff;
-  border: 1px solid rgba(11,61,46,0.9);
 }
