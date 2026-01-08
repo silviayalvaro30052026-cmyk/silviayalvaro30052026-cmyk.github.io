@@ -6,10 +6,14 @@
   <title>Boda de Álvaro & Silvia</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Nos casamos — Álvaro y Silvia. 30 de mayo de 2025 en Gil‑García (Ávila). Ceremonia en la Iglesia de San Sebastián Mártir y banquete en Hotel Izán Puerta de Gredos.">
-  https://fonts.googleapis.com
-  https://fonts.gstatic.com
-  https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;500;600&display=swap
-  styles.css
+
+  <!-- Google Fonts (correcto) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Tu hoja de estilos (correcto) -->
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <!-- Portada -->
@@ -19,14 +23,14 @@
       <h1 class="title">Nos casamos</h1>
       <p class="subtitle">Álvaro & Silvia · 30 de mayo de 2025</p>
       <div class="cta-grid">
-        #eventoEvento</a>
-        #asistenciaAsistencia (RSVP)</a>
-        #regaloRegalo</a>
-        #como-llegarCómo llegar</a>
-        #programaPrograma</a>
-        #prebodaPreboda</a>
-        #infoDress code & alojamiento</a>
-        #galeriaGalería</a>
+        <a class="cta" href="#evento">Evento</a>
+        <a class="cta" href="#asistencia">Asistencia (RSVP)</a>
+        <a class="cta" href="#regalo">Regalo</a>
+        <a class="cta" href="#como-llegar">Cómo llegar</a>
+        <a class="cta" href="#programa">Programa</a>
+        <a class="cta" href="#preboda">Preboda</a>
+        <a class="cta" href="#info">Dress code & alojamiento</a>
+        <a class="cta" href="#galeria">Galería</a>
       </div>
     </div>
   </section>
@@ -51,7 +55,7 @@
       <p>Por favor, confírmanos si vienes y cuéntanos alergias o necesidades especiales.</p>
       <div class="form">
         <!-- Sustituye FORM_URL por el iframe de tu Google Form -->
-        FORM_URL</iframe>
+        <iframe src="FORM_URL" loading="lazy"></iframe>
       </div>
       <p class="hint">Te puedo crear el Google Form y pegar aquí su iframe.</p>
     </section>
@@ -67,52 +71,3 @@
     </section>
 
     <section id="como-llegar" class="section alt">
-      <h2>Cómo llegar</h2>
-      <div class="grid2">
-        <div>
-          <h3>Iglesia de San Sebastián Mártir — Gil‑García</h3>
-          https://www.google.com/maps?q=Iglesia+de+San+Sebasti%C3%A1n+M%C3%A1rtir+Gil-Garc%C3%ADa&output=embed</iframe>
-        </div>
-        <div>
-          <h3>Hotel Izán Puerta de Gredos — El Barco de Ávila</h3>
-          https://www.google.com/maps?q=Hotel+Iz%C3%A1n+Puerta+de+Gredos+Barco+de+%C3%81vila&output=embed</iframe>
-        </div>
-      </div>
-      <p class="hint">Desde Madrid: A‑6/AP‑6 y N‑110 hacia El Barco de Ávila.</p>
-    </section>
-
-    <section id="programa" class="section">
-      <h2>Programa del día</h2>
-      <ul class="timeline">
-        <li><span class="time">[Hora]</span> Llegada a la iglesia</li>
-        <li><span class="time">[Hora]</span> Ceremonia</li>
-        <li><span class="time">[Hora]</span> Traslado al hotel</li>
-        <li><span class="time">[Hora]</span> Cóctel</li>
-        <li><span class="time">[Hora]</span> Banquete</li>
-        <li><span class="time">[Hora]</span> Fiesta</li>
-      </ul>
-    </section>
-
-    <section id="preboda" class="section alt">
-      <h2>Preboda — 29 de mayo</h2>
-      <p>Quedada informal en <strong>El Barco de Ávila</strong>. Confirmaremos hora y lugar aquí y por WhatsApp.</p>
-    </section>
-
-    <section id="info" class="section">
-      <h2>Dress code & alojamiento</h2>
-      <p>Estilo <strong>rústico elegante</strong> (colores tierra, verdes, beiges). Próximamente añadiremos recomendaciones de alojamiento por la zona.</p>
-    </section>
-
-    <section id="galeria" class="section alt">
-      <h2>Galería</h2>
-      <div class="gallery">
-        <div class="ph">Sube fotos a <code>img/</code> y enlázalas aquí.</div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <p>Álvaro & Silvia · 30/05/2025 · #BodaDeÁlvaroYSilvia</p>
-  </footer>
-</body>
-</html>
