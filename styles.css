@@ -1,9 +1,14 @@
 /* Basic reset */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; }
+
+/* Usar la misma fuente manuscrita para todo el texto */
+html, body {
+  font-family: 'Dancing Script', cursive;
+}
+
 body {
-  font-family: 'Dancing Script', 'Montserrat', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  background: #111; /* fallback color */
+  background: #111; /* fallback */
   color: #fff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -21,52 +26,53 @@ body {
 }
 .landing__inner { z-index: 2; }
 .overlay {
-  position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.5)); z-index:1;
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.5));
+  z-index:1;
 }
 
 .title {
   font-size: 3.2rem;
   letter-spacing: 0.02em;
   margin-bottom: 0.6rem;
-  font-weight: 700; /* Dancing Script bold */
+  font-weight: 700;
 }
 
-/* Grouped meta: subtitle, fecha, location are closer together */
+/* Meta: juntar subtitle, fecha y location */
 .meta {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.18rem; /* small gap to bring items closer */
-  margin-bottom: 1.2rem;
+  gap: 0.06rem; /* reducido para juntar los elementos */
+  margin-bottom: 0.8rem;
 }
+.meta p { margin: 0; }
 
 .subtitle {
   font-size: 1.9rem;
-  margin: 0;
-  line-height: 1.05;
+  line-height: 1;
 }
 .fecha {
   font-size: 1rem;
-  margin: 0;
   line-height: 1;
   opacity: 0.95;
 }
 .location {
   font-size: 1rem;
-  margin: 0;
   line-height: 1;
 }
 
-/* CTA buttons: oval and slightly translucent */
+/* CTA: ovaladas y translúcidas; heredan la misma fuente */
 .cta-grid { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; }
 .cta {
   display: inline-block;
   padding: 0.55rem 1.15rem;
   border-radius: 999px; /* pill/oval */
-  background: rgba(255,255,255,0.85); /* translucent light */
+  background: rgba(255,255,255,0.85); /* translúcido */
   color: #111;
   text-decoration: none;
   font-weight: 600;
+  font-family: inherit; /* asegurar la misma fuente */
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
   backdrop-filter: blur(4px);
@@ -77,13 +83,11 @@ body {
   box-shadow: 0 8px 20px rgba(0,0,0,0.18);
 }
 
-/* Small screens adjustments */
+/* Ajustes para pantallas pequeñas */
 @media (max-width: 480px) {
   .title { font-size: 2.4rem; }
   .subtitle { font-size: 1.6rem; }
   .cta { padding: 0.5rem 1rem; }
 }
 
-/* If you prefer a darker translucent button instead, uncomment:
-.cta { background: rgba(0,0,0,0.45); color: #fff; }
-*/
+/* Nota: si quieres los elementos aún más juntos, puedo reducir gap a 0.02rem o usar margin negativo */
