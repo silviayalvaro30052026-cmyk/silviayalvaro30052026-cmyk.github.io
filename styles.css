@@ -69,36 +69,54 @@ body {
 }
 
 /* CTA: ovaladas y translúcidas; heredan la misma fuente */
-.cta-grid { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; }
+:root{
+  --cta-font-size: 1.5rem;            /* tamaño deseado */
+  --cta-padding-vertical: 0.95rem;    /* aumentar para altura cómoda */
+  --cta-padding-horizontal: 1.8rem;   /* más espacio lateral */
+  --cta-min-width: 140px;             /* opcional: anchura mínima */
+  --cta-gap: 1rem;                    /* separación entre botones */
+}
+
+.cta-grid {
+  display: flex;
+  gap: var(--cta-gap);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .cta {
   display: inline-block;
-  font-size: 1.05rem;           /* tamaño de fuente aumentado */
-  line-height: 1;               /* centra verticalmente el texto */
-  padding: 0.65rem 1.3rem;      /* más padding para mantener la forma oval */
-  border-radius: 999px;         /* pill/oval */
-  background: rgba(255,255,255,0.85); /* translúcido */
+  font-size: var(--cta-font-size);
+  line-height: 1;
+  padding: var(--cta-padding-vertical) var(--cta-padding-horizontal);
+  min-width: var(--cta-min-width);
+  text-align: center;
+  white-space: nowrap;        /* evita saltos de línea */
+  border-radius: 999px;       /* mantiene el óvalo */
+  background: rgba(255,255,255,0.85);
   color: #111;
   text-decoration: none;
   font-weight: 600;
-  font-family: inherit; /* asegurar la misma fuente */
+  font-family: inherit;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
   backdrop-filter: blur(4px);
 }
+
 .cta:hover, .cta:focus {
   transform: translateY(-3px);
   background: rgba(255,255,255,1);
   box-shadow: 0 8px 20px rgba(0,0,0,0.18);
 }
 
+/* Responsive: reducir en móviles para que no ocupen demasiado */
 @media (max-width: 480px) {
-  .title { font-size: 3.2rem; }
-  .subtitle { font-size: 2.4rem; }
-  .fecha { font-size: 1.8rem; }
-  .location { font-size: 1.8rem; }
-  .cta {
-    font-size: 0.95rem;
-    padding: 0.5rem 1rem;
+  :root{
+    --cta-font-size: 1.05rem;
+    --cta-padding-vertical: 0.5rem;
+    --cta-padding-horizontal: 1rem;
+    --cta-min-width: 100px;
+    --cta-gap: 0.6rem;
   }
 }
 
