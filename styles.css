@@ -1,220 +1,40 @@
+/* ==== Estilo rural elegante multipágina ==== */
+:root{ --bg:#faf6ef; --alt:#f1eadf; --text:#2f2b27; --muted:#6b6b6b; --accent:#6b8e23; --accent2:#b08968; --hero-img:url('img/hero.jpg'); }
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0; font-family:'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; color:var(--text); background:var(--bg); line-height:1.6}
 
-/* ============================
-   Estilo rural elegante (boda)
-   ============================ */
+/* Portada */
+.landing{min-height:100vh; position:relative; display:flex; align-items:center; justify-content:center; text-align:center; background:#000}
+.landing::before{content:''; position:absolute; inset:0; background-image:var(--hero-img); background-size:cover; background-position:center; filter:brightness(.90)}
+.overlay{position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.15))}
+.landing__inner{position:relative; padding:2rem; max-width:980px}
+.title{font-family:'Playfair Display', serif; color:#fff; font-size:clamp(3rem, 6vw, 5rem); margin:.25rem 0 1rem}
+.subtitle{color:#fff; opacity:.95; margin:0 0 .5rem; font-size:clamp(1rem, 2.2vw, 1.25rem); font-weight:500}
+.location{color:#fff; font-size:clamp(1rem, 2.2vw, 1.2rem); margin:0 0 2rem; opacity:.95}
+.cta-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:.9rem; max-width:760px; margin:0 auto}
+.cta-grid.small{grid-template-columns:repeat(2, 1fr); max-width:420px}
+.cta{background:#fff; color:var(--text); text-decoration:none; padding:.9rem 1rem; border-radius:.66rem; box-shadow:0 6px 16px rgba(0,0,0,.15); font-weight:600; border:1px solid rgba(0,0,0,.04); transition:transform .18s ease, box-shadow .18s ease}
+.cta:hover{transform:translateY(-2px); box-shadow:0 12px 22px rgba(0,0,0,.22)}
 
-:root{
-  /* Colores base */
-  --bg:#faf6ef;
-  --alt:#f1eadf;
-  --text:#2f2b27;
-  --muted:#6b6b6b;
+/* Subnavegación en páginas internas */
+.subnav{background:#fff; border-bottom:1px solid rgba(0,0,0,.06)}
+.subnav nav{max-width:980px; margin:0 auto; padding:.75rem 1rem; display:flex; gap:1rem; flex-wrap:wrap}
+.subnav a{color:var(--accent); text-decoration:none; font-weight:600}
+.subnav a:hover{color:#3e5912}
 
-  /* Acentos (verde oliva + madera) */
-  --accent:#6b8e23;
-  --accent2:#b08968;
+/* Secciones internas */
+.section{padding:3rem 1.25rem; max-width:980px; margin:0 auto}
+.section.alt{background:var(--alt)}
+.section h1, .section h2{margin-top:0; color:var(--accent2); font-family:'Playfair Display', serif}
+.card{background:#fff; border-radius:.66rem; padding:1rem 1.25rem; margin:1rem 0; box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.grid2{display:grid; grid-template-columns:1fr; gap:1rem}
+@media(min-width:900px){.grid2{grid-template-columns:1fr 1fr}}
+.map iframe{width:100%; height:320px; border:0; border-radius:.5rem; box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.timeline{list-style:none; padding:0; margin:0}
+.timeline li{display:flex; gap:.75rem; padding:.5rem 0; border-bottom:1px dashed rgba(0,0,0,.08)}
+.time{color:var(--accent); font-weight:600; min-width:80px}
+.form iframe{width:100%; height:820px; border:0; background:#fff; border-radius:.5rem; box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.hint{font-size:.9rem; color:var(--muted)}
+.footer{padding:2rem 1.25rem; text-align:center; color:var(--muted)}
 
-  /* Foto de portada (cámbiala si usas otro nombre o formato) */
-  --hero-img:url('img/hero.jpg');
-}
-
-/* Reset y tipografía base */
-*{ box-sizing:border-box }
-html{ scroll-behavior:smooth }
-body{
-  margin:0;
-  font-family:'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial;
-  color:var(--text);
-  background:var(--bg);
-  line-height:1.6;
-}
-
-/* ============================
-   Portada / Hero
-   ============================ */
-
-.landing{
-  min-height:100vh;
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  background:#000;            /* color de fondo por si no carga la imagen */
-}
-
-/* Capa con la imagen de fondo */
-.landing::before{
-  content:'';
-  position:absolute;
-  inset:0;
-  background-image:var(--hero-img);
-  background-size:cover;
-  background-position:center center;
-  background-repeat:no-repeat;
-  filter:brightness(.90);     /* aclarado (sube a .95 si tu foto es oscura) */
-}
-
-/* Overlay para mejorar contraste del texto */
-.overlay{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.15));
-}
-
-/* Contenido centrado de la portada */
-.landing__inner{
-  position:relative;
-  padding:2rem;
-  max-width:980px;
-}
-
-/* Título principal */
-.title{
-  font-family:'Playfair Display', serif;
-  color:#fff;
-  font-size:clamp(3rem, 6vw, 5rem);
-  line-height:1.1;
-  margin:.25rem 0 1rem;
-}
-
-/* Subtítulo (nombres y fecha) */
-.subtitle{
-  color:#fff;
-  opacity:.95;
-  margin:0 0 .5rem;
-  font-size:clamp(1rem, 2.2vw, 1.25rem);
-  font-weight:500;
-}
-
-/* Localización */
-.location{
-  color:#fff;
-  font-size:clamp(1rem, 2.2vw, 1.2rem);
-  margin:0 0 2rem;
-  opacity:.95;
-}
-
-/* Botones de la portada */
-.cta-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
-  gap:.9rem;
-  max-width:760px;
-  margin:0 auto;
-}
-
-/* Variante de 4 botones (2 columnas en móvil) */
-.cta-grid.small{
-  grid-template-columns:repeat(2, 1fr);
-  max-width:420px;
-}
-
-/* Botón */
-.cta{
-  background:#fff;
-  color:var(--text);
-  text-decoration:none;
-  padding:.9rem 1rem;
-  border-radius:.66rem;
-  box-shadow:0 6px 16px rgba(0,0,0,.15);
-  font-weight:600;
-  border:1px solid rgba(0,0,0,.04);
-  transition:transform .18s ease, box-shadow .18s ease;
-}
-.cta:hover{
-  transform:translateY(-2px);
-  box-shadow:0 12px 22px rgba(0,0,0,.22);
-}
-
-/* ============================
-   Secciones internas
-   ============================ */
-
-.section{
-  padding:3rem 1.25rem;
-  max-width:980px;
-  margin:0 auto;
-}
-.section.alt{ background:var(--alt) }
-.section h2{
-  margin-top:0;
-  color:var(--accent2);
-  font-family:'Playfair Display', serif;
-}
-
-/* Tarjetas informativas (evento, etc.) */
-.card{
-  background:#fff;
-  border-radius:.66rem;
-  padding:1rem 1.25rem;
-  margin:1rem 0;
-  box-shadow:0 2px 10px rgba(0,0,0,.06);
-}
-
-/* Grids utilitarias */
-.grid2{ display:grid; grid-template-columns:1fr; gap:1rem }
-@media(min-width:900px){
-  .grid2{ grid-template-columns:1fr 1fr }
-}
-
-/* Mapas embebidos */
-.map iframe{
-  width:100%;
-  height:320px;
-  border:0;
-  border-radius:.5rem;
-  box-shadow:0 2px 8px rgba(0,0,0,.05);
-}
-
-/* Timeline del programa */
-.timeline{ list-style:none; padding:0; margin:0 }
-.timeline li{
-  display:flex; gap:.75rem;
-  padding:.5rem 0;
-  border-bottom:1px dashed rgba(0,0,0,.08);
-}
-.time{ color:var(--accent); font-weight:600; min-width:80px }
-
-/* Galería */
-.gallery{
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
-  gap:.75rem;
-}
-.gallery img{
-  width:100%;
-  border-radius:.5rem;
-  box-shadow:0 2px 8px rgba(0,0,0,.05);
-}
-
-/* Formularios (RSVP con Google Forms) */
-.form iframe{
-  width:100%;
-  height:820px;        /* ajústalo si tu formulario es más alto */
-  border:0;
-  background:#fff;
-  border-radius:.5rem;
-  box-shadow:0 2px 8px rgba(0,0,0,.05);
-}
-
-.hint{ font-size:.9rem; color:var(--muted) }
-
-/* Pie de página */
-.footer{
-  padding:2rem 1.25rem;
-  text-align:center;
-  color:var(--muted);
-}
-
-/* ============================
-   Ajustes responsivos
-   ============================ */
-
-@media (max-width:480px){
-  .cta-grid.small{
-    grid-template-columns:1fr; /* una columna en móviles muy pequeños */
-    max-width:300px;
-  }
-  .form iframe{ height:900px }
-}
