@@ -113,7 +113,7 @@ body {
 /* Ajustes específicos para móviles */
 @media (max-width: 480px) {
   .title {font-size: 2.5rem;   /* ejemplo: reducir título en móviles */}
-  .subtitle {font-size: 1.6rem;   /* subtítulo más pequeño */}
+  .subtitle {font-size: 2rem;   /* subtítulo más pequeño */}
   .fecha, .location {font-size: 1.2rem;  /* fecha y ubicación */}
   .cta {font-size: 1.2rem;     /* tamaño de botón en móvil */
   padding: 0.45rem 0.9rem; /* ajustar padding para mantener forma */}
