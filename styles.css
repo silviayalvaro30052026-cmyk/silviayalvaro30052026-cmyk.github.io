@@ -122,28 +122,97 @@ body {
 /* Nota: si quieres los elementos aún más juntos, puedo reducir gap a 0.02rem o usar margin negativo */
 
 
-/* === Página Evento centrada y con fondo oliva === */
-.evento-page {
-  background: #b7c29c;       /* verde oliva suave */
-  padding: 3rem 1.25rem;
-  border-radius: 1rem;
-  text-align: center;        /* centra los textos */
+/* Estilos específicos para la página de evento */
+body.evento-page {
+  /* fondo oliva que reemplaza la imagen del index */
+  background-image: none !important;
+  background-color: #6B8E23; /* tono oliva; cambia si prefieres otro */
+  color: #fff;
+  min-height: 100vh;
+  font-family: inherit;
 }
 
-.evento-page .card {
-  text-align: left;          /* mantiene el texto interno bonito */
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 720px;          /* para que quede centrado y elegante */
-}
-
-.evento-page h1 {
-  text-align: center;
-  font-size: 2.4rem;
-  margin-bottom: 2rem;
-}
-
-.evento-page .card h2 {
+/* Contenedor principal centrado */
+body.evento-page .section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
   text-align: center;
 }
 
+/* Card: fondo semitransparente para legibilidad sobre el oliva */
+body.evento-page .card {
+  width: 100%;
+  max-width: 920px;
+  margin: 0.9rem 0;
+  padding: 1.6rem;
+  border-radius: 12px;
+  background: rgba(0,0,0,0.18);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.22);
+  color: #fff;
+  text-align: left; /* si prefieres que el texto de la card no esté centrado */
+}
+
+/* Titulares y texto dentro de la card */
+body.evento-page h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: clamp(1.6rem, 4.5vw, 2.4rem);
+}
+body.evento-page .card h2 {
+  margin-top: 0;
+  font-size: clamp(1.15rem, 2.6vw, 1.5rem);
+}
+body.evento-page .card p {
+  margin: 0.35rem 0;
+  font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+}
+
+/* Map iframe responsive */
+body.evento-page .map {
+  margin-top: 0.6rem;
+}
+body.evento-page .map iframe {
+  width: 100%;
+  height: 300px;
+  border: 0;
+  border-radius: 8px;
+  display: block;
+}
+
+/* Timeline dentro de la última card */
+body.evento-page .timeline {
+  list-style: none;
+  padding-left: 0;
+  margin: 0.5rem 0 0 0;
+}
+body.evento-page .timeline li {
+  margin: 0.45rem 0;
+  font-size: clamp(0.95rem, 1.8vw, 1rem);
+}
+body.evento-page .timeline .time {
+  font-weight: 700;
+  margin-right: 0.6rem;
+}
+
+/* Footer */
+body.evento-page .footer {
+  text-align: center;
+  padding: 1rem;
+  color: rgba(255,255,255,0.9);
+}
+
+/* Ajustes para móvil */
+@media (max-width: 600px) {
+  body.evento-page .card {
+    padding: 1.1rem;
+    border-radius: 10px;
+  }
+  body.evento-page .map iframe { height: 220px; }
+  body.evento-page .section { padding: 1.2rem; }
+  body.evento-page .timeline li { font-size: 0.95rem; }
+}
