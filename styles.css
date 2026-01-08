@@ -216,3 +216,47 @@ body.evento-page .footer {
   body.evento-page .section { padding: 1.2rem; }
   body.evento-page .timeline li { font-size: 0.95rem; }
 }
+
+body.evento,
+html body.evento {
+  background-color: #eaf6ea; /* verde muy clarito de fondo */
+  color: #0b3d2e;            /* verde oscuro para la tipografía */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Asegurar que los encabezados y párrafos hereden el color */
+body.evento h1,
+body.evento h2,
+body.evento h3,
+body.evento h4,
+body.evento h5,
+body.evento h6,
+body.evento p,
+body.evento li,
+body.evento span,
+body.evento a,
+body.evento strong,
+body.evento em {
+  color: inherit;
+}
+
+/* Enlaces: color oscuro y un ligero subrayado/efecto hover */
+body.evento a {
+  color: #064e2a;            /* enlace en verde oscuro */
+  text-decoration: underline;
+}
+body.evento a:hover,
+body.evento a:focus {
+  color: #083826;
+  text-decoration: none;
+}
+
+/* Botones primarios: fondo oscuro, texto claro */
+body.evento .btn-primary,
+body.evento button,
+body.evento input[type="submit"] {
+  background-color: #0b3d2e;
+  color: #ffffff;
+  border: 1px solid rgba(11,61,46,0.9);
+}
