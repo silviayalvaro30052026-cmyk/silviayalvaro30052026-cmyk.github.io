@@ -38,7 +38,7 @@ body {
 }
 
 .title {
-  font-size: 3.2rem;
+  font-size: 5rem;
   letter-spacing: 0.02em;
   margin-bottom: 0.6rem;
   font-weight: 700;
@@ -55,16 +55,16 @@ body {
 .meta p { margin: 0; }
 
 .subtitle {
-  font-size: 1.9rem;
+  font-size: 3rem;
   line-height: 1;
 }
 .fecha {
-  font-size: 1rem;
+  font-size: 2rem;
   line-height: 1;
   opacity: 0.95;
 }
 .location {
-  font-size: 1rem;
+  font-size: 2rem;
   line-height: 1;
 }
 
