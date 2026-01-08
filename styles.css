@@ -1,25 +1,36 @@
-/* Estilo rural minimalista */
+/* Estilo rural elegante para la boda */
 :root{
-  --bg:#faf6ef; --alt:#f1eadf; --text:#2f2b27; --accent:#6b8e23; --accent2:#b08968;
+  --bg:#faf6ef; --alt:#f1eadf; --text:#2f2b27; --muted:#6b6b6b; --accent:#6b8e23; --accent2:#b08968;
+  --hero-img:url('img/hero.jpg'); /* Cambia a tu foto: sube img/hero.jpg al repo */
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0; font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; color:var(--text); background:var(--bg); line-height:1.6}
-.hero{padding:6rem 1.25rem; text-align:center; background:linear-gradient(120deg, rgba(107,142,35,.15), rgba(176,137,104,.15))}
-.hero h1{font-size:3rem; margin:.25rem 0}
-.hero p{margin:0 0 1rem}
-.nav{display:flex; gap:.75rem; justify-content:center; flex-wrap:wrap}
-.nav a{color:var(--accent); text-decoration:none; padding:.35rem .6rem; border:1px solid rgba(107,142,35,.35); border-radius:999px}
-.nav a:hover{background:var(--accent); color:#fff}
+body{margin:0; font-family:'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; color:var(--text); background:var(--bg); line-height:1.6}
+
+/* Landing */
+.landing{min-height:100vh; position:relative; display:flex; align-items:center; justify-content:center; background:#000}
+.landing::before{content:''; position:absolute; inset:0; background-image:var(--hero-img); background-size:cover; background-position:center; filter:brightness(.65)}
+.overlay{position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.2), rgba(0,0,0,.35))}
+.landing__inner{position:relative; text-align:center; padding:2rem; max-width:980px}
+.title{font-family:'Playfair Display', serif; color:#fff; font-size:clamp(2.5rem,6vw,5rem); margin:.25rem 0}
+.subtitle{color:#fff; opacity:.9; margin:0 0 1.75rem}
+.cta-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:.75rem}
+.cta{background:#fff; color:var(--text); text-decoration:none; padding:.8rem 1rem; border-radius:.6rem; box-shadow:0 6px 16px rgba(0,0,0,.15); font-weight:600}
+.cta:hover{transform:translateY(-2px); box-shadow:0 10px 20px rgba(0,0,0,.2)}
+
+/* Secciones */
 .section{padding:3rem 1.25rem; max-width:980px; margin:0 auto}
 .section.alt{background:var(--alt)}
-.section h2{margin-top:0; color:var(--accent2)}
+.section h2{margin-top:0; color:var(--accent2); font-family:'Playfair Display', serif}
+.card{background:#fff; border-radius:.6rem; padding:1rem 1.25rem; margin:1rem 0; box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.grid2{display:grid; grid-template-columns:1fr; gap:1rem}
+@media(min-width:900px){.grid2{grid-template-columns:1fr 1fr}}
 .map iframe{width:100%; height:320px; border:0; border-radius:.5rem; box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.timeline{list-style:none; padding:0; margin:0}
+.timeline li{display:flex; gap:.75rem; padding:.5rem 0; border-bottom:1px dashed rgba(0,0,0,.08)}
+.time{color:var(--accent); font-weight:600; min-width:80px}
+.gallery{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:.75rem}
+.gallery img{width:100%; border-radius:.5rem; box-shadow:0 2px 8px rgba(0,0,0,.05)}
 .form iframe{width:100%; height:820px; border:0; background:#fff; border-radius:.5rem; box-shadow:0 2px 8px rgba(0,0,0,.05)}
-.hint{font-size:.9rem; color:#666}
-.footer{padding:2rem 1.25rem; text-align:center; color:#6b6b6b}
-@media (min-width:900px){
-  .hero h1{font-size:4rem}
-  .map iframe{height:380px}
-  .form iframe{height:760px}
-}
+.hint{font-size:.9rem; color:var(--muted)}
+.footer{padding:2rem 1.25rem; text-align:center; color:var(--muted)}
