@@ -72,8 +72,10 @@ body {
 .cta-grid { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; }
 .cta {
   display: inline-block;
-  padding: 0.55rem 1.15rem;
-  border-radius: 999px; /* pill/oval */
+  font-size: 1.05rem;           /* tamaño de fuente aumentado */
+  line-height: 1;               /* centra verticalmente el texto */
+  padding: 0.65rem 1.3rem;      /* más padding para mantener la forma oval */
+  border-radius: 999px;         /* pill/oval */
   background: rgba(255,255,255,0.85); /* translúcido */
   color: #111;
   text-decoration: none;
@@ -89,11 +91,13 @@ body {
   box-shadow: 0 8px 20px rgba(0,0,0,0.18);
 }
 
-/* Ajustes para pantallas pequeñas */
 @media (max-width: 480px) {
   .title { font-size: 3.2rem; }
   .subtitle { font-size: 2.4rem; }
-  .cta { padding: 0.5rem 1rem; }
+  .cta {
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem;
+  }
 }
 
 /* Nota: si quieres los elementos aún más juntos, puedo reducir gap a 0.02rem o usar margin negativo */
