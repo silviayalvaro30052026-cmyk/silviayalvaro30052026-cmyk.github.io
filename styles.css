@@ -110,14 +110,13 @@ body {
 }
 
 /* Responsive: reducir en móviles para que no ocupen demasiado */
+/* Ajustes específicos para móviles */
 @media (max-width: 480px) {
-  :root{
-    --cta-font-size: 1.05rem;
-    --cta-padding-vertical: 0.5rem;
-    --cta-padding-horizontal: 1rem;
-    --cta-min-width: 100px;
-    --cta-gap: 0.6rem;
-  }
+  .title {font-size: 2.2rem;   /* ejemplo: reducir título en móviles */}
+  .subtitle {font-size: 1.4rem;   /* subtítulo más pequeño */}
+  .fecha, .location {font-size: 0.95rem;  /* fecha y ubicación */}
+  .cta {font-size: 1rem;     /* tamaño de botón en móvil */
+  padding: 0.45rem 0.9rem; /* ajustar padding para mantener forma */}
 }
 
 /* Nota: si quieres los elementos aún más juntos, puedo reducir gap a 0.02rem o usar margin negativo */
