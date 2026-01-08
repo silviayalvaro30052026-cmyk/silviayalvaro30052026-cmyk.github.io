@@ -120,3 +120,30 @@ body {
 }
 
 /* Nota: si quieres los elementos aún más juntos, puedo reducir gap a 0.02rem o usar margin negativo */
+
+
+/* === Página Evento centrada y con fondo oliva === */
+.evento-page {
+  background: #b7c29c;       /* verde oliva suave */
+  padding: 3rem 1.25rem;
+  border-radius: 1rem;
+  text-align: center;        /* centra los textos */
+}
+
+.evento-page .card {
+  text-align: left;          /* mantiene el texto interno bonito */
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 720px;          /* para que quede centrado y elegante */
+}
+
+.evento-page h1 {
+  text-align: center;
+  font-size: 2.4rem;
+  margin-bottom: 2rem;
+}
+
+.evento-page .card h2 {
+  text-align: center;
+}
+
