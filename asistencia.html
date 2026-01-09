@@ -12,16 +12,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="styles.css" />
-
   <style>
-    /* Estilos de formulario compatibles con styles.css */
+    /* Estilos del formulario (componentes específicos, mantén esto junto a styles.css) */
     .rsvp-form { display:block; width:100%; }
     .form-row { display:flex; gap:1rem; margin:0.5rem 0 1rem; align-items:center; flex-wrap:wrap; }
     .form-row .field { flex:1 1 220px; min-width:180px; }
     label { display:block; font-weight:600; margin-bottom:0.35rem; color: inherit; }
     input[type="text"], select, textarea {
-      width:100%; padding:0.6rem 0.75rem; border-radius:8px; border:1px solid rgba(0,0,0,0.12);
-      background: rgba(255,255,255,0.96); font-family: inherit; font-size: 1rem; color: inherit;
+      width:100%;
+      padding:0.6rem 0.75rem;
+      border-radius:8px;
+      border:1px solid rgba(0,0,0,0.12);
+      background: rgba(255,255,255,0.96);
+      font-family: inherit;
+      font-size: 1rem;
+      color: inherit;
       box-sizing: border-box;
     }
     textarea { min-height: 100px; resize: vertical; }
@@ -74,12 +79,11 @@
     <section class="card" aria-labelledby="asistencia-heading">
       <h2 id="asistencia-heading" style="margin-top:0;">Formulario de asistencia</h2>
 
-      <!-- FORM: enviado a Formspree -->
-      <form id="rsvpForm" class="rsvp-form" method="POST"
-            action="https://formspree.io/f/mdaankgw">
+      <!-- FORM: enviado a Formspree (tu endpoint) -->
+      <form id="rsvpForm" class="rsvp-form" method="POST" action="https://formspree.io/f/mdaankgw">
         <!-- Hidden fields para Formspree -->
         <input type="hidden" name="_subject" value="RSVP Silvia & Álvaro">
-        <!-- Opcional: redirigir a gracias.html después del envío. Si no tienes gracias.html, elimina o deja vacio -->
+        <!-- Opcional: descomenta y pon la URL completa de tu gracias.html para redirigir -->
         <!-- <input type="hidden" name="_next" value="https://tusitio.com/gracias.html"> -->
         <!-- Honeypot anti-spam (Formspree ignora si está relleno) -->
         <input type="text" name="_gotcha" style="display:none">
@@ -184,7 +188,13 @@
         </fieldset>
 
         <div class="form-actions">
-          <button type="submit" class="btn-primary">Enviar respuesta</button>
+          <button type="submit" class="btn-primary" aria-label="Enviar respuesta">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+              <path d="M2 12L22 3L9 14L14 9L17 20L2 12Z" fill="currentColor"/>
+            </svg>
+            <span>Enviar respuesta</span>
+          </button>
+
           <div id="formStatus" role="status" aria-live="polite" style="margin-left:0.6rem;"></div>
         </div>
       </form>
@@ -233,8 +243,8 @@
       attendanceRadios.forEach(r => r.addEventListener('change', updateCompanionVisibility));
 
       // NOTA: no interceptamos el submit; el formulario se envía directamente a Formspree.
-      // Si quieres mostrar un mensaje en la misma página tras enviar sin redirigir,
-      // podemos implementar el envío via fetch()/AJAX. Dime si lo quieres.
+      // Si quieres una confirmación en la misma página con fetch() en lugar de redirección,
+      // dímelo y te lo implemento.
     })();
   </script>
 </body>
