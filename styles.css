@@ -891,3 +891,92 @@ main.section {
   box-shadow: none !important;
   border: none !important;
 }
+
+/* --- Ajustes: asegurar color verde idéntico para barras/cruz y enlaces, y desplazar contenido bajo nav --- */
+
+:root {
+  /* Ajusta este valor al verde exacto que usas en el resto del sitio */
+  --brand-green: #2a9d8f;
+  --brand-green-dark: #167a63;
+  --brand-green-opaque: rgba(42,157,143,0.18);
+
+  /* Altura estimada de la barra superior (cuando el desplegable está cerrado) */
+  --nav-bar-height: 56px;
+}
+
+/* Forzamos que el botón y el contenedor usen el color de marca */
+.top-nav,
+.nav-controls,
+.nav-toggle {
+  color: var(--brand-green) !important; /* currentColor para las barras */
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Aseguramos que las barras usen exactamente el color de marca */
+.hamburger span {
+  background: var(--brand-green) !important; /* fuerza color de las barras/cruz */
+}
+
+/* Mantener visibilidad de la X transformada */
+.nav-toggle[aria-expanded="true"] .hamburger span:nth-child(1),
+.nav-toggle[aria-expanded="true"] .hamburger span:nth-child(3) {
+  background: var(--brand-green) !important;
+}
+
+/* Asegurar que el elemento de la página actual también tenga el mismo verde */
+.nav-dropdown .nav-current {
+  color: var(--brand-green) !important;
+}
+
+/* Enlaces del menú en verde */
+.nav-dropdown a.nav-btn {
+  color: var(--brand-green) !important;
+  background: transparent !important;
+}
+
+/* Hover / focus */
+.nav-dropdown a.nav-btn:hover,
+.nav-dropdown a.nav-btn:focus {
+  color: var(--brand-green-dark) !important;
+  text-decoration: underline;
+}
+
+/* Eliminar cualquier fondo/blanco residual en la nav */
+.top-nav,
+.nav-controls,
+.nav-dropdown,
+.nav-toggle,
+.nav-dropdown a.nav-btn,
+.nav-dropdown .nav-current {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Espacio superior para que el main no quede oculto bajo la barra sticky/translúcida */
+main.section {
+  padding-top: calc(var(--nav-bar-height) + 0.5rem) !important;
+}
+
+/* Ajuste en móvil: la barra puede ser más alta si hay controles,
+   incrementamos la variable nav-bar-height para pantallas pequeñas */
+@media (max-width: 640px) {
+  :root {
+    --nav-bar-height: 72px; /* ajusta si tu boton+padding ocupan más espacio */
+  }
+
+  /* Flex-wrap del menú para evitar solapamiento y mantener legibilidad */
+  .nav-dropdown.show {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .nav-dropdown a.nav-btn,
+  .nav-dropdown .nav-current {
+    white-space: normal;
+    text-align: center;
+    min-width: 6rem;
+  }
+}
