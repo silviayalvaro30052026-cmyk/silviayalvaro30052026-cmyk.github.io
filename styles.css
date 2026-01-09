@@ -1,5 +1,6 @@
 /* styles.css — archivo completo consolidado
-   Ajustado: fondos de los botones .cta más translúcidos
+   Incluye: landing, ajustes tipográficos, CTA translúcidos, navegación (hamburguesa),
+   página de evento (.evento-page) y estilos del formulario + botón bonito.
 */
 
 /* ===========================
@@ -93,7 +94,7 @@ body {
   margin-bottom:0.8rem;
 }
 
-/* CTA (botones) — ahora MÁS TRANSLÚCIDOS en reposo */
+/* CTA (botones) — más translúcidos en reposo */
 .cta-grid{ display:flex; gap:var(--cta-gap); flex-wrap:wrap; justify-content:center; }
 .cta{
   display:inline-block;
@@ -114,10 +115,9 @@ body {
   transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
   backdrop-filter: blur(4px);
 }
-/* Hover/focus: volvemos a aumentar la opacidad para feedback */
 .cta:hover, .cta:focus{
   transform:translateY(-3px);
-  background: rgba(255,255,255,0.90); /* ligeramente más visible al interactuar */
+  background: rgba(255,255,255,0.90);
   box-shadow:0 8px 20px rgba(0,0,0,0.18);
 }
 
@@ -168,11 +168,7 @@ body.evento-page h2{ margin-top:0; font-size:clamp(1.25rem,2.6vw,1.8rem); }
 body.evento-page .card p{ margin:0.35rem 0; font-size:clamp(0.95rem,1.8vw,1.05rem); }
 
 /* Media section helper (imagen + texto alineados) */
-.section-media{
-  display:flex;
-  align-items:center;
-  gap:1rem;
-}
+.section-media{ display:flex; align-items:center; gap:1rem; }
 
 /* Mapa dentro de las secciones */
 body.evento-page .map{ margin-top:0.6rem; }
@@ -215,6 +211,7 @@ body.evento-page .event-item .event-content p{ margin:0.15rem 0 0 0; font-size:0
 body.evento-page a{ color:#064e2a; text-decoration:underline; }
 body.evento-page a:hover, body.evento-page a:focus{ color:#083826; text-decoration:none; }
 body.evento-page .btn-primary, body.evento-page button, body.evento-page input[type="submit"]{
+  /* fallback (overridden by .btn-primary more specific below) */
   background-color:#0b3d2e; color:#fff; border:1px solid rgba(11,61,46,0.9); cursor:pointer;
 }
 body.evento-page .footer{ text-align:center; padding:1rem; color:rgba(11,61,46,0.9); }
@@ -264,7 +261,7 @@ body.evento-page .footer{ text-align:center; padding:1rem; color:rgba(11,61,46,0
 /* Controles (botón) */
 .nav-controls{ display:flex; justify-content:center; padding:0.6rem 1rem; }
 
-/* ======== Ajustes solicitados: en evento-page el botón no tenga fondo y las barras usen color del texto ======== */
+/* Ajustes: en evento-page el botón no tenga fondo y las barras usen color del texto */
 body.evento-page .nav-controls{ justify-content:flex-start; padding:0.4rem 0.4rem; }
 body.evento-page .nav-toggle{
   display:inline-flex;
@@ -275,7 +272,7 @@ body.evento-page .nav-toggle{
   cursor:pointer;
   background: transparent;
   border: none;
-  color: inherit; /* las barras usarán currentColor (ej. #0b3d2e) */
+  color: inherit;
   line-height:0;
   margin:0;
 }
@@ -299,7 +296,7 @@ body.evento-page .nav-toggle{
   display:block;
   height:2px;
   width:100%;
-  background: currentColor; /* hereda color (currentColor) */
+  background: currentColor;
   border-radius:2px;
   margin:3.5px 0;
   transform-origin:center;
@@ -328,6 +325,54 @@ body.evento-page main.section{ padding-top: calc(var(--nav-bar-height) - 0.75rem
 
 /* Asegura que el contenido principal no quede oculto bajo la barra (fallback global) */
 main.section{ padding-top: calc(var(--nav-bar-height) + 0.5rem); }
+
+/* ===========================
+   Botón bonito para envío de formulario (sobrescribe estilos previos)
+   =========================== */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 1.1rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(11,61,46,0.92), rgba(11,61,46,0.82));
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 8px 20px rgba(11,61,46,0.18);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+  backdrop-filter: blur(6px) saturate(120%);
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-primary .btn-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  flex: 0 0 18px;
+  line-height: 0;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(11,61,46,0.24);
+  background: linear-gradient(180deg, rgba(11,61,46,1), rgba(11,61,46,0.9));
+  outline: none;
+}
+.btn-primary:active {
+  transform: translateY(-1px) scale(.998);
+}
+.btn-primary:focus-visible {
+  outline: 3px solid rgba(42,157,143,0.18);
+  outline-offset: 3px;
+}
+@media (max-width: 640px) {
+  .btn-primary {
+    padding: 0.55rem 0.95rem;
+    font-size: 0.98rem;
+  }
+}
 
 /* ===========================
    Responsive
@@ -360,11 +405,9 @@ main.section{ padding-top: calc(var(--nav-bar-height) + 0.5rem); }
   body.evento-page .section-media img{ width:44px; height:44px; flex:0 0 44px; }
   body.evento-page .map iframe{ height:200px; }
 
-  /* Reduce dropdown spacing */
   .nav-dropdown.show{ width:100%; justify-content:center; margin-bottom:0.05rem; }
   .nav-dropdown a.nav-btn, .nav-dropdown .nav-current{ white-space:normal; text-align:center; min-width:6rem; }
 
-  /* Evento page title smaller but still larger than normal text */
   body.evento-page h1{ font-size:2rem; }
 }
 
@@ -376,4 +419,5 @@ h1,h2,h3{ line-height:1.15; }
    ===========================
    - Si prefieres otra opacidad para los botones .cta (más o menos translúcido),
      cambia rgba(255,255,255,0.60) por el valor deseado (ej. 0.5 ó 0.7).
+   - Si quieres que el icono del botón sea distinto, reemplaza el SVG inline en asistencia.html.
 */
