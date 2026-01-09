@@ -183,8 +183,8 @@ body.evento-page .nav-toggle{
   gap:0.5rem;
   justify-content:center;
   align-items:center;
-  padding:0.4rem 0.6rem; /* textarea más compacto */
-  margin: 0 0 0.15rem 0; /* margen inferior pequeño */
+  padding:0.4rem 0.6rem;
+  margin: 0 0 0.15rem 0;
   list-style:none;
   background:transparent;
   border-bottom:none;
@@ -202,15 +202,29 @@ body.evento-page .nav-toggle{
 /* PAGE-SPECIFIC: reducir espacio entre el menú y la palabra/encabezado "Evento" */
 body.evento-page main.section{ padding-top: calc(var(--nav-bar-height) - 0.75rem); }
 
-/* Preboda card emphasis */
-.card.preboda{ font-size:1.25rem; line-height:1.45; }
+/* --- NUEVO: colocar la hamburguesa a la IZQUIERDA en la página de evento --- */
+/* hacemos que los controles de navegación en evento-page estén alineados a la izquierda */
+body.evento-page .nav-controls{
+  justify-content: flex-start;
+  padding-left: 1rem;
+}
 
-/* Ensure page content isn't hidden below sticky nav (global fallback) */
-main.section{ padding-top: calc(var(--nav-bar-height) + 0.5rem); }
-
-/* Responsive adjustments */
+/* aseguramos que la barra superior no se centre en móvil */
 @media (max-width: 640px){
   :root{ --nav-bar-height:72px; }
+
+  /* reemplazamos la regla previa que centraba la top-nav en evento-page */
+  body.evento-page .top-nav{
+    left: 0;
+    top: 0.4rem;
+    transform: none;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 0.6rem;
+    gap: 0.45rem;
+    background: transparent;
+  }
+
   .title{ font-size:2.5rem; }
   .subtitle{ font-size:2rem; }
   .fecha, .location{ font-size:1.2rem; }
@@ -227,7 +241,6 @@ main.section{ padding-top: calc(var(--nav-bar-height) + 0.5rem); }
   body.evento-page .timeline li{ font-size:0.95rem; }
   body.evento-page h1{ font-size:1.6rem; }
 
-  body.evento-page .top-nav{ left:50%; top:0.6rem; transform:translateX(-50%); flex-direction:row; align-items:center; padding:0 0.35rem; gap:0.45rem; background:transparent; }
   body.evento-page .top-nav .nav-btn{ font-size:1.03rem; padding:0.48rem 0.66rem; }
 
   body.evento-page .event-item .icon{ width:44px; height:44px; flex:0 0 44px; }
@@ -237,3 +250,9 @@ main.section{ padding-top: calc(var(--nav-bar-height) + 0.5rem); }
   .nav-dropdown.show{ width:100%; justify-content:center; margin-bottom:0.1rem; }
   .nav-dropdown a.nav-btn, .nav-dropdown .nav-current{ white-space:normal; text-align:center; min-width:6rem; }
 }
+
+/* Preboda card emphasis */
+.card.preboda{ font-size:1.25rem; line-height:1.45; }
+
+/* Ensure page content isn't hidden below sticky nav (global fallback) */
+main.section{ padding-top: calc(var(--nav-bar-height) + 0.5rem); }
