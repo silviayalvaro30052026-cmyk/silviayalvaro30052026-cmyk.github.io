@@ -1,982 +1,218 @@
-/* Basic reset */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; }
+/* Simplified styles.css - funcionalidad equivalente */
 
-/* Usar la misma fuente manuscrita para todo el texto */
-html, body {
-  font-family: 'Dancing Script', cursive;
-}
-
-body {
-  background: #111; /* fallback */
-  color: #fff;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* Landing */
-.landing {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  padding: 2rem;
-  text-align: center;
-
-  /* imagen de fondo */
-  background-image: url('img/hero.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-.landing__inner { z-index: 2; }
-.overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.5));
-  z-index:1;
-}
-
-.title {
-  font-size: 5rem;
-  letter-spacing: 0.02em;
-  margin-bottom: 0.6rem;
-  font-weight: 700;
-}
-
-/* Meta: juntar subtitle, fecha y location */
-.meta {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.2rem; /* reducido para juntar los elementos */
-  margin-bottom: 0.8rem;
-}
-.meta p { margin: 0; }
-
-.subtitle {
-  font-size: 3rem;
-  line-height: 1;
-}
-.fecha {
-  font-size: 2rem;
-  line-height: 1;
-  opacity: 0.95;
-}
-.location {
-  font-size: 2rem;
-  line-height: 1;
-}
-
-/* CTA: ovaladas y translúcidas; heredan la misma fuente */
+/* Variables */
 :root{
-  --cta-font-size: 1.5rem;            /* tamaño deseado */
-  --cta-padding-vertical: 0.95rem;    /* aumentar para altura cómoda */
-  --cta-padding-horizontal: 1.8rem;   /* más espacio lateral */
-  --cta-min-width: 140px;             /* opcional: anchura mínima */
-  --cta-gap: 1rem;                    /* separación entre botones */
-}
-
-.cta-grid {
-  display: flex;
-  gap: var(--cta-gap);
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.cta {
-  display: inline-block;
-  font-size: var(--cta-font-size);
-  line-height: 1;
-  padding: var(--cta-padding-vertical) var(--cta-padding-horizontal);
-  min-width: var(--cta-min-width);
-  text-align: center;
-  white-space: nowrap;        /* evita saltos de línea */
-  border-radius: 999px;       /* mantiene el óvalo */
-  background: rgba(255,255,255,0.85);
-  color: #111;
-  text-decoration: none;
-  font-weight: 600;
-  font-family: inherit;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
-  backdrop-filter: blur(4px);
-}
-
-.cta:hover, .cta:focus {
-  transform: translateY(-3px);
-  background: rgba(255,255,255,1);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.18);
-}
-
-/* Responsive: reducir en móviles para que no ocupen demasiado */
-/* Ajustes específicos para móviles */
-@media (max-width: 480px) {
-  .title {font-size: 2.5rem;   /* ejemplo: reducir título en móviles */}
-  .subtitle {font-size: 2rem;   /* subtítulo más pequeño */}
-  .fecha, .location {font-size: 1.2rem;  /* fecha y ubicación */}
-  .cta {font-size: 1.2rem;     /* tamaño de botón en móvil */
-  padding: 0.45rem 0.9rem; /* ajustar padding para mantener forma */}
-}
-
-/* Nota: si quieres los elementos aún más juntos, puedo reducir gap a 0.02rem o usar margin negativo */
-
-/* -------------------------------
-   Estilos para evento.html
-   - Pegar al final de styles.css o sustituir los bloques equivalentes.
-   - Asegúrate de que <body> en evento.html tenga: <body class="evento-page">
-   ------------------------------- */
-
-/* Página de evento: fondo verde claro y texto en verde oscuro */
-body.evento-page {
-  /* quitar imagen de fondo heredada */
-  background-image: none !important;
-  background-color: #eaf6ea; /* verde muy clarito de fondo */
-  color: #0b3d2e;            /* verde oscuro para la tipografía */
-  min-height: 100vh;
-  font-family: inherit;
-  /* Base de tipografía: ~18px (1rem = 16px por defecto) */
-  font-size: 1.125rem;      /* 1.125rem ≈ 18px */
-  line-height: 1.55;
-  text-align: center;       /* centra texto por defecto en la página */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* Contenedor principal centrado */
-body.evento-page .section {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  text-align: center;
-}
-
-/* Card: fondo claro semitransparente para legibilidad sobre el fondo verde */
-body.evento-page .card {
-  width: 100%;
-  max-width: 920px;
-  margin: 0.9rem auto; /* centrado horizontal */
-  padding: 1.6rem;
-  border-radius: 12px;
-  background: rgba(255,255,255,0.82); /* blanco semitransparente */
-  backdrop-filter: blur(6px);
-  box-shadow: 0 8px 24px rgba(11,61,46,0.08); /* sombra suave en tono verde */
-  color: inherit; /* hereda el color #0b3d2e */
-  text-align: center; /* contenido de la card centrado */
-}
-
-/* Titulares y texto dentro de la card */
-body.evento-page h1 {
-  text-align: center;
-  margin-bottom: 1rem;
-  font-size: clamp(1.9rem, 4.5vw, 2.6rem);
-}
-body.evento-page h2 {
-  margin-top: 0;
-  font-size: clamp(1.25rem, 2.6vw, 1.8rem);
-}
-body.evento-page .card p {
-  margin: 0.35rem 0;
-  font-size: clamp(0.95rem, 1.8vw, 1.05rem);
-}
-
-/* Map iframe responsive */
-body.evento-page .map {
-  margin-top: 0.6rem;
-}
-body.evento-page .map iframe {
-  width: 100%;
-  height: 300px;
-  border: 0;
-  border-radius: 8px;
-  display: block;
-}
-
-/* Timeline dentro de la última card */
-body.evento-page .timeline {
-  list-style: none;
-  padding-left: 0;
-  margin: 0.5rem 0 0 0;
-}
-body.evento-page .timeline li {
-  margin: 0.45rem 0;
-  font-size: clamp(0.95rem, 1.8vw, 1rem);
-}
-body.evento-page .timeline .time {
-  font-weight: 700;
-  margin-right: 0.6rem;
-}
-
-/* Enlaces: color oscuro y efecto hover */
-body.evento-page a {
-  color: #064e2a;            /* enlace en verde oscuro */
-  text-decoration: underline;
-}
-body.evento-page a:hover,
-body.evento-page a:focus {
-  color: #083826;
-  text-decoration: none;
-}
-
-/* Botones primarios: fondo oscuro, texto claro */
-body.evento-page .btn-primary,
-body.evento-page button,
-body.evento-page input[type="submit"] {
-  background-color: #0b3d2e;
-  color: #ffffff;
-  border: 1px solid rgba(11,61,46,0.9);
-  cursor: pointer;
-}
-
-/* Footer */
-body.evento-page .footer {
-  text-align: center;
-  padding: 1rem;
-  color: rgba(11,61,46,0.9);
-}
-
-/* Ajustes para móvil (tamaño de fuente aumentado y ajustes de layout) */
-@media (max-width: 600px) {
-  body.evento-page {
-    font-size: 1.1875rem; /* ≈19px en móvil (aumentado) */
-    line-height: 1.5;
-  }
-  body.evento-page .card {
-    padding: 1.1rem;
-    border-radius: 10px;
-  }
-  body.evento-page .map iframe { height: 220px; }
-  body.evento-page .section { padding: 1.2rem; }
-  body.evento-page .timeline li { font-size: 0.95rem; }
-  body.evento-page h1 { font-size: 1.6rem; }
-}
-
-/* ------------------ Navegación fija (botones arriba a la izquierda) ------------------ */
-body.evento-page .top-nav {
-  position: fixed;
-  top: 1rem;
-  left: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  z-index: 1100;
-  align-items: flex-start;
-}
-body.evento-page .top-nav .nav-btn {
-  display: inline-block;
-  padding: 0.45rem 0.75rem;
-  border-radius: 8px;
-  background-color: rgba(11,61,46,0.95);
-  color: #ffffff;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.95rem;
-  box-shadow: 0 4px 10px rgba(11,61,46,0.18);
-  transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease;
-}
-body.evento-page .top-nav .nav-btn:hover,
-body.evento-page .top-nav .nav-btn:focus {
-  transform: translateY(-2px);
-  background-color: #083826;
-  outline: none;
-  box-shadow: 0 6px 16px rgba(8,56,38,0.18);
-}
-body.evento-page .top-nav .nav-btn.active,
-body.evento-page .top-nav .nav-btn[aria-current="page"] {
-  background-color: #0b3d2e;
-  box-shadow: 0 6px 18px rgba(11,61,46,0.22);
-  cursor: default;
-}
-
-/* Lista de eventos with iconos (centrada) */
-body.evento-page .event-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  align-items: center;
-  margin-top: 0.6rem;
-}
-body.evento-page .event-item {
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-  max-width: 780px;
-  width: 100%;
-  padding: 0.6rem 0.8rem;
-  border-radius: 10px;
-  background: rgba(232, 246, 232, 0.35);
-}
-body.evento-page .event-item .icon {
-  width: 38px;
-  height: 38px;
-  flex: 0 0 38px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #0b3d2e;
-}
-body.evento-page .event-item .icon .icon-svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-body.evento-page .event-item .event-content h3 {
-  margin: 0;
-  font-size: 1.05rem;
-  color: inherit;
-}
-body.evento-page .event-item .event-content p {
-  margin: 0.15rem 0 0 0;
-  font-size: 0.95rem;
-  color: rgba(11,61,46,0.88);
-}
-
-/* Aumentar fuente en móvil + ajustar iconos y navegación para móvil */
-@media (max-width: 600px) {
-  /* Nav: pasando de columna a fila y centrada en móvil */
-  body.evento-page .top-nav {
-    left: 50%;
-    top: 0.6rem;
-    transform: translateX(-50%);
-    flex-direction: row;
-    align-items: center;
-    padding: 0 0.35rem;
-    gap: 0.45rem;
-    background: transparent;
-  }
-  body.evento-page .top-nav .nav-btn {
-    font-size: 1.03rem;
-    padding: 0.48rem 0.66rem;
-  }
-
-  /* Iconos un poco más grandes en móvil */
-  body.evento-page .event-item .icon {
-    width: 44px;
-    height: 44px;
-    flex: 0 0 44px;
-  }
-
-  body.evento-page .event-item .event-content h3 {
-    font-size: 1.15rem;
-  }
-  body.evento-page .event-item .event-content p {
-    font-size: 1.02rem;
-  }
-
-  body.evento-page .event-list {
-    gap: 0.75rem;
-    padding: 0 0.6rem;
-  }
-}
-
-/* Si hay reglas anteriores que anulan estos estilos,
-   coloca este bloque al final del archivo para que tenga prioridad.
-   Evita usar !important salvo que sea estrictamente necesario. */
-
-/* --- Ajustes específicos para evento.html --- */
-/* Aumenta la tipografía global (puedes ajustar el valor a 16/18/20px según prefieras) */
-:root {
   --base-font-size: 18px;
-  --nav-gap: 0.75rem;
-}
-
-html {
-  font-size: var(--base-font-size);
-}
-
-body {
-  font-size: 1rem; /* ahora corresponde a 18px */
-  line-height: 1.45;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* Navegación superior: disposición horizontal y responsive */
-.top-nav {
-  width: 100%;
-  position: relative; /* evita que la nav se superponga en la página */
-  z-index: 10;
-  background: transparent;
-}
-
-.nav-list {
-  display: flex;
-  gap: var(--nav-gap);
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
-  margin: 0;
-  list-style: none;
-}
-
-/* Botones de navegación */
-.nav-list a.nav-btn {
-  display: inline-block;
-  padding: 0.5rem 0.75rem;
-  text-decoration: none;
-  white-space: nowrap;
-  /* Hereda color y tipografía del sitio; si quieres, ajusta colores aquí */
-}
-
-/* Evitar solapamiento en móviles: permitir wrap y centrar elementos */
-@media (max-width: 640px) {
-  .nav-list {
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    padding: 0.5rem;
-  }
-
-  /* Si hay mucho texto, que cada enlace tenga espacio propio y no se superponga con el título */
-  .nav-list li {
-    flex: 0 1 auto;
-  }
-
-  /* Asegurar separación entre la nav y el contenido principal */
-  main.section {
-    padding-top: 0.5rem;
-  }
-
-  /* Si todavía hay problemas con solapamiento en móviles muy estrechos,
-     se puede forzar que los enlaces pasen a dos filas con esta regla:
-  .nav-list li { flex-basis: 50%; text-align:center; }
-  */
-}
-
-/* Ajustes visuales menores para títulos y tarjetas (opcional) */
-h1, h2, h3 {
-  line-height: 1.15;
-}
-
-.card {
-  margin-bottom: 1.25rem;
-  /* conserva los estilos existentes de .card en tu styles.css */
-}
-/* --- Ajustes: navegación fija arriba y fuente más grande para 'preboda' --- */
-
-/* Asegura que la navegación no se superponga al contenido: sticky + fondo semitransparente */
-.top-nav {
-  position: sticky;
-  top: 0;
-  z-index: 9999;
-  background: rgba(255,255,255,0.95); /* ajusta si tu fondo no es blanco */
-  backdrop-filter: saturate(120%) blur(4px); /* opcional, elegante en navegadores compatibles */
-  border-bottom: 1px solid rgba(0,0,0,0.06);
-}
-
-/* Lista de navegación: horizontal y adaptable */
-.nav-list {
-  display: flex;
-  gap: 0.75rem;
-  justify-content: center;
-  align-items: center;
-  padding: 0.75rem 1rem;
-  margin: 0;
-  list-style: none;
-}
-
-/* Botones / enlaces de navegación: tamaño táctil apropiado */
-.nav-list a.nav-btn,
-.nav-list .nav-current {
-  display: inline-block;
-  padding: 0.6rem 0.9rem;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: 600;
-  white-space: nowrap;
-  line-height: 1;
-}
-
-/* Estilo del elemento de la página actual (no es un enlace) */
-.nav-list .nav-current {
-  color: inherit; /* mantiene color del texto */
-  background: rgba(0,0,0,0.04);
-  pointer-events: none;
-}
-
-/* Previene el solapamiento: permitir que los items hagan wrap en pantallas estrechas */
-@media (max-width: 640px) {
-  .nav-list {
-    flex-wrap: wrap;
-    gap: 0.45rem;
-    padding: 0.5rem;
-  }
-
-  /* Si el texto sigue demasiado largo, permitir que los enlaces ocupen varias líneas en lugar de superponerse */
-  .nav-list a.nav-btn,
-  .nav-list .nav-current {
-    white-space: normal;
-    text-align: center;
-    min-width: 6rem;
-  }
-
-  /* Asegurar que el contenido principal quede siempre visible debajo de la nav */
-  main.section {
-    padding-top: 0.5rem; /* ajusta si la nav ocupa más altura en tu diseño */
-  }
-}
-
-/* Aumentar aún más la fuente SOLO para la sección preboda */
-.card.preboda {
-  font-size: 1.2rem; /* si tu base es 18px => ~21.6px; sube o baja según prefieras */
-  line-height: 1.5;
-}
-
-/* Si quieres que los párrafos de preboda sean aún más grandes en móvil, opcional: */
-@media (max-width: 420px) {
-  .card.preboda {
-    font-size: 1.25rem; /* aumenta ligeramente en pantallas muy pequeñas */
-  }
-}
-
-/* --- Añadir al final de styles.css --- */
-
-/* Barra de navegación: contenedor del botón */
-.top-nav {
-  width: 100%;
-  position: relative;
-  z-index: 999;
-}
-
-/* Controles (botón) */
-.nav-controls {
-  display: flex;
-  justify-content: center;
-  padding: 0.6rem 1rem;
-}
-
-.nav-toggle {
-  background: rgba(0,0,0,0.06);
-  border: 1px solid rgba(0,0,0,0.08);
-  padding: 0.45rem 0.9rem;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-/* Menú desplegable: oculto por defecto con [hidden] */
-.nav-dropdown {
-  display: none; /* hidden by default; JS hará show */
-  gap: 0.5rem;
-  justify-content: center;
-  align-items: center;
-  padding: 0.5rem 1rem;
-  margin: 0;
-  list-style: none;
-  background: rgba(255,255,255,0.98);
-  border-bottom: 1px solid rgba(0,0,0,0.06);
-}
-
-/* Clase que muestra el desplegable (añadida/quitada por JS) */
-.nav-dropdown.show {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-/* Estilos de cada enlace dentro del menú */
-.nav-dropdown a.nav-btn,
-.nav-dropdown .nav-current {
-  display: inline-block;
-  padding: 0.5rem 0.75rem;
-  margin: 0.15rem;
-  border-radius: 6px;
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-/* Elemento de la página actual: no es enlace */
-.nav-dropdown .nav-current {
-  background: rgba(0,0,0,0.05);
-  pointer-events: none;
-  font-weight: 700;
-}
-
-/* Evita solapamientos en móvil: el menú se adapta */
-@media (max-width: 640px) {
-  .nav-dropdown.show {
-    width: 100%;
-    justify-content: center;
-  }
-  .nav-dropdown a.nav-btn,
-  .nav-dropdown .nav-current {
-    white-space: normal;
-    text-align: center;
-    min-width: 6rem;
-  }
-}
-
-/* Conserva y amplía la fuente en la sección preboda */
-.card.preboda {
-  font-size: 1.25rem; /* ajusta a tu gusto (por ejemplo 1.2 / 1.3) */
-  line-height: 1.45;
-}
-
-/* Asegura separación entre nav y contenido */
-main.section {
-  padding-top: 0.5rem;
-}
-
-/* --- Añadido: icono hamburguesa en el botón de navegación --- */
-
-/* Utilidad para texto solo accesible (screen readers) */
-.sr-only {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  clip: rect(0 0 0 0) !important;
-  white-space: nowrap !important;
-  border: 0 !important;
-}
-
-/* Ajustes para el botón: hacer área táctil cómoda y centrado */
-.nav-toggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.5rem;
-  background: rgba(0,0,0,0.06);
-  border: 1px solid rgba(0,0,0,0.08);
-  border-radius: 8px;
-  cursor: pointer;
-  line-height: 0;
-}
-
-/* Contenedor de las barras */
-.hamburger {
-  display: inline-block;
-  width: 26px;
-  height: 18px;
-  box-sizing: border-box;
-}
-
-/* Cada barra */
-.hamburger span {
-  display: block;
-  height: 2px;
-  width: 100%;
-  background: currentColor;
-  border-radius: 2px;
-  margin: 3.5px 0;
-}
-
-/* Opcional: dar foco visible cuando el botón está seleccionado por teclado */
-.nav-toggle:focus {
-  outline: 3px solid rgba(0, 120, 212, 0.25);
-  outline-offset: 2px;
-}
-
-/* Si quieres que la hamburguesa se transforme en una X cuando se abre, puedes usar:
-.nav-toggle[aria-expanded="true"] .hamburger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.nav-toggle[aria-expanded="true"] .hamburger span:nth-child(2) { opacity: 0; }
-.nav-toggle[aria-expanded="true"] .hamburger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-y añadir transition a .hamburger span. (Dime si lo quieres y lo activo.)
-*/
-
-/* --- Actualizado: hamburguesa -> cruz, líneas verdes, sin cuadro blanco debajo --- */
-
-/* Utilidad para texto solo accesible (screen readers) */
-.sr-only {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  clip: rect(0 0 0 0) !important;
-  white-space: nowrap !important;
-  border: 0 !important;
-}
-
-/* Botón: sin fondo ni borde, las barras toman el color del texto (currentColor).
-   Así las líneas serán del mismo color que la fuente. */
-.nav-toggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.5rem;
-  background: transparent;   /* quitar el cuadro blanco */
-  border: none;              /* quitar el borde */
-  border-radius: 8px;
-  cursor: pointer;
-  line-height: 0;
-  color: inherit;            /* hereda el color de la tipografía */
-}
-
-/* Contenedor de las barras (hamburguesa) */
-.hamburger {
-  display: inline-block;
-  width: 26px;
-  height: 18px;
-  box-sizing: border-box;
-}
-
-/* Cada barra: color igual al de la fuente gracias a currentColor */
-.hamburger span {
-  display: block;
-  height: 2px;
-  width: 100%;
-  background: currentColor;
-  border-radius: 2px;
-  margin: 3.5px 0;
-  transform-origin: center;
-  transition: transform 240ms cubic-bezier(.2,.9,.2,1), opacity 180ms ease;
-}
-
-/* Foco visible accesible (personaliza color si quieres) */
-.nav-toggle:focus {
-  outline: 3px solid rgba(0, 120, 212, 0.15);
-  outline-offset: 3px;
-}
-
-/* Transformación a cruz (X) cuando el menú está abierto */
-.nav-toggle[aria-expanded="true"] .hamburger span:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
-}
-.nav-toggle[aria-expanded="true"] .hamburger span:nth-child(2) {
-  opacity: 0;
-  transform: scaleX(0);
-}
-.nav-toggle[aria-expanded="true"] .hamburger span:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
-}
-
-/* Menú desplegable: quitar fondo blanco y borde inferior */
-.nav-dropdown {
-  display: none; /* oculto por defecto; JS añade .show */
-  gap: 0.5rem;
-  justify-content: center;
-  align-items: center;
-  padding: 0.5rem 1rem;
-  margin: 0;
-  list-style: none;
-  background: transparent;      /* sin fondo blanco */
-  border-bottom: none;          /* sin línea debajo */
-  box-shadow: none;             /* sin sombra */
-}
-
-/* Mostrar menú cuando JS añade la clase .show */
-.nav-dropdown.show {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-/* Enlaces dentro del menú */
-.nav-dropdown a.nav-btn,
-.nav-dropdown .nav-current {
-  display: inline-block;
-  padding: 0.5rem 0.75rem;
-  margin: 0.15rem;
-  border-radius: 6px;
-  text-decoration: none;
-  white-space: nowrap;
-  background: transparent; /* aseguramos que no generen cuadros */
-}
-
-/* Elemento de la página actual */
-.nav-dropdown .nav-current {
-  pointer-events: none;
-  font-weight: 700;
-}
-
-/* Ajustes responsive: evitar solapamientos */
-@media (max-width: 640px) {
-  .nav-dropdown.show {
-    width: 100%;
-    justify-content: center;
-  }
-  .nav-dropdown a.nav-btn,
-  .nav-dropdown .nav-current {
-    white-space: normal;
-    text-align: center;
-    min-width: 6rem;
-  }
-}
-
-/* Mantener la fuente más grande en la sección preboda (opcional) */
-.card.preboda {
-  font-size: 1.25rem;
-  line-height: 1.45;
-}
-
-/* Separación entre nav y contenido */
-main.section {
-  padding-top: 0.5rem;
-}
-
-/* Eliminar cualquier "cuadro" blanco bajo la hamburguesa / menú */
-
-/* Asegura que el contenedor de la nav no tenga fondo visible */
-.top-nav,
-.nav-controls,
-.nav-dropdown,
-.nav-toggle,
-.nav-dropdown a.nav-btn,
-.nav-dropdown .nav-current {
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-}
-
-/* Evita que el foco del botón pinte un fondo blanco en algunos navegadores */
-.nav-toggle:focus {
-  background: transparent !important;
-  outline: 3px solid rgba(0,120,0,0.18); /* opcional: foco verde translúcido */
-  outline-offset: 3px;
-}
-
-/* Si todavía ves un recuadro en móviles estrechos, forzamos también el fondo del body del nav */
-.top-nav * {
-  background-color: transparent !important;
-}
-
-/* (Opcional) si quieres que la X y las líneas sigan usando el color de la fuente:
-   asegúrate de que el color del body o del contenedor padre esté en el verde deseado */
-
-/* --- Color verde para hamburguesa, cruz y enlaces del menú --- */
-/* Ajusta --brand-green al tono exacto que quieras */
-:root {
-  --brand-green: #2a9d8f; /* ejemplo: verde/teal. Cambia por tu color (ej. #2b7a3a) */
-  --brand-green-opaque: rgba(42,157,143,0.18);
-  --brand-green-dark: #167a63;
-}
-
-/* Aplicar color a hamburguesa (usa currentColor ya), botón y enlaces del desplegable */
-.top-nav,
-.nav-controls,
-.nav-toggle,
-.nav-dropdown,
-.nav-dropdown a.nav-btn,
-.nav-dropdown .nav-current {
-  color: var(--brand-green) !important; /* texto y barras usarán este color */
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-}
-
-/* Asegura que los enlaces del menú sean verdes y accesibles */
-.nav-dropdown a.nav-btn {
-  color: var(--brand-green) !important;
-  background: transparent !important;
-}
-
-/* Página actual (texto no enlace) */
-.nav-dropdown .nav-current {
-  color: var(--brand-green) !important;
-  font-weight: 700;
-}
-
-/* Hover / focus para enlaces: oscurecer un poco para feedback visual */
-.nav-dropdown a.nav-btn:hover,
-.nav-dropdown a.nav-btn:focus {
-  color: var(--brand-green-dark) !important;
-  text-decoration: underline;
-  outline: none;
-}
-
-/* El botón hamburguesa ya hereda currentColor; ajustamos el foco para usar el verde */
-.nav-toggle:focus {
-  background: transparent !important;
-  outline: 3px solid var(--brand-green-opaque);
-  outline-offset: 3px;
-}
-
-/* Si el navegador pinta algún fondo inesperado en elementos internos, forzamos transparencia */
-.top-nav * {
-  background-color: transparent !important;
-  box-shadow: none !important;
-  border: none !important;
-}
-
-/* --- Ajustes: asegurar color verde idéntico para barras/cruz y enlaces, y desplazar contenido bajo nav --- */
-
-:root {
-  /* Ajusta este valor al verde exacto que usas en el resto del sitio */
   --brand-green: #2a9d8f;
   --brand-green-dark: #167a63;
   --brand-green-opaque: rgba(42,157,143,0.18);
 
-  /* Altura estimada de la barra superior (cuando el desplegable está cerrado) */
+  --cta-font-size: 1.5rem;
+  --cta-padding-vertical: 0.95rem;
+  --cta-padding-horizontal: 1.8rem;
+  --cta-min-width: 140px;
+  --cta-gap: 1rem;
+
   --nav-bar-height: 56px;
 }
 
-/* Forzamos que el botón y el contenedor usen el color de marca */
-.top-nav,
-.nav-controls,
-.nav-toggle {
-  color: var(--brand-green) !important; /* currentColor para las barras */
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
+/* Reset & base */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; font-family: 'Dancing Script', cursive; font-size: var(--base-font-size); }
+body {
+  background: #111;
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.45;
 }
 
-/* Aseguramos que las barras usen exactamente el color de marca */
-.hamburger span {
-  background: var(--brand-green) !important; /* fuerza color de las barras/cruz */
+/* Landing */
+.landing{
+  min-height: 100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  padding:2rem;
+  text-align:center;
+  background-image: url('img/hero.jpg');
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+}
+.overlay{ position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.5)); }
+.landing__inner{ z-index:2; }
+
+.title{ font-size:5rem; letter-spacing:0.02em; margin-bottom:0.6rem; font-weight:700; }
+
+/* Meta */
+.meta{ display:flex; flex-direction:column; align-items:center; gap:0.2rem; margin-bottom:0.8rem; }
+.subtitle{ font-size:3rem; line-height:1; }
+.fecha, .location{ font-size:2rem; line-height:1; opacity:0.95; }
+
+/* CTA */
+.cta-grid{ display:flex; gap:var(--cta-gap); flex-wrap:wrap; justify-content:center; }
+.cta{
+  display:inline-block;
+  font-size:var(--cta-font-size);
+  line-height:1;
+  padding:var(--cta-padding-vertical) var(--cta-padding-horizontal);
+  min-width:var(--cta-min-width);
+  text-align:center;
+  white-space:nowrap;
+  border-radius:999px;
+  background:rgba(255,255,255,0.85);
+  color:#111;
+  text-decoration:none;
+  font-weight:600;
+  font-family:inherit;
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
+  transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
+  backdrop-filter: blur(4px);
+}
+.cta:hover, .cta:focus{ transform:translateY(-3px); background:rgba(255,255,255,1); box-shadow:0 8px 20px rgba(0,0,0,0.18); }
+
+/* Evento page */
+body.evento-page{
+  background-image:none;
+  background-color:#eaf6ea;
+  color:#0b3d2e;
+  min-height:100vh;
+  font-size:1.125rem; /* ~18px */
+  line-height:1.55;
+  text-align:center;
+}
+body.evento-page .section{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:2rem;
+}
+body.evento-page .card{
+  width:100%;
+  max-width:920px;
+  margin:0.9rem auto;
+  padding:1.6rem;
+  border-radius:12px;
+  background:rgba(255,255,255,0.82);
+  backdrop-filter: blur(6px);
+  box-shadow:0 8px 24px rgba(11,61,46,0.08);
+  color:inherit;
+  text-align:center;
+}
+body.evento-page h1{ margin-bottom:1rem; font-size:clamp(1.9rem,4.5vw,2.6rem); text-align:center; }
+body.evento-page h2{ margin-top:0; font-size:clamp(1.25rem,2.6vw,1.8rem); }
+body.evento-page .card p{ margin:0.35rem 0; font-size:clamp(0.95rem,1.8vw,1.05rem); }
+
+/* Map */
+body.evento-page .map iframe{ width:100%; height:300px; border:0; border-radius:8px; display:block; }
+
+/* Timeline & event list */
+body.evento-page .timeline{ list-style:none; padding-left:0; margin:0.5rem 0 0 0; }
+body.evento-page .timeline li{ margin:0.45rem 0; font-size:clamp(0.95rem,1.8vw,1rem); }
+body.evento-page .timeline .time{ font-weight:700; margin-right:0.6rem; }
+
+body.evento-page .event-list{ display:flex; flex-direction:column; gap:1rem; align-items:center; margin-top:0.6rem; }
+body.evento-page .event-item{
+  display:flex; align-items:center; gap:0.85rem; max-width:780px; width:100%;
+  padding:0.6rem 0.8rem; border-radius:10px; background:rgba(232,246,232,0.35);
+}
+body.evento-page .event-item .icon{ width:38px; height:38px; flex:0 0 38px; display:inline-flex; align-items:center; justify-content:center; color:#0b3d2e; }
+body.evento-page .event-item .event-content h3{ margin:0; font-size:1.05rem; color:inherit; }
+body.evento-page .event-item .event-content p{ margin:0.15rem 0 0 0; font-size:0.95rem; color:rgba(11,61,46,0.88); }
+
+/* Links & buttons in evento page */
+body.evento-page a{ color:#064e2a; text-decoration:underline; }
+body.evento-page a:hover, body.evento-page a:focus{ color:#083826; text-decoration:none; }
+body.evento-page .btn-primary, body.evento-page button, body.evento-page input[type="submit"]{
+  background-color:#0b3d2e; color:#fff; border:1px solid rgba(11,61,46,0.9); cursor:pointer;
+}
+body.evento-page .footer{ text-align:center; padding:1rem; color:rgba(11,61,46,0.9); }
+
+/* Top navigation (sticky) */
+.top-nav{
+  position:sticky;
+  top:0;
+  z-index:9999;
+  background:transparent;
+  backdrop-filter: saturate(120%) blur(4px);
+  border-bottom:1px solid rgba(0,0,0,0.06);
+  width:100%;
+}
+.nav-list{
+  display:flex; gap:0.75rem; justify-content:center; align-items:center; padding:0.75rem 1rem; margin:0; list-style:none; flex-wrap:wrap;
+}
+.nav-list a.nav-btn, .nav-list .nav-current{
+  display:inline-block; padding:0.6rem 0.9rem; border-radius:6px; text-decoration:none; font-weight:600; white-space:nowrap; line-height:1;
+}
+.nav-list .nav-current{ background:rgba(0,0,0,0.04); pointer-events:none; }
+
+/* Nav controls, dropdown and toggle (hamburger) */
+.nav-controls{ display:flex; justify-content:center; padding:0.6rem 1rem; }
+.nav-toggle{
+  display:inline-flex; align-items:center; justify-content:center; padding:0.5rem; border-radius:8px; cursor:pointer;
+  background:transparent; border:none; color:var(--brand-green); line-height:0;
+}
+.sr-only{ position:absolute !important; width:1px !important; height:1px !important; padding:0 !important; margin:-1px !important; overflow:hidden !important; clip:rect(0 0 0 0) !important; white-space:nowrap !important; border:0 !important; }
+
+/* Hamburger */
+.hamburger{ display:inline-block; width:26px; height:18px; box-sizing:border-box; }
+.hamburger span{
+  display:block; height:2px; width:100%; background:var(--brand-green); border-radius:2px; margin:3.5px 0;
+  transform-origin:center; transition:transform 240ms cubic-bezier(.2,.9,.2,1), opacity 180ms ease, background 180ms ease;
 }
 
-/* Mantener visibilidad de la X transformada */
-.nav-toggle[aria-expanded="true"] .hamburger span:nth-child(1),
-.nav-toggle[aria-expanded="true"] .hamburger span:nth-child(3) {
-  background: var(--brand-green) !important;
-}
+/* Transform to X when expanded */
+.nav-toggle[aria-expanded="true"] .hamburger span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] .hamburger span:nth-child(2){ opacity:0; transform:scaleX(0); }
+.nav-toggle[aria-expanded="true"] .hamburger span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
 
-/* Asegurar que el elemento de la página actual también tenga el mismo verde */
-.nav-dropdown .nav-current {
-  color: var(--brand-green) !important;
-}
+/* Dropdown menu */
+.nav-dropdown{ display:none; gap:0.5rem; justify-content:center; align-items:center; padding:0.5rem 1rem; margin:0; list-style:none; background:transparent; border-bottom:none; box-shadow:none; }
+.nav-dropdown.show{ display:flex; flex-wrap:wrap; }
+.nav-dropdown a.nav-btn, .nav-dropdown .nav-current{ display:inline-block; padding:0.5rem 0.75rem; margin:0.15rem; border-radius:6px; text-decoration:none; white-space:nowrap; background:transparent; }
+.nav-dropdown .nav-current{ pointer-events:none; font-weight:700; color:var(--brand-green); }
+.nav-dropdown a.nav-btn{ color:var(--brand-green); }
+.nav-dropdown a.nav-btn:hover, .nav-dropdown a.nav-btn:focus{ color:var(--brand-green-dark); text-decoration:underline; outline:none; }
 
-/* Enlaces del menú en verde */
-.nav-dropdown a.nav-btn {
-  color: var(--brand-green) !important;
-  background: transparent !important;
-}
+/* Ensure nav elements are transparent (avoid residual white boxes) */
+.top-nav, .nav-controls, .nav-toggle, .nav-dropdown, .nav-dropdown a.nav-btn, .nav-dropdown .nav-current { background:transparent; border:none; box-shadow:none; }
 
-/* Hover / focus */
-.nav-dropdown a.nav-btn:hover,
-.nav-dropdown a.nav-btn:focus {
-  color: var(--brand-green-dark) !important;
-  text-decoration: underline;
-}
+/* Ensure page content isn't hidden below sticky nav */
+main.section{ padding-top: calc(var(--nav-bar-height) + 0.5rem); }
 
-/* Eliminar cualquier fondo/blanco residual en la nav */
-.top-nav,
-.nav-controls,
-.nav-dropdown,
-.nav-toggle,
-.nav-dropdown a.nav-btn,
-.nav-dropdown .nav-current {
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-}
+/* Preboda card emphasis */
+.card.preboda{ font-size:1.25rem; line-height:1.45; }
 
-/* Espacio superior para que el main no quede oculto bajo la barra sticky/translúcida */
-main.section {
-  padding-top: calc(var(--nav-bar-height) + 0.5rem) !important;
-}
+/* Responsive adjustments */
+@media (max-width: 640px){
+  :root{ --nav-bar-height:72px; }
+  .title{ font-size:2.5rem; }
+  .subtitle{ font-size:2rem; }
+  .fecha, .location{ font-size:1.2rem; }
+  .cta{ font-size:1.2rem; padding:0.45rem 0.9rem; }
 
-/* Ajuste en móvil: la barra puede ser más alta si hay controles,
-   incrementamos la variable nav-bar-height para pantallas pequeñas */
-@media (max-width: 640px) {
-  :root {
-    --nav-bar-height: 72px; /* ajusta si tu boton+padding ocupan más espacio */
-  }
+  .nav-list{ flex-wrap:wrap; gap:0.4rem; padding:0.5rem; }
+  .nav-list li{ flex:0 1 auto; }
+  .nav-list a.nav-btn, .nav-list .nav-current{ white-space:normal; text-align:center; min-width:6rem; }
 
-  /* Flex-wrap del menú para evitar solapamiento y mantener legibilidad */
-  .nav-dropdown.show {
-    width: 100%;
-    justify-content: center;
-  }
+  body.evento-page{ font-size:1.1875rem; line-height:1.5; }
+  body.evento-page .card{ padding:1.1rem; border-radius:10px; }
+  body.evento-page .map iframe{ height:220px; }
+  body.evento-page .section{ padding:1.2rem; }
+  body.evento-page .timeline li{ font-size:0.95rem; }
+  body.evento-page h1{ font-size:1.6rem; }
 
-  .nav-dropdown a.nav-btn,
-  .nav-dropdown .nav-current {
-    white-space: normal;
-    text-align: center;
-    min-width: 6rem;
-  }
+  body.evento-page .top-nav{ left:50%; top:0.6rem; transform:translateX(-50%); flex-direction:row; align-items:center; padding:0 0.35rem; gap:0.45rem; background:transparent; }
+  body.evento-page .top-nav .nav-btn{ font-size:1.03rem; padding:0.48rem 0.66rem; }
+
+  body.evento-page .event-item .icon{ width:44px; height:44px; flex:0 0 44px; }
+  body.evento-page .event-item .event-content h3{ font-size:1.15rem; }
+  body.evento-page .event-item .event-content p{ font-size:1.02rem; }
+
+  .nav-dropdown.show{ width:100%; justify-content:center; }
+  .nav-dropdown a.nav-btn, .nav-dropdown .nav-current{ white-space:normal; text-align:center; min-width:6rem; }
 }
