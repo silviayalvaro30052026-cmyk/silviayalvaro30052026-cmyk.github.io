@@ -454,3 +454,79 @@ h1, h2, h3 {
   margin-bottom: 1.25rem;
   /* conserva los estilos existentes de .card en tu styles.css */
 }
+/* --- Ajustes: navegación fija arriba y fuente más grande para 'preboda' --- */
+
+/* Asegura que la navegación no se superponga al contenido: sticky + fondo semitransparente */
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  background: rgba(255,255,255,0.95); /* ajusta si tu fondo no es blanco */
+  backdrop-filter: saturate(120%) blur(4px); /* opcional, elegante en navegadores compatibles */
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+/* Lista de navegación: horizontal y adaptable */
+.nav-list {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  margin: 0;
+  list-style: none;
+}
+
+/* Botones / enlaces de navegación: tamaño táctil apropiado */
+.nav-list a.nav-btn,
+.nav-list .nav-current {
+  display: inline-block;
+  padding: 0.6rem 0.9rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+/* Estilo del elemento de la página actual (no es un enlace) */
+.nav-list .nav-current {
+  color: inherit; /* mantiene color del texto */
+  background: rgba(0,0,0,0.04);
+  pointer-events: none;
+}
+
+/* Previene el solapamiento: permitir que los items hagan wrap en pantallas estrechas */
+@media (max-width: 640px) {
+  .nav-list {
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    padding: 0.5rem;
+  }
+
+  /* Si el texto sigue demasiado largo, permitir que los enlaces ocupen varias líneas en lugar de superponerse */
+  .nav-list a.nav-btn,
+  .nav-list .nav-current {
+    white-space: normal;
+    text-align: center;
+    min-width: 6rem;
+  }
+
+  /* Asegurar que el contenido principal quede siempre visible debajo de la nav */
+  main.section {
+    padding-top: 0.5rem; /* ajusta si la nav ocupa más altura en tu diseño */
+  }
+}
+
+/* Aumentar aún más la fuente SOLO para la sección preboda */
+.card.preboda {
+  font-size: 1.2rem; /* si tu base es 18px => ~21.6px; sube o baja según prefieras */
+  line-height: 1.5;
+}
+
+/* Si quieres que los párrafos de preboda sean aún más grandes en móvil, opcional: */
+@media (max-width: 420px) {
+  .card.preboda {
+    font-size: 1.25rem; /* aumenta ligeramente en pantallas muy pequeñas */
+  }
+}
