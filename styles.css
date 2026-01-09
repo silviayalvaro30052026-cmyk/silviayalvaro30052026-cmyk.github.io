@@ -1,19 +1,19 @@
+/* styles.css (simplificado y preparado para evento.html) */
+
 :root{
   --base-font-size: 18px;
   --brand-green: #2a9d8f;
   --brand-green-dark: #167a63;
-  --brand-green-opaque: rgba(42,157,143,0.18);
+  --nav-bar-height: 56px;
 
   --cta-font-size: 1.5rem;
   --cta-padding-vertical: 0.95rem;
   --cta-padding-horizontal: 1.8rem;
   --cta-min-width: 140px;
   --cta-gap: 1rem;
-
-  --nav-bar-height: 56px;
 }
 
-/* Reset & base */
+/* Reset y base */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; font-family: 'Dancing Script', cursive; font-size: var(--base-font-size); }
 body {
@@ -25,7 +25,7 @@ body {
   overflow-x: hidden; /* evita recortes/scroll horizontal en móviles */
 }
 
-/* Landing */
+/* ---------- Landing (conservado por si hay otras páginas) ---------- */
 .landing{
   min-height: 100vh;
   display:flex;
@@ -41,15 +41,9 @@ body {
 }
 .overlay{ position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.5)); }
 .landing__inner{ z-index:2; }
-
 .title{ font-size:5rem; letter-spacing:0.02em; margin-bottom:0.6rem; font-weight:700; }
 
-/* Meta */
-.meta{ display:flex; flex-direction:column; align-items:center; gap:0.2rem; margin-bottom:0.8rem; }
-.subtitle{ font-size:3rem; line-height:1; }
-.fecha, .location{ font-size:2rem; line-height:1; opacity:0.95; }
-
-/* CTA */
+/* ---------- CTA (botones) ---------- */
 .cta-grid{ display:flex; gap:var(--cta-gap); flex-wrap:wrap; justify-content:center; }
 .cta{
   display:inline-block;
@@ -71,7 +65,7 @@ body {
 }
 .cta:hover, .cta:focus{ transform:translateY(-3px); background:rgba(255,255,255,1); box-shadow:0 8px 20px rgba(0,0,0,0.18); }
 
-/* Evento page */
+/* ================== ESTILOS PARA evento.html ================== */
 body.evento-page{
   background-image:none;
   background-color:#eaf6ea;
@@ -81,14 +75,18 @@ body.evento-page{
   line-height:1.55;
   text-align:center;
 }
+
+/* Contenedor principal */
 body.evento-page .section{
   min-height:100vh;
   display:flex;
   flex-direction:column;
   align-items:center;
-  justify-content:center;
-  padding:2rem;
+  justify-content:flex-start;
+  padding:2rem 1rem 3rem;
 }
+
+/* Card principal */
 body.evento-page .card{
   width:100%;
   max-width:920px;
@@ -99,31 +97,59 @@ body.evento-page .card{
   backdrop-filter: blur(6px);
   box-shadow:0 8px 24px rgba(11,61,46,0.08);
   color:inherit;
+  text-align:left;
+}
+
+/* Título Evento: aumentado (desktop + responsivo con clamp) */
+body.evento-page h1{
+  margin:0 0 1rem 0;
+  font-size: clamp(2.2rem, 4.8vw, 3.2rem);
   text-align:center;
 }
-/* TÍTULO 'Evento' aumentado: aplica en móvil y escritorio mediante clamp */
-body.evento-page h1{ margin-bottom:1rem; font-size:clamp(2.2rem,4.8vw,3.2rem); text-align:center; }
+
+/* Texto secundario */
 body.evento-page h2{ margin-top:0; font-size:clamp(1.25rem,2.6vw,1.8rem); }
 body.evento-page .card p{ margin:0.35rem 0; font-size:clamp(0.95rem,1.8vw,1.05rem); }
 
-/* Map */
+/* Map (si se usa) */
 body.evento-page .map iframe{ width:100%; height:300px; border:0; border-radius:8px; display:block; }
 
-/* Timeline & event list */
+/* Timeline & lista de eventos */
 body.evento-page .timeline{ list-style:none; padding-left:0; margin:0.5rem 0 0 0; }
 body.evento-page .timeline li{ margin:0.45rem 0; font-size:clamp(0.95rem,1.8vw,1rem); }
 body.evento-page .timeline .time{ font-weight:700; margin-right:0.6rem; }
 
-body.evento-page .event-list{ display:flex; flex-direction:column; gap:1rem; align-items:center; margin-top:0.6rem; }
+/* Lista de eventos: usamos la estructura que indicaste */
+body.evento-page .event-list{ display:flex; flex-direction:column; gap:1rem; align-items:stretch; margin-top:0.6rem; }
 body.evento-page .event-item{
   display:flex; align-items:center; gap:0.85rem; max-width:780px; width:100%;
   padding:0.6rem 0.8rem; border-radius:10px; background:rgba(232,246,232,0.35);
 }
-body.evento-page .event-item .icon{ width:38px; height:38px; flex:0 0 38px; display:inline-flex; align-items:center; justify-content:center; color:#0b3d2e; }
+
+/* Icono/miniatura (imagen junto al texto) */
+body.evento-page .event-item .icon{
+  width:48px;
+  height:48px;
+  flex:0 0 48px;
+  border-radius:8px;
+  overflow:hidden;
+  background:transparent;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+body.evento-page .event-item .icon img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+}
+
+/* Contenido textual del item */
 body.evento-page .event-item .event-content h3{ margin:0; font-size:1.05rem; color:inherit; }
 body.evento-page .event-item .event-content p{ margin:0.15rem 0 0 0; font-size:0.95rem; color:rgba(11,61,46,0.88); }
 
-/* Links & buttons in evento page */
+/* Enlaces y botones en la página del evento */
 body.evento-page a{ color:#064e2a; text-decoration:underline; }
 body.evento-page a:hover, body.evento-page a:focus{ color:#083826; text-decoration:none; }
 body.evento-page .btn-primary, body.evento-page button, body.evento-page input[type="submit"]{
@@ -131,147 +157,133 @@ body.evento-page .btn-primary, body.evento-page button, body.evento-page input[t
 }
 body.evento-page .footer{ text-align:center; padding:1rem; color:rgba(11,61,46,0.9); }
 
-/* Top navigation (sticky) */
+/* ---------------- NAV - hamburguesa, desplegable, alineación izquierda ---------------- */
 .top-nav{
-  position:sticky;
-  top:0;
-  z-index:9999;
-  background:transparent;
-  backdrop-filter: saturate(120%) blur(4px);
-  border-bottom:1px solid rgba(0,0,0,0.06);
-  width:100%;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  background: transparent;
+  width: 100%;
   box-sizing: border-box;
-  padding-inline-start: 0.5rem; /* espacio a ambos lados, evita recortes */
+  padding-inline-start: 0.5rem; /* protección contra recortes */
   padding-inline-end: 0.5rem;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+  display:flex;
+  align-items:center;
+  gap:0.25rem;
 }
-.nav-list{
-  display:flex; gap:0.75rem; justify-content:center; align-items:center; padding:0.75rem 1rem; margin:0; list-style:none; flex-wrap:wrap;
-}
-.nav-list a.nav-btn, .nav-list .nav-current{
-  display:inline-block; padding:0.6rem 0.9rem; border-radius:6px; text-decoration:none; font-weight:600; white-space:nowrap; line-height:1;
-}
-.nav-list .nav-current{ background:rgba(0,0,0,0.04); pointer-events:none; }
 
-/* Nav controls, dropdown and toggle (hamburger) */
-.nav-controls{ display:flex; justify-content:center; padding:0.6rem 1rem; }
+/* Controles: en evento-page alineados a la izquierda */
+.nav-controls{ display:flex; justify-content:flex-start; padding:0.4rem 0.4rem; }
 
-/* --- Ajustes solicitados: en la página de evento el botón no tenga fondo y las barras usen el color del texto (ej. "ceremonia") --- */
+/* Botón hamburguesa en evento-page: sin fondo, barras con color del texto */
 body.evento-page .nav-toggle{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  padding:0.5rem;
+  padding:0.4rem;
   border-radius:8px;
   cursor:pointer;
-  background: transparent; /* sin fondo */
-  border: none;            /* sin borde */
-  color: inherit;          /* hereda color de la página (p. ej. #0b3d2e) */
+  background: transparent;
+  border: none;
+  color: inherit; /* barras usarán el color del texto (p. ej. #0b3d2e) */
   line-height:0;
-  margin: 0; /* asegurar que no haya margen lateral que lo saque del viewport */
+  margin:0;
 }
-.sr-only{ position:absolute !important; width:1px !important; height:1px !important; padding:0 !important; margin:-1px !important; overflow:hidden !important; clip:rect(0 0 0 0) !important; white-space:nowrap !important; border:0 !important; }
 
-/* Hamburger: barras usan currentColor (heredado arriba) */
+/* accesible: texto solo para lectores de pantalla */
+.sr-only{
+  position:absolute !important;
+  width:1px !important;
+  height:1px !important;
+  padding:0 !important;
+  margin:-1px !important;
+  overflow:hidden !important;
+  clip:rect(0 0 0 0) !important;
+  white-space:nowrap !important;
+  border:0 !important;
+}
+
+/* Contenedor de las barras (hamburguesa) */
 .hamburger{ display:inline-block; width:26px; height:18px; box-sizing:border-box; }
+
+/* Cada barra: usan currentColor (heredan color) */
 .hamburger span{
-  display:block; height:2px; width:100%; background:currentColor; border-radius:2px; margin:3.5px 0;
-  transform-origin:center; transition:transform 240ms cubic-bezier(.2,.9,.2,1), opacity 180ms ease, background 180ms ease;
+  display:block;
+  height:2px;
+  width:100%;
+  background: currentColor;
+  border-radius:2px;
+  margin:3.5px 0;
+  transform-origin:center;
+  transition: transform 240ms cubic-bezier(.2,.9,.2,1), opacity 180ms ease, background 180ms ease;
 }
 
-/* Transform to X when expanded */
+/* Transformación a cruz cuando está abierto */
 .nav-toggle[aria-expanded="true"] .hamburger span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
 .nav-toggle[aria-expanded="true"] .hamburger span:nth-child(2){ opacity:0; transform:scaleX(0); }
 .nav-toggle[aria-expanded="true"] .hamburger span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
 
-/* Dropdown menu: reducir margen inferior para acercarlo al contenido y evitar grandes separaciones */
+/* Menú desplegable: compacto y cerca del título */
 .nav-dropdown{
   display:none;
   gap:0.5rem;
   justify-content:center;
   align-items:center;
-  padding:0.4rem 0.6rem;
-  margin: 0 0 0.15rem 0;
+  padding:0.35rem 0.6rem;
+  margin: 0 0 0.1rem 0;
   list-style:none;
   background:transparent;
   border-bottom:none;
   box-shadow:none;
 }
 .nav-dropdown.show{ display:flex; flex-wrap:wrap; }
-.nav-dropdown a.nav-btn, .nav-dropdown .nav-current{ display:inline-block; padding:0.45rem 0.7rem; margin:0.1rem; border-radius:6px; text-decoration:none; white-space:nowrap; background:transparent; }
+.nav-dropdown a.nav-btn, .nav-dropdown .nav-current{
+  display:inline-block;
+  padding:0.45rem 0.7rem;
+  margin:0.1rem;
+  border-radius:6px;
+  text-decoration:none;
+  white-space:nowrap;
+  background:transparent;
+  color: inherit;
+}
 .nav-dropdown .nav-current{ pointer-events:none; font-weight:700; color:inherit; }
-.nav-dropdown a.nav-btn{ color:inherit; }
 .nav-dropdown a.nav-btn:hover, .nav-dropdown a.nav-btn:focus{ color:var(--brand-green-dark); text-decoration:underline; outline:none; }
 
-/* Ensure nav elements are transparent (avoid residual white boxes) */
+/* Asegurar transparencia para evitar cuadros blancos residuales */
 .top-nav, .nav-controls, .nav-toggle, .nav-dropdown, .nav-dropdown a.nav-btn, .nav-dropdown .nav-current { background:transparent; border:none; box-shadow:none; }
 
-/* PAGE-SPECIFIC: reducir espacio entre el menú y la palabra/encabezado "Evento" */
+/* Reduce el espacio entre la barra sticky y el contenido 'Evento' */
 body.evento-page main.section{ padding-top: calc(var(--nav-bar-height) - 0.75rem); }
 
-/* --- Colocar la hamburguesa a la IZQUIERDA en la página de evento --- */
-body.evento-page .nav-controls{
-  justify-content: flex-start;
-  padding-left: 0.5rem; /* reducido para que no se salga del viewport */
-}
+/* Asegura que el contenido principal no quede oculto bajo la barra */
+main.section{ padding-top: calc(var(--nav-bar-height) + 0.5rem); }
 
-/* Responsive adjustments */
-@media (max-width: 640px){
+/* Preboda (énfasis opcional) */
+.card.preboda{ font-size:1.25rem; line-height:1.45; }
+
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 640px) {
   :root{ --nav-bar-height:72px; }
 
-  /* asegurar que la top-nav no se desplace fuera del viewport en móvil */
-  body.evento-page .top-nav{
-    left: 0;
-    top: 0.4rem;
-    transform: none;
-    flex-direction: row;
-    align-items: center;
-    padding-inline-start: 0.4rem; /* poco espacio a la izquierda */
-    padding-inline-end: 0.4rem;
-    gap: 0.45rem;
-    background: transparent;
-  }
+  /* Protección para evitar recortes: padding pequeño a los lados */
+  .top-nav{ padding-inline-start: 0.4rem; padding-inline-end: 0.4rem; }
 
-  /* nav-controls con padding reducido en móvil para evitar recorte */
-  body.evento-page .nav-controls{
-    padding-left: 0.4rem;
-    padding-right: 0.4rem;
-  }
+  /* Hamburger y controles con poco padding para caber en pantalla */
+  .nav-controls{ padding-left: 0.35rem; padding-right: 0.35rem; }
 
-  /* asegurar que el toggle esté completamente visible */
-  body.evento-page .nav-toggle{
-    margin-left: 0;
-    margin-right: 0.25rem;
-  }
+  body.evento-page h1{ font-size: 2rem; } /* título aumentado para móvil */
 
-  .title{ font-size:2.5rem; }
-  .subtitle{ font-size:2rem; }
-  .fecha, .location{ font-size:1.2rem; }
-  .cta{ font-size:1.2rem; padding:0.45rem 0.9rem; }
-
-  .nav-list{ flex-wrap:wrap; gap:0.4rem; padding:0.5rem; }
-  .nav-list li{ flex:0 1 auto; }
-  .nav-list a.nav-btn, .nav-list .nav-current{ white-space:normal; text-align:center; min-width:6rem; }
-
-  body.evento-page{ font-size:1.1875rem; line-height:1.5; }
-  body.evento-page .card{ padding:1.1rem; border-radius:10px; }
-  body.evento-page .map iframe{ height:220px; }
-  body.evento-page .section{ padding:1.2rem; }
-  body.evento-page .timeline li{ font-size:0.95rem; }
-  /* Título en móvil aumentado (antes 1.6rem) */
-  body.evento-page h1{ font-size:2rem; }
-
-  body.evento-page .top-nav .nav-btn{ font-size:1.03rem; padding:0.48rem 0.66rem; }
-
+  /* Ajustes de la lista de eventos en móvil */
+  body.evento-page .event-item{ padding:0.5rem; gap:0.7rem; }
   body.evento-page .event-item .icon{ width:44px; height:44px; flex:0 0 44px; }
   body.evento-page .event-item .event-content h3{ font-size:1.15rem; }
   body.evento-page .event-item .event-content p{ font-size:1.02rem; }
 
-  .nav-dropdown.show{ width:100%; justify-content:center; margin-bottom:0.1rem; }
+  .nav-dropdown.show{ width:100%; justify-content:center; margin-bottom:0.05rem; }
   .nav-dropdown a.nav-btn, .nav-dropdown .nav-current{ white-space:normal; text-align:center; min-width:6rem; }
 }
 
-/* Preboda card emphasis */
-.card.preboda{ font-size:1.25rem; line-height:1.45; }
-
-/* Ensure page content isn't hidden below sticky nav (global fallback) */
-main.section{ padding-top: calc(var(--nav-bar-height) + 0.5rem); }
+/* Pequeños ajustes visuales globales */
+h1,h2,h3{ line-height:1.15; }
