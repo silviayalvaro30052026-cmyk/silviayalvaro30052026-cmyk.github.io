@@ -16,10 +16,15 @@
 <body class="evento-page">
 
   <nav class="top-nav" aria-label="Navegación de la boda">
-    <!-- Botón que abre/cierra el desplegable -->
+    <!-- Botón que abre/cierra el desplegable: ahora muestra una 'hamburguesa' -->
     <div class="nav-controls">
-      <button id="sectionsToggle" class="nav-toggle" aria-expanded="false" aria-controls="navDropdown">
-        Secciones ▾
+      <button id="sectionsToggle" class="nav-toggle" aria-expanded="false" aria-controls="navDropdown" aria-label="Abrir menú de secciones">
+        <span class="sr-only">Abrir menú de secciones</span>
+        <span class="hamburger" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
       </button>
     </div>
 
