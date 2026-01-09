@@ -1,6 +1,5 @@
 /* styles.css — archivo completo consolidado
-   Incluye: landing, ajustes tipográficos, CTA, navegación (hamburguesa),
-   página de evento (.evento-page) con mapas e imágenes junto a los items.
+   Ajustado: fondos de los botones .cta más translúcidos
 */
 
 /* ===========================
@@ -94,7 +93,7 @@ body {
   margin-bottom:0.8rem;
 }
 
-/* CTA (botones) */
+/* CTA (botones) — ahora MÁS TRANSLÚCIDOS en reposo */
 .cta-grid{ display:flex; gap:var(--cta-gap); flex-wrap:wrap; justify-content:center; }
 .cta{
   display:inline-block;
@@ -105,16 +104,22 @@ body {
   text-align:center;
   white-space:nowrap;
   border-radius:999px;
-  background:rgba(255,255,255,0.85);
+  /* Fondo más translúcido: opacidad reducida para dejar ver más el fondo */
+  background: rgba(255,255,255,0.60); /* antes 0.85 */
   color:#111;
   text-decoration:none;
   font-weight:600;
   font-family:inherit;
-  box-shadow:0 4px 12px rgba(0,0,0,0.15);
+  box-shadow:0 4px 12px rgba(0,0,0,0.12);
   transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
   backdrop-filter: blur(4px);
 }
-.cta:hover, .cta:focus{ transform:translateY(-3px); background:rgba(255,255,255,1); box-shadow:0 8px 20px rgba(0,0,0,0.18); }
+/* Hover/focus: volvemos a aumentar la opacidad para feedback */
+.cta:hover, .cta:focus{
+  transform:translateY(-3px);
+  background: rgba(255,255,255,0.90); /* ligeramente más visible al interactuar */
+  box-shadow:0 8px 20px rgba(0,0,0,0.18);
+}
 
 /* ===========================
    Página de evento (.evento-page)
@@ -369,8 +374,6 @@ h1,h2,h3{ line-height:1.15; }
 /* ===========================
    Notas / fallbacks
    ===========================
-   - Si necesitas la hamburguesa de color fijo (por ejemplo #0b3d2e) en lugar de heredar,
-     añade: .nav-toggle { color: #0b3d2e; } o .hamburger span { background: #0b3d2e; }
-   - Si alguna regla no parece aplicarse, coloca este archivo al final del CSS cargado
-     para sobreescribir definiciones anteriores.
+   - Si prefieres otra opacidad para los botones .cta (más o menos translúcido),
+     cambia rgba(255,255,255,0.60) por el valor deseado (ej. 0.5 ó 0.7).
 */
