@@ -2,120 +2,149 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Evento</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Evento — Silvia & Álvaro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Información del evento de la boda de Silvia & Álvaro: ceremonia, celebración y preboda, con mapas y horarios." />
+
+  <!-- Misma fuente que el resto del sitio -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body class="evento-page">
-  <!-- Barra superior / botón hamburguesa -->
-  <header class="top-nav" role="banner">
+
+  <nav class="top-nav" aria-label="Navegación de la boda">
+    <!-- Botón que abre/cierra el desplegable: ahora muestra una 'hamburguesa' -->
     <div class="nav-controls">
-      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-dropdown" aria-label="Abrir menú">
-        <span class="sr-only">Abrir menú</span>
+      <button id="sectionsToggle" class="nav-toggle" aria-expanded="false" aria-controls="navDropdown" aria-label="Abrir menú de secciones">
+        <span class="sr-only">Abrir menú de secciones</span>
         <span class="hamburger" aria-hidden="true">
-          <span></span><span></span><span></span>
+          <span></span>
+          <span></span>
+          <span></span>
         </span>
       </button>
     </div>
 
-    <!-- Menú desplegable (se muestra/oculta con JS) -->
-    <nav id="nav-dropdown" class="nav-dropdown" aria-label="Navegación del evento" hidden>
-      <a class="nav-btn" href="#ceremonia">Ceremonia</a>
-      <a class="nav-btn" href="#celebracion">Celebración</a>
-      <a class="nav-btn" href="#preboda">Preboda</a>
-    </nav>
-  </header>
+    <!-- Menú desplegable: oculto por defecto -->
+    <ul id="navDropdown" class="nav-list nav-dropdown" role="menu" hidden>
+      <li role="none"><a role="menuitem" href="index.html" class="nav-btn">Inicio</a></li>
+      <li role="none"><span class="nav-current" aria-current="page">Evento</span></li>
+      <li role="none"><a role="menuitem" href="asistencia.html" class="nav-btn">Asistencia</a></li>
+      <li role="none"><a role="menuitem" href="alojamiento.html" class="nav-btn">Alojamiento</a></li>
+      <li role="none"><a role="menuitem" href="regalo.html" class="nav-btn">Regalo</a></li>
+    </ul>
+  </nav>
 
-  <main class="section" role="main">
-    <h1 id="evento-title">Evento</h1>
+  <main id="main" class="section" role="main">
+    <h1>Evento</h1>
 
-    <section class="card" aria-labelledby="evento-title">
-      <ul class="event-list">
-        <li id="ceremonia" class="event-item">
-          <div class="icon" aria-hidden="true">
-            <img src="img/Iglesia.png" alt="Iglesia" loading="lazy">
-          </div>
-          <div class="event-content">
-            <h3>Ceremonia</h3>
-            <p>Hora y breve descripción.</p>
-          </div>
-        </li>
+    <!-- 1. Ceremonia -->
+    <section class="card" aria-labelledby="ceremonia-heading">
+      <h2 id="ceremonia-heading">Ceremonia</h2>
+      <p><strong>Iglesia de San Sebastián Mártir</strong> · Gil‑García (Ávila)</p>
+      <p><em>Hora:</em> 13:00</p>
 
-        <li id="celebracion" class="event-item">
-          <div class="icon" aria-hidden="true">
-            <img src="img/Banquete.png" alt="Banquete" loading="lazy">
-          </div>
-          <div class="event-content">
-            <h3>Celebración</h3>
-            <p>Hora y breve descripción.</p>
-          </div>
-        </li>
+      <div class="map" aria-label="Mapa: Iglesia de San Sebastián Mártir">
+        <iframe
+          src="https://www.google.com/maps?q=Iglesia+de+San+Sebasti%C3%A1n+M%C3%A1rtir+Gil-Garc%C3%ADa+%C3%81vila&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Mapa: Iglesia de San Sebastián Mártir"
+          style="border:0; width:100%; height:320px;"
+          aria-hidden="false">
+        </iframe>
+        <noscript>
+          <p><a href="https://www.google.com/maps?q=Iglesia+de+San+Sebasti%C3%A1n+M%C3%A1rtir+Gil-Garc%C3%ADa+%C3%81vila" target="_blank" rel="noopener noreferrer">Abrir mapa en Google Maps</a></p>
+        </noscript>
+      </div>
+    </section>
 
-        <li id="preboda" class="event-item">
-          <div class="icon" aria-hidden="true">
-            <img src="img/Preboda.png" alt="Preboda" loading="lazy">
-          </div>
-          <div class="event-content">
-            <h3>Preboda</h3>
-            <p>Hora y breve descripción.</p>
-          </div>
-        </li>
-      </ul>
+    <!-- 2. Celebración -->
+    <section class="card" aria-labelledby="celebracion-heading">
+      <h2 id="celebracion-heading">Celebración</h2>
+      <p><strong>Hotel Izán Puerta de Gredos</strong> · El Barco de Ávila (Ávila)</p>
+
+      <div class="map" aria-label="Mapa: Hotel Izán Puerta de Gredos">
+        <iframe
+          src="https://www.google.com/maps?q=Hotel+Iz%C3%A1n+Puerta+de+Gredos+El+Barco+de+%C3%81vila+%C3%81vila&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Mapa: Hotel Izán Puerta de Gredos"
+          style="border:0; width:100%; height:320px;"
+          aria-hidden="false">
+        </iframe>
+        <noscript>
+          <p><a href="https://www.google.com/maps?q=Hotel+Iz%C3%A1n+Puerta+de+Gredos+El+Barco+de+%C3%81vila+%C3%81vila" target="_blank" rel="noopener noreferrer">Abrir mapa en Google Maps</a></p>
+        </noscript>
+      </div>
+
+      <!--<h3>Programa del día (30/05/2026)</h3>
+      <ul class="timeline" aria-label="Programa del día">
+        <li><span class="time">12:30</span> Llegada a la iglesia</li>
+        <li><span class="time">13:00</span> Ceremonia</li>
+        <li><span class="time">14:30</span> Traslado al hotel</li>
+        <li><span class="time">15:30</span> Cóctel</li>
+        <li><span class="time">16:30</span> Banquete</li>
+        <li><span class="time">19:00</span> Fiesta</li>
+      </ul>-->
+    </section>
+
+    <!-- 3. Preboda -->
+    <section class="card preboda" aria-labelledby="preboda-heading">
+      <h2 id="preboda-heading">Preboda</h2>
+      <p>Tenemos preparada una pequeña reunión previa a la boda para familiares y amigos cercanos. Próximamente compartiremos la fecha y el lugar exacto.</p>
+      <p>Si quieres que añadamos la ubicación de la preboda (mapa, dirección o indicaciones), dímelo y lo incluyo aquí.</p>
     </section>
   </main>
 
-  <footer class="footer" role="contentinfo">
-    <p>Dirección y datos del evento.</p>
-  </footer>
+  <footer class="footer" role="contentinfo">Álvaro & Silvia · 30/05/2026</footer>
 
   <script>
-    // Toggle accesible para el menú desplegable
     (function () {
-      const toggle = document.querySelector('.nav-toggle');
-      const dropdown = document.getElementById('nav-dropdown');
-
-      if (!toggle || !dropdown) return;
+      const toggle = document.getElementById('sectionsToggle');
+      const dropdown = document.getElementById('navDropdown');
 
       function openMenu() {
         dropdown.hidden = false;
-        dropdown.classList.add('show');
         toggle.setAttribute('aria-expanded', 'true');
-        // focus first link for keyboard users
-        const first = dropdown.querySelector('a, button');
-        if (first) first.focus();
+        dropdown.classList.add('show');
       }
-
       function closeMenu() {
-        dropdown.classList.remove('show');
         dropdown.hidden = true;
         toggle.setAttribute('aria-expanded', 'false');
-        toggle.focus();
+        dropdown.classList.remove('show');
+      }
+      function toggleMenu() {
+        if (dropdown.hidden) openMenu(); else closeMenu();
       }
 
-      toggle.addEventListener('click', (e) => {
-        const expanded = toggle.getAttribute('aria-expanded') === 'true';
-        if (expanded) closeMenu();
-        else openMenu();
-      });
-
-      // Close when clicking a link inside menu (and keep focus sensible)
-      dropdown.addEventListener('click', (e) => {
-        if (e.target.matches('a')) closeMenu();
-      });
-
-      // Close on escape
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
-          closeMenu();
+      toggle.addEventListener('click', function (e) {
+        e.stopPropagation();
+        toggleMenu();
+        // move focus to first menu item when opened
+        if (!dropdown.hidden) {
+          const first = dropdown.querySelector('[role="menuitem"]');
+          if (first) first.focus();
         }
       });
 
-      // Close if click outside header
-      document.addEventListener('click', (e) => {
-        const withinHeader = e.composedPath().some(node => node === dropdown || node === toggle || (node && node.classList && node.classList.contains && node.classList.contains('top-nav')));
-        if (!withinHeader && toggle.getAttribute('aria-expanded') === 'true') {
-          closeMenu();
-        }
+      // Close on Escape
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeMenu();
+      });
+
+      // Close when clicking outside
+      document.addEventListener('click', function (e) {
+        if (!dropdown.contains(e.target) && e.target !== toggle) closeMenu();
+      });
+
+      // Allow menu items to close menu when clicked
+      dropdown.addEventListener('click', function (e) {
+        const target = e.target.closest('[role="menuitem"]');
+        if (target) closeMenu();
       });
     })();
   </script>
