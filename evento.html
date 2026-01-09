@@ -16,12 +16,20 @@
 <body class="evento-page">
 
   <nav class="top-nav" aria-label="Navegación de la boda">
-    <ul class="nav-list">
-      <li><a href="index.html" class="nav-btn">Inicio</a></li>
-      <li><span class="nav-current" aria-current="page">Evento</span></li>
-      <li><a href="asistencia.html" class="nav-btn">Asistencia</a></li>
-      <li><a href="alojamiento.html" class="nav-btn">Alojamiento</a></li>
-      <li><a href="regalo.html" class="nav-btn">Regalo</a></li>
+    <!-- Botón que abre/cierra el desplegable -->
+    <div class="nav-controls">
+      <button id="sectionsToggle" class="nav-toggle" aria-expanded="false" aria-controls="navDropdown">
+        Secciones ▾
+      </button>
+    </div>
+
+    <!-- Menú desplegable: oculto por defecto -->
+    <ul id="navDropdown" class="nav-list nav-dropdown" role="menu" hidden>
+      <li role="none"><a role="menuitem" href="index.html" class="nav-btn">Inicio</a></li>
+      <li role="none"><span class="nav-current" aria-current="page">Evento</span></li>
+      <li role="none"><a role="menuitem" href="asistencia.html" class="nav-btn">Asistencia</a></li>
+      <li role="none"><a role="menuitem" href="alojamiento.html" class="nav-btn">Alojamiento</a></li>
+      <li role="none"><a role="menuitem" href="regalo.html" class="nav-btn">Regalo</a></li>
     </ul>
   </nav>
 
@@ -88,5 +96,52 @@
   </main>
 
   <footer class="footer" role="contentinfo">Álvaro & Silvia · 30/05/2026</footer>
+
+  <script>
+    (function () {
+      const toggle = document.getElementById('sectionsToggle');
+      const dropdown = document.getElementById('navDropdown');
+
+      function openMenu() {
+        dropdown.hidden = false;
+        toggle.setAttribute('aria-expanded', 'true');
+        dropdown.classList.add('show');
+      }
+      function closeMenu() {
+        dropdown.hidden = true;
+        toggle.setAttribute('aria-expanded', 'false');
+        dropdown.classList.remove('show');
+      }
+      function toggleMenu() {
+        if (dropdown.hidden) openMenu(); else closeMenu();
+      }
+
+      toggle.addEventListener('click', function (e) {
+        e.stopPropagation();
+        toggleMenu();
+        // move focus to first menu item when opened
+        if (!dropdown.hidden) {
+          const first = dropdown.querySelector('[role="menuitem"]');
+          if (first) first.focus();
+        }
+      });
+
+      // Close on Escape
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeMenu();
+      });
+
+      // Close when clicking outside
+      document.addEventListener('click', function (e) {
+        if (!dropdown.contains(e.target) && e.target !== toggle) closeMenu();
+      });
+
+      // Allow menu items to close menu when clicked
+      dropdown.addEventListener('click', function (e) {
+        const target = e.target.closest('[role="menuitem"]');
+        if (target) closeMenu();
+      });
+    })();
+  </script>
 </body>
 </html>
