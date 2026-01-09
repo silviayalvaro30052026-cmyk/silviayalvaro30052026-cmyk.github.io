@@ -195,30 +195,19 @@ body.evento-page .map iframe {
   display: block;
 }
 
-/* Timeline dentro de la última card
-   Ahora centrada completamente (listas y items centrados). */
-body.evento-page .card .timeline,
-body.evento-page .card .list-left {
-  display: block;
-  margin: 0.5rem auto 0 auto; /* centra el bloque dentro de la card */
-  max-width: 780px;          /* evita que ocupe todo el ancho en pantallas grandes */
-  width: 100%;
-  text-align: center;        /* centra el contenido de la lista */
-}
+/* Timeline dentro de la última card */
 body.evento-page .timeline {
   list-style: none;
   padding-left: 0;
-  margin: 0;
+  margin: 0.5rem 0 0 0;
 }
 body.evento-page .timeline li {
   margin: 0.45rem 0;
   font-size: clamp(0.95rem, 1.8vw, 1rem);
-  text-align: center;        /* items centrados */
 }
 body.evento-page .timeline .time {
   font-weight: 700;
   margin-right: 0.6rem;
-  display: inline-block;     /* permite que el time permanezca junto al texto centrado */
 }
 
 /* Enlaces: color oscuro y efecto hover */
@@ -249,10 +238,10 @@ body.evento-page .footer {
   color: rgba(11,61,46,0.9);
 }
 
-/* Ajustes para móvil */
+/* Ajustes para móvil (tamaño de fuente aumentado y ajustes de layout) */
 @media (max-width: 600px) {
   body.evento-page {
-    font-size: 1rem;    /* 16px en móvil */
+    font-size: 1.1875rem; /* ≈19px en móvil (aumentado) */
     line-height: 1.5;
   }
   body.evento-page .card {
@@ -262,19 +251,127 @@ body.evento-page .footer {
   body.evento-page .map iframe { height: 220px; }
   body.evento-page .section { padding: 1.2rem; }
   body.evento-page .timeline li { font-size: 0.95rem; }
-  body.evento-page .card .timeline,
-  body.evento-page .card .list-left {
-    display: block;
-    max-width: 100%;
-    margin: 0.4rem auto 0 auto;
-  }
   body.evento-page h1 { font-size: 1.6rem; }
+}
+
+/* ------------------ Navegación fija (botones arriba a la izquierda) ------------------ */
+body.evento-page .top-nav {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 1100;
+  align-items: flex-start;
+}
+body.evento-page .top-nav .nav-btn {
+  display: inline-block;
+  padding: 0.45rem 0.75rem;
+  border-radius: 8px;
+  background-color: rgba(11,61,46,0.95);
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 10px rgba(11,61,46,0.18);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease;
+}
+body.evento-page .top-nav .nav-btn:hover,
+body.evento-page .top-nav .nav-btn:focus {
+  transform: translateY(-2px);
+  background-color: #083826;
+  outline: none;
+  box-shadow: 0 6px 16px rgba(8,56,38,0.18);
+}
+body.evento-page .top-nav .nav-btn.active,
+body.evento-page .top-nav .nav-btn[aria-current="page"] {
+  background-color: #0b3d2e;
+  box-shadow: 0 6px 18px rgba(11,61,46,0.22);
+  cursor: default;
+}
+
+/* Lista de eventos with iconos (centrada) */
+body.evento-page .event-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 0.6rem;
+}
+body.evento-page .event-item {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  max-width: 780px;
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border-radius: 10px;
+  background: rgba(232, 246, 232, 0.35);
+}
+body.evento-page .event-item .icon {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #0b3d2e;
+}
+body.evento-page .event-item .icon .icon-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+body.evento-page .event-item .event-content h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: inherit;
+}
+body.evento-page .event-item .event-content p {
+  margin: 0.15rem 0 0 0;
+  font-size: 0.95rem;
+  color: rgba(11,61,46,0.88);
+}
+
+/* Aumentar fuente en móvil + ajustar iconos y navegación para móvil */
+@media (max-width: 600px) {
+  /* Nav: pasando de columna a fila y centrada en móvil */
+  body.evento-page .top-nav {
+    left: 50%;
+    top: 0.6rem;
+    transform: translateX(-50%);
+    flex-direction: row;
+    align-items: center;
+    padding: 0 0.35rem;
+    gap: 0.45rem;
+    background: transparent;
+  }
+  body.evento-page .top-nav .nav-btn {
+    font-size: 1.03rem;
+    padding: 0.48rem 0.66rem;
+  }
+
+  /* Iconos un poco más grandes en móvil */
+  body.evento-page .event-item .icon {
+    width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+  }
+
+  body.evento-page .event-item .event-content h3 {
+    font-size: 1.15rem;
+  }
+  body.evento-page .event-item .event-content p {
+    font-size: 1.02rem;
+  }
+
+  body.evento-page .event-list {
+    gap: 0.75rem;
+    padding: 0 0.6rem;
+  }
 }
 
 /* Si hay reglas anteriores que anulan estos estilos,
    coloca este bloque al final del archivo para que tenga prioridad.
    Evita usar !important salvo que sea estrictamente necesario. */
-  body.evento-page .map iframe { height: 220px; }
-  body.evento-page .section { padding: 1.2rem; }
-  body.evento-page .timeline li { font-size: 0.95rem; }
-}
