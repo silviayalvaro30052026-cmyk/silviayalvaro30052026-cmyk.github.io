@@ -807,3 +807,32 @@ y añadir transition a .hamburger span. (Dime si lo quieres y lo activo.)
 main.section {
   padding-top: 0.5rem;
 }
+
+/* Eliminar cualquier "cuadro" blanco bajo la hamburguesa / menú */
+
+/* Asegura que el contenedor de la nav no tenga fondo visible */
+.top-nav,
+.nav-controls,
+.nav-dropdown,
+.nav-toggle,
+.nav-dropdown a.nav-btn,
+.nav-dropdown .nav-current {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Evita que el foco del botón pinte un fondo blanco en algunos navegadores */
+.nav-toggle:focus {
+  background: transparent !important;
+  outline: 3px solid rgba(0,120,0,0.18); /* opcional: foco verde translúcido */
+  outline-offset: 3px;
+}
+
+/* Si todavía ves un recuadro en móviles estrechos, forzamos también el fondo del body del nav */
+.top-nav * {
+  background-color: transparent !important;
+}
+
+/* (Opcional) si quieres que la X y las líneas sigan usando el color de la fuente:
+   asegúrate de que el color del body o del contenedor padre esté en el verde deseado */
