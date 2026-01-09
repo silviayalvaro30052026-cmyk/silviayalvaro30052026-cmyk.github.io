@@ -676,3 +676,134 @@ main.section {
 .nav-toggle[aria-expanded="true"] .hamburger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 y añadir transition a .hamburger span. (Dime si lo quieres y lo activo.)
 */
+
+/* --- Actualizado: hamburguesa -> cruz, líneas verdes, sin cuadro blanco debajo --- */
+
+/* Utilidad para texto solo accesible (screen readers) */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Botón: sin fondo ni borde, las barras toman el color del texto (currentColor).
+   Así las líneas serán del mismo color que la fuente. */
+.nav-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  background: transparent;   /* quitar el cuadro blanco */
+  border: none;              /* quitar el borde */
+  border-radius: 8px;
+  cursor: pointer;
+  line-height: 0;
+  color: inherit;            /* hereda el color de la tipografía */
+}
+
+/* Contenedor de las barras (hamburguesa) */
+.hamburger {
+  display: inline-block;
+  width: 26px;
+  height: 18px;
+  box-sizing: border-box;
+}
+
+/* Cada barra: color igual al de la fuente gracias a currentColor */
+.hamburger span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: currentColor;
+  border-radius: 2px;
+  margin: 3.5px 0;
+  transform-origin: center;
+  transition: transform 240ms cubic-bezier(.2,.9,.2,1), opacity 180ms ease;
+}
+
+/* Foco visible accesible (personaliza color si quieres) */
+.nav-toggle:focus {
+  outline: 3px solid rgba(0, 120, 212, 0.15);
+  outline-offset: 3px;
+}
+
+/* Transformación a cruz (X) cuando el menú está abierto */
+.nav-toggle[aria-expanded="true"] .hamburger span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.nav-toggle[aria-expanded="true"] .hamburger span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.nav-toggle[aria-expanded="true"] .hamburger span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Menú desplegable: quitar fondo blanco y borde inferior */
+.nav-dropdown {
+  display: none; /* oculto por defecto; JS añade .show */
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  margin: 0;
+  list-style: none;
+  background: transparent;      /* sin fondo blanco */
+  border-bottom: none;          /* sin línea debajo */
+  box-shadow: none;             /* sin sombra */
+}
+
+/* Mostrar menú cuando JS añade la clase .show */
+.nav-dropdown.show {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Enlaces dentro del menú */
+.nav-dropdown a.nav-btn,
+.nav-dropdown .nav-current {
+  display: inline-block;
+  padding: 0.5rem 0.75rem;
+  margin: 0.15rem;
+  border-radius: 6px;
+  text-decoration: none;
+  white-space: nowrap;
+  background: transparent; /* aseguramos que no generen cuadros */
+}
+
+/* Elemento de la página actual */
+.nav-dropdown .nav-current {
+  pointer-events: none;
+  font-weight: 700;
+}
+
+/* Ajustes responsive: evitar solapamientos */
+@media (max-width: 640px) {
+  .nav-dropdown.show {
+    width: 100%;
+    justify-content: center;
+  }
+  .nav-dropdown a.nav-btn,
+  .nav-dropdown .nav-current {
+    white-space: normal;
+    text-align: center;
+    min-width: 6rem;
+  }
+}
+
+/* Mantener la fuente más grande en la sección preboda (opcional) */
+.card.preboda {
+  font-size: 1.25rem;
+  line-height: 1.45;
+}
+
+/* Separación entre nav y contenido */
+main.section {
+  padding-top: 0.5rem;
+}
