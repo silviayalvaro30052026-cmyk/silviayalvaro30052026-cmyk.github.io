@@ -15,104 +15,30 @@
 
   <style>
     /* Estilos de formulario compatibles con styles.css */
-    .rsvp-form {
-      display:block;
-      width:100%;
-    }
-
-    .form-row {
-      display:flex;
-      gap:1rem;
-      margin:0.5rem 0 1rem;
-      align-items:center;
-      flex-wrap:wrap;
-    }
-
-    .form-row .field {
-      flex:1 1 220px;
-      min-width:180px;
-    }
-
-    label {
-      display:block;
-      font-weight:600;
-      margin-bottom:0.35rem;
-      color: inherit;
-    }
-
-    input[type="text"],
-    input[type="email"],
-    select,
-    textarea {
-      width:100%;
-      padding:0.6rem 0.75rem;
-      border-radius:8px;
-      border:1px solid rgba(0,0,0,0.12);
-      background: rgba(255,255,255,0.96);
-      font-family: inherit;
-      font-size: 1rem;
-      color: inherit;
-      box-shadow: none;
+    .rsvp-form { display:block; width:100%; }
+    .form-row { display:flex; gap:1rem; margin:0.5rem 0 1rem; align-items:center; flex-wrap:wrap; }
+    .form-row .field { flex:1 1 220px; min-width:180px; }
+    label { display:block; font-weight:600; margin-bottom:0.35rem; color: inherit; }
+    input[type="text"], select, textarea {
+      width:100%; padding:0.6rem 0.75rem; border-radius:8px; border:1px solid rgba(0,0,0,0.12);
+      background: rgba(255,255,255,0.96); font-family: inherit; font-size: 1rem; color: inherit;
       box-sizing: border-box;
     }
-
     textarea { min-height: 100px; resize: vertical; }
-
-    fieldset {
-      border: 0;
-      padding: 0;
-      margin: 0 0 1rem 0;
-    }
-
-    .choices {
-      display:flex;
-      gap:0.6rem;
-      flex-wrap:wrap;
-      align-items:center;
-    }
-
+    fieldset { border: 0; padding: 0; margin: 0 0 1rem 0; }
+    .choices { display:flex; gap:0.6rem; flex-wrap:wrap; align-items:center; }
     .choice-label {
-      display:inline-flex;
-      align-items:center;
-      gap:0.45rem;
-      padding:0.35rem 0.6rem;
-      border-radius:8px;
-      background: rgba(255,255,255,0.72);
-      cursor: pointer;
-      font-weight:600;
-      color: #0b3d2e;
+      display:inline-flex; align-items:center; gap:0.45rem; padding:0.35rem 0.6rem;
+      border-radius:8px; background: rgba(255,255,255,0.72); cursor: pointer; font-weight:600; color: #0b3d2e;
     }
-
-    input[type="radio"], input[type="checkbox"] {
-      accent-color: var(--brand-green);
-    }
-
-    .form-actions {
-      margin-top: 0.75rem;
-      display:flex;
-      gap:0.6rem;
-      align-items:center;
-      justify-content:flex-start;
-    }
-
-    .form-note {
-      font-size:0.95rem;
-      color: rgba(11,61,46,0.8);
-    }
-
-    /* Oculto (usado para campos dependientes) */
+    input[type="radio"], input[type="checkbox"] { accent-color: var(--brand-green); }
+    .form-actions { margin-top: 0.75rem; display:flex; gap:0.6rem; align-items:center; justify-content:flex-start; }
+    .form-note { font-size:0.95rem; color: rgba(11,61,46,0.8); }
     .is-hidden { display:none !important; }
-
-    /* Mensaje de envío */
     .rsvp-success {
-      margin-top:1rem;
-      padding:0.9rem 1rem;
-      border-radius:8px;
-      background: rgba(42,157,143,0.12);
-      color: var(--brand-green-dark);
-      font-weight:600;
+      margin-top:1rem; padding:0.9rem 1rem; border-radius:8px; background: rgba(42,157,143,0.12);
+      color: var(--brand-green-dark); font-weight:600;
     }
-
     @media (max-width:640px) {
       .form-row { gap:0.5rem; }
       .form-row .field { flex:1 1 100%; min-width:0; }
@@ -148,7 +74,16 @@
     <section class="card" aria-labelledby="asistencia-heading">
       <h2 id="asistencia-heading" style="margin-top:0;">Formulario de asistencia</h2>
 
-      <form id="rsvpForm" class="rsvp-form" method="post" action="#" novalidate>
+      <!-- FORM: enviado a Formspree -->
+      <form id="rsvpForm" class="rsvp-form" method="POST"
+            action="https://formspree.io/f/mdaankgw">
+        <!-- Hidden fields para Formspree -->
+        <input type="hidden" name="_subject" value="RSVP Silvia & Álvaro">
+        <!-- Opcional: redirigir a gracias.html después del envío. Si no tienes gracias.html, elimina o deja vacio -->
+        <!-- <input type="hidden" name="_next" value="https://tusitio.com/gracias.html"> -->
+        <!-- Honeypot anti-spam (Formspree ignora si está relleno) -->
+        <input type="text" name="_gotcha" style="display:none">
+
         <!-- 1. ¿Asistirás? -->
         <fieldset aria-labelledby="asistiras-legend">
           <legend id="asistiras-legend" style="font-weight:700;margin-bottom:0.5rem;">¿Asistirás a la boda?</legend>
@@ -182,7 +117,7 @@
           </div>
         </fieldset>
 
-        <!-- 3. ¿Quién es tu acompañante? (solo si el invitado trae acompañante) -->
+        <!-- 3. ¿Quién es tu acompañante? (solo si trae acompañante) -->
         <fieldset id="acompanante-fieldset" class="is-hidden" aria-hidden="true">
           <legend style="font-weight:700;margin-bottom:0.5rem;">¿Quién es tu acompañante?</legend>
           <div class="form-row">
@@ -260,58 +195,26 @@
 
   <script>
     (function () {
-      /* NAV TOGGLE (misma lógica que en otras páginas) */
+      // NAV TOGGLE
       const toggle = document.getElementById('sectionsToggle');
       const dropdown = document.getElementById('navDropdown');
+      function openMenu() { dropdown.hidden = false; toggle.setAttribute('aria-expanded', 'true'); dropdown.classList.add('show'); }
+      function closeMenu() { dropdown.hidden = true; toggle.setAttribute('aria-expanded', 'false'); dropdown.classList.remove('show'); }
+      function toggleMenu() { if (dropdown.hidden) openMenu(); else closeMenu(); }
+      toggle.addEventListener('click', function (e) { e.stopPropagation(); toggleMenu(); if (!dropdown.hidden) { const first = dropdown.querySelector('[role="menuitem"]'); if (first) first.focus(); }});
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
+      document.addEventListener('click', function (e) { if (!dropdown.contains(e.target) && e.target !== toggle) closeMenu(); });
+      dropdown.addEventListener('click', function (e) { const target = e.target.closest('[role="menuitem"]'); if (target) closeMenu(); });
 
-      function openMenu() {
-        dropdown.hidden = false;
-        toggle.setAttribute('aria-expanded', 'true');
-        dropdown.classList.add('show');
-      }
-      function closeMenu() {
-        dropdown.hidden = true;
-        toggle.setAttribute('aria-expanded', 'false');
-        dropdown.classList.remove('show');
-      }
-      function toggleMenu() {
-        if (dropdown.hidden) openMenu(); else closeMenu();
-      }
-
-      toggle.addEventListener('click', function (e) {
-        e.stopPropagation();
-        toggleMenu();
-        if (!dropdown.hidden) {
-          const first = dropdown.querySelector('[role="menuitem"]');
-          if (first) first.focus();
-        }
-      });
-
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') closeMenu();
-      });
-
-      document.addEventListener('click', function (e) {
-        if (!dropdown.contains(e.target) && e.target !== toggle) closeMenu();
-      });
-
-      dropdown.addEventListener('click', function (e) {
-        const target = e.target.closest('[role="menuitem"]');
-        if (target) closeMenu();
-      });
-
-      /* FORM LOGIC: mostrar/ocultar campos de acompañante y gestionar required */
+      // FORM: mostrar/ocultar campos de acompañante
       const form = document.getElementById('rsvpForm');
-      const attendanceRadios = form.elements['attendance'];
+      const attendanceRadios = Array.from(form.elements['attendance'] || []);
       const companionFieldset = document.getElementById('acompanante-fieldset');
       const compFirst = document.getElementById('compFirst');
       const compLast = document.getElementById('compLast');
-      const firstName = document.getElementById('firstName');
-      const lastName = document.getElementById('lastName');
-      const statusEl = document.getElementById('formStatus');
 
       function updateCompanionVisibility() {
-        const value = Array.from(attendanceRadios).find(r => r.checked)?.value;
+        const value = attendanceRadios.find(r => r.checked)?.value;
         if (value === 'si-acompanante') {
           companionFieldset.classList.remove('is-hidden');
           companionFieldset.setAttribute('aria-hidden', 'false');
@@ -322,43 +225,16 @@
           companionFieldset.setAttribute('aria-hidden', 'true');
           compFirst.required = false;
           compLast.required = false;
-          compFirst.value = '';
-          compLast.value = '';
         }
       }
 
-      // inicializamos visibilidad
+      // inicializar y escuchar cambios
       updateCompanionVisibility();
+      attendanceRadios.forEach(r => r.addEventListener('change', updateCompanionVisibility));
 
-      // escuchar cambios
-      Array.from(attendanceRadios).forEach(r => r.addEventListener('change', updateCompanionVisibility));
-
-      // Manejo del submit: validación básica y mensaje de confirmación.
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        statusEl.textContent = '';
-
-        // Forzamos validación nativa (para inputs con required)
-        if (!form.checkValidity()) {
-          // show browser validation UI
-          form.reportValidity();
-          return;
-        }
-
-        // Recolectar datos (puedes enviar a tu servidor o integrarlo con servicios)
-        const data = new FormData(form);
-        const payload = Object.fromEntries(data.entries());
-
-        // Aquí no enviamos a servidor; mostramos confirmación.
-        statusEl.innerHTML = '<div class="rsvp-success">Gracias — hemos recibido tu respuesta. Si quieres, revisa tu correo para confirmar o ponte en contacto con nosotros.</div>';
-
-        // Opcional: enviar a servidor con fetch()
-        // fetch('/rsvp', { method: 'POST', body: data }).then(...)
-
-        // Desactivar botón para evitar envíos repetidos
-        const btn = form.querySelector('button[type="submit"]');
-        if (btn) btn.disabled = true;
-      });
+      // NOTA: no interceptamos el submit; el formulario se envía directamente a Formspree.
+      // Si quieres mostrar un mensaje en la misma página tras enviar sin redirigir,
+      // podemos implementar el envío via fetch()/AJAX. Dime si lo quieres.
     })();
   </script>
 </body>
