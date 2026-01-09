@@ -375,3 +375,82 @@ body.evento-page .event-item .event-content p {
 /* Si hay reglas anteriores que anulan estos estilos,
    coloca este bloque al final del archivo para que tenga prioridad.
    Evita usar !important salvo que sea estrictamente necesario. */
+
+/* --- Ajustes específicos para evento.html --- */
+/* Aumenta la tipografía global (puedes ajustar el valor a 16/18/20px según prefieras) */
+:root {
+  --base-font-size: 18px;
+  --nav-gap: 0.75rem;
+}
+
+html {
+  font-size: var(--base-font-size);
+}
+
+body {
+  font-size: 1rem; /* ahora corresponde a 18px */
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Navegación superior: disposición horizontal y responsive */
+.top-nav {
+  width: 100%;
+  position: relative; /* evita que la nav se superponga en la página */
+  z-index: 10;
+  background: transparent;
+}
+
+.nav-list {
+  display: flex;
+  gap: var(--nav-gap);
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  margin: 0;
+  list-style: none;
+}
+
+/* Botones de navegación */
+.nav-list a.nav-btn {
+  display: inline-block;
+  padding: 0.5rem 0.75rem;
+  text-decoration: none;
+  white-space: nowrap;
+  /* Hereda color y tipografía del sitio; si quieres, ajusta colores aquí */
+}
+
+/* Evitar solapamiento en móviles: permitir wrap y centrar elementos */
+@media (max-width: 640px) {
+  .nav-list {
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0.5rem;
+  }
+
+  /* Si hay mucho texto, que cada enlace tenga espacio propio y no se superponga con el título */
+  .nav-list li {
+    flex: 0 1 auto;
+  }
+
+  /* Asegurar separación entre la nav y el contenido principal */
+  main.section {
+    padding-top: 0.5rem;
+  }
+
+  /* Si todavía hay problemas con solapamiento en móviles muy estrechos,
+     se puede forzar que los enlaces pasen a dos filas con esta regla:
+  .nav-list li { flex-basis: 50%; text-align:center; }
+  */
+}
+
+/* Ajustes visuales menores para títulos y tarjetas (opcional) */
+h1, h2, h3 {
+  line-height: 1.15;
+}
+
+.card {
+  margin-bottom: 1.25rem;
+  /* conserva los estilos existentes de .card en tu styles.css */
+}
