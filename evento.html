@@ -2,88 +2,93 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
+  <title>Evento — Silvia & Álvaro</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Evento — Boda</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta name="description" content="Información del evento de la boda de Silvia & Álvaro: ceremonia, celebración y preboda, con mapas y horarios." />
+
+  <!-- Misma fuente que el resto del sitio -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body class="evento-page">
+  <a class="skip-link" href="#main">Saltar al contenido</a>
 
-  <!-- Navegación superior (botones) -->
   <nav class="top-nav" aria-label="Navegación de la boda">
-    <a href="index.html" class="nav-btn">Inicio</a>
-    <a href="evento.html" class="nav-btn active" aria-current="page">Evento</a>
-    <a href="asistencia.html" class="nav-btn">Asistencia</a>
-    <a href="alojamiento.html" class="nav-btn">Alojamiento</a>
-    <a href="regalo.html" class="nav-btn">Regalo</a>
+    <ul class="nav-list">
+      <li><a href="index.html" class="nav-btn">Inicio</a></li>
+      <li><a href="evento.html" class="nav-btn active" aria-current="page">Evento</a></li>
+      <li><a href="asistencia.html" class="nav-btn">Asistencia</a></li>
+      <li><a href="alojamiento.html" class="nav-btn">Alojamiento</a></li>
+      <li><a href="regalo.html" class="nav-btn">Regalo</a></li>
+    </ul>
   </nav>
 
-  <main class="section">
-    <div class="card">
-      <h1>Celebración</h1>
-      <p>Os esperamos para compartir este día tan especial. Abajo encontrarás la ceremonia, el banquete y el planning con los lugares y horarios.</p>
+  <main id="main" class="section" role="main">
+    <h1>Evento</h1>
 
-      <!-- Lista de secciones del evento con iconos + lugar y pueblo -->
-      <div class="event-list">
+    <!-- 1. Ceremonia -->
+    <section class="card" aria-labelledby="ceremonia-heading">
+      <h2 id="ceremonia-heading">Ceremonia</h2>
+      <p><strong>Iglesia de San Sebastián Mártir</strong> · Gil‑García (Ávila)</p>
+      <p><em>Hora:</em> 13:00</p>
 
-        <div class="event-item">
-          <span class="icon" aria-hidden="true">
-            <!-- Iglesia -->
-            <svg viewBox="0 0 24 24" class="icon-svg" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
-              <path d="M12 2l4 4h2v14h-6v-5h-0.5v5H6V6h2l4-4z" fill="currentColor"/>
-            </svg>
-          </span>
-          <div class="event-content">
-            <h3>Ceremonia</h3>
-            <p class="meta"><strong>Lugar:</strong> Iglesia Santa María · <strong>Pueblo:</strong> Villaverde</p>
-            <p class="desc">Hora: 12:00 — Dirección completa y recomendaciones</p>
-          </div>
-        </div>
+      <div class="map" aria-label="Mapa: Iglesia de San Sebastián Mártir">
+        <iframe
+          src="https://www.google.com/maps?q=Iglesia+de+San+Sebasti%C3%A1n+M%C3%A1rtir+Gil-Garc%C3%ADa+%C3%81vila&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Mapa: Iglesia de San Sebastián Mártir"
+          style="border:0; width:100%; height:320px;"
+          aria-hidden="false">
+        </iframe>
+        <noscript>
+          <p><a href="https://www.google.com/maps?q=Iglesia+de+San+Sebasti%C3%A1n+M%C3%A1rtir+Gil-Garc%C3%ADa+%C3%81vila" target="_blank" rel="noopener noreferrer">Abrir mapa en Google Maps</a></p>
+        </noscript>
+      </div>
+    </section>
 
-        <div class="event-item">
-          <span class="icon" aria-hidden="true">
-            <!-- Hotel / Banquete -->
-            <svg viewBox="0 0 24 24" class="icon-svg" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
-              <path d="M3 6h18v15H3V6zm2 2v11h14V8H5zM7 10h2v2H7v-2zm0 3h2v2H7v-2zm4-3h2v2h-2v-2zm0 3h2v2h-2v-2z" fill="currentColor"/>
-              <path d="M7 3h10v2H7z" fill="currentColor"/>
-            </svg>
-          </span>
-          <div class="event-content">
-            <h3>Banquete</h3>
-            <p class="meta"><strong>Lugar:</strong> Hotel Los Olivos · <strong>Pueblo:</strong> Puerto Verde</p>
-            <p class="desc">Aperitivo, cena y baile — Hora: 15:00</p>
-          </div>
-        </div>
+    <!-- 2. Celebración -->
+    <section class="card" aria-labelledby="celebracion-heading">
+      <h2 id="celebracion-heading">Celebración</h2>
+      <p><strong>Hotel Izán Puerta de Gredos</strong> · El Barco de Ávila (Ávila)</p>
 
-        <div class="event-item">
-          <span class="icon" aria-hidden="true">
-            <!-- Reloj / Planning -->
-            <svg viewBox="0 0 24 24" class="icon-svg" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
-              <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5" fill="none"/>
-              <path d="M12 7v5l4 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </span>
-          <div class="event-content">
-            <h3>Planning</h3>
-            <p class="meta"><strong>Pueblo base:</strong> Villaverde / Puerto Verde</p>
-            <p class="desc">Horario y orden del día — Ej: 12:00 Ceremonia · 15:00 Banquete · 20:00 Baile</p>
-          </div>
-        </div>
+      <div class="map" aria-label="Mapa: Hotel Izán Puerta de Gredos">
+        <iframe
+          src="https://www.google.com/maps?q=Hotel+Iz%C3%A1n+Puerta+de+Gredos+El+Barco+de+%C3%81vila+%C3%81vila&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Mapa: Hotel Izán Puerta de Gredos"
+          style="border:0; width:100%; height:320px;"
+          aria-hidden="false">
+        </iframe>
+        <noscript>
+          <p><a href="https://www.google.com/maps?q=Hotel+Iz%C3%A1n+Puerta+de+Gredos+El+Barco+de+%C3%81vila+%C3%81vila" target="_blank" rel="noopener noreferrer">Abrir mapa en Google Maps</a></p>
+        </noscript>
 
       </div>
-      <!-- fin event-list -->
 
-      <!-- Mapa: conserva tu iframe actual aquí (reemplaza SRC por la URL de tu mapa) -->
-      <div class="map">
-        <!-- Sustituye TU_URL_DE_MAPS_AQUI por la URL real del iframe de Google Maps u otro servicio -->
-        <iframe src="TU_URL_DE_MAPS_AQUI" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      </div>
+      <h3>Programa del día (30/05/2026)</h3>
+      <ul class="timeline" aria-label="Programa del día">
+        <li><span class="time">12:30</span> Llegada a la iglesia</li>
+        <li><span class="time">13:00</span> Ceremonia</li>
+        <li><span class="time">14:30</span> Traslado al hotel</li>
+        <li><span class="time">15:30</span> Cóctel</li>
+        <li><span class="time">16:30</span> Banquete</li>
+        <li><span class="time">19:00</span> Fiesta</li>
+      </ul>
+    </section>
 
-    </div> <!-- .card -->
+    <!-- 3. Preboda -->
+    <section class="card" aria-labelledby="preboda-heading">
+      <h2 id="preboda-heading">Preboda</h2>
+      <p>Tenemos preparada una pequeña reunión previa a la boda para familiares y amigos cercanos. Próximamente compartiremos la fecha y el lugar exacto.</p>
+      <p>Si quieres que añadamos la ubicación de la preboda (mapa, dirección o indicaciones), dímelo y lo incluyo aquí.</p>
+    </section>
   </main>
 
-  <footer class="footer">
-    &copy; <!-- Añade nombre o año si quieres -->
-  </footer>
-
+  <footer class="footer" role="contentinfo">Álvaro & Silvia · 30/05/2026</footer>
 </body>
 </html>
