@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Evento</title>
+  <title>Evento — Boda</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body class="evento-page">
@@ -19,58 +19,71 @@
 
   <main class="section">
     <div class="card">
-      <h1>Nombre del evento</h1>
-      <p>Texto introductorio...</p>
+      <h1>Celebración</h1>
+      <p>Os esperamos para compartir este día tan especial. Abajo encontrarás la ceremonia, el banquete y el planning con los lugares y horarios.</p>
 
-      <!-- Lista de secciones del evento con iconos -->
+      <!-- Lista de secciones del evento con iconos + lugar y pueblo -->
       <div class="event-list">
+
         <div class="event-item">
           <span class="icon" aria-hidden="true">
             <!-- Iglesia -->
-            <svg viewBox="0 0 24 24" class="icon-svg" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+            <svg viewBox="0 0 24 24" class="icon-svg" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
               <path d="M12 2l4 4h2v14h-6v-5h-0.5v5H6V6h2l4-4z" fill="currentColor"/>
             </svg>
           </span>
           <div class="event-content">
             <h3>Ceremonia</h3>
-            <p>Lugar y hora de la ceremonia</p>
+            <p class="meta"><strong>Lugar:</strong> Iglesia Santa María · <strong>Pueblo:</strong> Villaverde</p>
+            <p class="desc">Hora: 12:00 — Dirección completa y recomendaciones</p>
           </div>
         </div>
 
         <div class="event-item">
           <span class="icon" aria-hidden="true">
             <!-- Hotel / Banquete -->
-            <svg viewBox="0 0 24 24" class="icon-svg" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+            <svg viewBox="0 0 24 24" class="icon-svg" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
               <path d="M3 6h18v15H3V6zm2 2v11h14V8H5zM7 10h2v2H7v-2zm0 3h2v2H7v-2zm4-3h2v2h-2v-2zm0 3h2v2h-2v-2z" fill="currentColor"/>
               <path d="M7 3h10v2H7z" fill="currentColor"/>
             </svg>
           </span>
           <div class="event-content">
             <h3>Banquete</h3>
-            <p>Detalles del banquete y dirección</p>
+            <p class="meta"><strong>Lugar:</strong> Hotel Los Olivos · <strong>Pueblo:</strong> Puerto Verde</p>
+            <p class="desc">Aperitivo, cena y baile — Hora: 15:00</p>
           </div>
         </div>
 
         <div class="event-item">
           <span class="icon" aria-hidden="true">
             <!-- Reloj / Planning -->
-            <svg viewBox="0 0 24 24" class="icon-svg" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+            <svg viewBox="0 0 24 24" class="icon-svg" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
               <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5" fill="none"/>
               <path d="M12 7v5l4 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </span>
           <div class="event-content">
             <h3>Planning</h3>
-            <p>Horario y orden del día</p>
+            <p class="meta"><strong>Pueblo base:</strong> Villaverde / Puerto Verde</p>
+            <p class="desc">Horario y orden del día — Ej: 12:00 Ceremonia · 15:00 Banquete · 20:00 Baile</p>
           </div>
         </div>
+
       </div>
       <!-- fin event-list -->
+
+      <!-- Mapa: conserva tu iframe actual aquí (reemplaza SRC por la URL de tu mapa) -->
+      <div class="map">
+        <!-- Sustituye TU_URL_DE_MAPS_AQUI por la URL real del iframe de Google Maps u otro servicio -->
+        <iframe src="TU_URL_DE_MAPS_AQUI" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
 
     </div> <!-- .card -->
   </main>
 
-  <footer class="footer">&copy; <!-- puedes poner nombre o fecha aquí --></footer>
+  <footer class="footer">
+    &copy; <!-- Añade nombre o año si quieres -->
+  </footer>
 
 </body>
 </html>
