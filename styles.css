@@ -836,3 +836,58 @@ main.section {
 
 /* (Opcional) si quieres que la X y las líneas sigan usando el color de la fuente:
    asegúrate de que el color del body o del contenedor padre esté en el verde deseado */
+
+/* --- Color verde para hamburguesa, cruz y enlaces del menú --- */
+/* Ajusta --brand-green al tono exacto que quieras */
+:root {
+  --brand-green: #2a9d8f; /* ejemplo: verde/teal. Cambia por tu color (ej. #2b7a3a) */
+  --brand-green-opaque: rgba(42,157,143,0.18);
+  --brand-green-dark: #167a63;
+}
+
+/* Aplicar color a hamburguesa (usa currentColor ya), botón y enlaces del desplegable */
+.top-nav,
+.nav-controls,
+.nav-toggle,
+.nav-dropdown,
+.nav-dropdown a.nav-btn,
+.nav-dropdown .nav-current {
+  color: var(--brand-green) !important; /* texto y barras usarán este color */
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Asegura que los enlaces del menú sean verdes y accesibles */
+.nav-dropdown a.nav-btn {
+  color: var(--brand-green) !important;
+  background: transparent !important;
+}
+
+/* Página actual (texto no enlace) */
+.nav-dropdown .nav-current {
+  color: var(--brand-green) !important;
+  font-weight: 700;
+}
+
+/* Hover / focus para enlaces: oscurecer un poco para feedback visual */
+.nav-dropdown a.nav-btn:hover,
+.nav-dropdown a.nav-btn:focus {
+  color: var(--brand-green-dark) !important;
+  text-decoration: underline;
+  outline: none;
+}
+
+/* El botón hamburguesa ya hereda currentColor; ajustamos el foco para usar el verde */
+.nav-toggle:focus {
+  background: transparent !important;
+  outline: 3px solid var(--brand-green-opaque);
+  outline-offset: 3px;
+}
+
+/* Si el navegador pinta algún fondo inesperado en elementos internos, forzamos transparencia */
+.top-nav * {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
