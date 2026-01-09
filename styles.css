@@ -101,7 +101,8 @@ body.evento-page .card{
   color:inherit;
   text-align:center;
 }
-body.evento-page h1{ margin-bottom:1rem; font-size:clamp(1.9rem,4.5vw,2.6rem); text-align:center; }
+/* TÍTULO 'Evento' aumentado: aplica en móvil y escritorio mediante clamp */
+body.evento-page h1{ margin-bottom:1rem; font-size:clamp(2.2rem,4.8vw,3.2rem); text-align:center; }
 body.evento-page h2{ margin-top:0; font-size:clamp(1.25rem,2.6vw,1.8rem); }
 body.evento-page .card p{ margin:0.35rem 0; font-size:clamp(0.95rem,1.8vw,1.05rem); }
 
@@ -256,7 +257,8 @@ body.evento-page .nav-controls{
   body.evento-page .map iframe{ height:220px; }
   body.evento-page .section{ padding:1.2rem; }
   body.evento-page .timeline li{ font-size:0.95rem; }
-  body.evento-page h1{ font-size:1.6rem; }
+  /* Título en móvil aumentado (antes 1.6rem) */
+  body.evento-page h1{ font-size:2rem; }
 
   body.evento-page .top-nav .nav-btn{ font-size:1.03rem; padding:0.48rem 0.66rem; }
 
