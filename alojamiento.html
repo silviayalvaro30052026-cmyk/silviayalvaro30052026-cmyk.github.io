@@ -12,6 +12,24 @@
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Pequeños estilos locales para dejar la presentación coherente */
+    .section-media {
+      display:flex;
+      gap:1rem;
+      align-items:flex-start;
+      margin-bottom: 0.4rem;
+    }
+    .section-media img {
+      width:72px;
+      height:72px;
+      object-fit:cover;
+      border-radius:8px;
+      flex:0 0 72px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+    .heading-wrap h2 { margin:0; }
+  </style>
 </head>
 <body class="evento-page">
 
@@ -30,7 +48,13 @@
     <h1>Alojamiento</h1>
 
     <section class="card" aria-labelledby="intro-heading">
-      <h2 id="intro-heading" style="margin-top:0;">Información sobre el alojamiento</h2>
+      <!-- Aquí movemos la imagen para que aparezca SOLO junto a la información introductoria -->
+      <div class="section-media" style="align-items:flex-start;">
+        <img src="img/Hotel.png" alt="Hotel Izán Puerta de Gredos" loading="lazy" width="72" height="72">
+        <div class="heading-wrap" style="flex:1;">
+          <h2 id="intro-heading" style="margin-top:0;">Información sobre el alojamiento</h2>
+        </div>
+      </div>
 
       <div class="card-body" style="margin-top:0.6rem; line-height:1.55;">
         <p>
@@ -45,13 +69,10 @@
       </div>
     </section>
 
-    <!-- Opciones: con desayuno -->
+    <!-- Opciones: con desayuno (sin imagen) -->
     <section class="card" aria-labelledby="con-desayuno-heading">
-      <div class="section-media">
-        <img src="img/Hotel.png" alt="Hotel Izán Puerta de Gredos" loading="lazy" width="72" height="72">
-        <div class="heading-wrap">
-          <h2 id="con-desayuno-heading">Opciones con desayuno (buffet incluido)</h2>
-        </div>
+      <div class="heading-wrap">
+        <h2 id="con-desayuno-heading">Opciones con desayuno (buffet incluido)</h2>
       </div>
 
       <div class="card-body">
@@ -76,13 +97,10 @@
       </div>
     </section>
 
-    <!-- Opciones: sin desayuno -->
+    <!-- Opciones: sin desayuno (sin imagen) -->
     <section class="card" aria-labelledby="sin-desayuno-heading">
-      <div class="section-media">
-        <img src="img/Hotel.png" alt="Opciones sin desayuno" loading="lazy" width="72" height="72">
-        <div class="heading-wrap">
-          <h2 id="sin-desayuno-heading">Opciones sin desayuno</h2>
-        </div>
+      <div class="heading-wrap">
+        <h2 id="sin-desayuno-heading">Opciones sin desayuno</h2>
       </div>
 
       <div class="card-body">
@@ -102,6 +120,7 @@
             </ul>
           </li>
         </ul>
+      </div>
     </section>
 
     <!-- Información adicional y contactos -->
