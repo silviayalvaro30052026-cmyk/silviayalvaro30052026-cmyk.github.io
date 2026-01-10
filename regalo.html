@@ -43,17 +43,39 @@
       display: grid;
       gap: 12px;
       grid-template-columns: repeat(12, 1fr);
-      grid-auto-rows: 12vw; /* base row height responsive to viewport */
+      /* responsive base height; using min to avoid extreme stretching */
+      grid-auto-rows: minmax(140px, 12vw);
       align-items: stretch;
     }
 
-    /* Item sizing: use column / row spans for variety */
-    .gallery-item { position: relative; display: block; border-radius: 12px; overflow: hidden; box-shadow: 0 12px 36px rgba(11,61,46,0.06); text-decoration: none; background:#f8f8f8; cursor: pointer; }
-    .gallery-item img { width:100%; height:100%; object-fit:cover; display:block; -webkit-user-drag: none; user-select: none; transition: transform 220ms ease; }
-    .gallery-item:hover img { transform: scale(1.03); }
+    /* Item container: use flexbox + center so images are not cropped (object-fit: contain) */
+    .gallery-item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 12px 36px rgba(11,61,46,0.06);
+      text-decoration: none;
+      background: #111; /* dark background helps letterboxing look intentional */
+      cursor: pointer;
+    }
 
-    /* Manual layout for 7 items — tweak spans for a pleasing mosaic */
-    /* Desktop / wide */
+    /* Images: contain so they don't get recortadas */
+    .gallery-item img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* <-- important: no recorta la imagen */
+      -webkit-user-drag: none;
+      user-select: none;
+      transition: transform 220ms ease, filter 220ms ease;
+      background: #111;
+    }
+    .gallery-item:hover img { transform: scale(1.02); filter: brightness(1.02); }
+
+    /* Manual layout for 7 items — mosaic */
     .item-1 { grid-column: 1 / span 5; grid-row: 1 / span 2; }
     .item-2 { grid-column: 6 / span 4; grid-row: 1 / span 1; }
     .item-3 { grid-column: 10 / span 3; grid-row: 1 / span 2; }
@@ -62,14 +84,9 @@
     .item-6 { grid-column: 5 / span 4; grid-row: 3 / span 1; }
     .item-7 { grid-column: 9 / span 4; grid-row: 3 / span 1; }
 
-    /* Make the images visually larger on wide screens */
-    @media (min-width: 1100px) {
-      .gallery-grid { grid-auto-rows: 12vw; }
-    }
-
-    /* Tablet: fewer columns and adjusted spans */
+    /* Tablet adjustments */
     @media (max-width: 1099px) {
-      .gallery-grid { grid-template-columns: repeat(8, 1fr); grid-auto-rows: 18vw; }
+      .gallery-grid { grid-template-columns: repeat(8, 1fr); grid-auto-rows: minmax(140px, 18vw); }
       .item-1 { grid-column: 1 / span 5; grid-row: 1 / span 2; }
       .item-2 { grid-column: 6 / span 3; grid-row: 1 / span 1; }
       .item-3 { grid-column: 6 / span 3; grid-row: 2 / span 1; }
@@ -79,9 +96,10 @@
       .item-7 { grid-column: 5 / span 4; grid-row: 4 / span 1; }
     }
 
-    /* Mobile: single column stacked but with nicer heights */
+    /* Mobile: stacked but balanced */
     @media (max-width: 640px) {
       .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 48vw; gap: 10px; }
+      .gallery-item { border-radius: 10px; }
       .item-1, .item-2, .item-3, .item-4, .item-5, .item-6, .item-7 {
         grid-column: auto / span 2;
         grid-row: auto / span 1;
@@ -95,7 +113,7 @@
       display: none;
       align-items: center;
       justify-content: center;
-      background: rgba(2, 6, 6, 0.6);
+      background: rgba(2, 6, 6, 0.75);
       z-index: 1200;
       padding: 24px;
     }
@@ -113,7 +131,7 @@
       max-width: 100%;
       max-height: 100%;
       border-radius: 10px;
-      box-shadow: 0 30px 80px rgba(2,6,6,0.5);
+      box-shadow: 0 30px 80px rgba(2,6,6,0.6);
       background: #111;
       display:block;
     }
@@ -130,21 +148,14 @@
       justify-content:center;
       cursor:pointer;
       backdrop-filter: blur(4px);
+      font-size: 20px;
+      line-height: 1;
     }
     .lightbox .close-btn { top: -22px; right: -22px; }
     .lightbox .prev-btn { left: 8px; }
     .lightbox .next-btn { right: 8px; }
-    .lightbox .caption {
-      position: absolute;
-      bottom: -48px;
-      left: 0;
-      right: 0;
-      text-align: center;
-      color: rgba(255,255,255,0.95);
-      font-weight:600;
-    }
-
-    /* Accessibility focus styles */
+    /* hide caption visually (user asked not to show titles) */
+    .lightbox .caption { display: none; }
     .lightbox .close-btn:focus, .lightbox .prev-btn:focus, .lightbox .next-btn:focus {
       outline: 2px solid rgba(255,255,255,0.18);
       outline-offset: 4px;
@@ -188,7 +199,7 @@
           <h3 id="gallery-heading">Unas fotos nuestras</h3>
 
           <div class="gallery-grid" role="list" aria-label="Galería de fotos">
-            <!-- Assign classes to shape the mosaic; names must match files in /img -->
+            <!-- Use .jpeg filenames (as indicated) -->
             <div class="gallery-item item-1" data-index="0" role="button" tabindex="0" aria-label="Abrir foto 1">
               <img src="img/IMG_0130.jpeg" alt="Silvia & Álvaro — foto 1" loading="lazy">
             </div>
@@ -224,14 +235,14 @@
     </section>
   </main>
 
-  <!-- Lightbox modal -->
+  <!-- Lightbox modal (no caption text shown) -->
   <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Visor de imágenes">
     <div class="lightbox-inner" role="document">
       <button class="close-btn" aria-label="Cerrar (Esc)" title="Cerrar">&times;</button>
       <button class="prev-btn" aria-label="Foto anterior" title="Anterior" aria-hidden="false">&#8249;</button>
       <img id="lightboxImg" src="" alt="">
       <button class="next-btn" aria-label="Foto siguiente" title="Siguiente" aria-hidden="false">&#8250;</button>
-      <div class="caption" id="lightboxCaption" aria-hidden="false"></div>
+      <div class="caption" id="lightboxCaption" aria-hidden="true"></div>
     </div>
   </div>
 
@@ -242,7 +253,6 @@
       const items = Array.from(document.querySelectorAll('.gallery-item'));
       const lightbox = document.getElementById('lightbox');
       const lbImg = document.getElementById('lightboxImg');
-      const lbCaption = document.getElementById('lightboxCaption');
       const closeBtn = lightbox.querySelector('.close-btn');
       const prevBtn = lightbox.querySelector('.prev-btn');
       const nextBtn = lightbox.querySelector('.next-btn');
@@ -258,11 +268,10 @@
       function showLightbox(index) {
         currentIndex = (index + gallery.length) % gallery.length;
         lbImg.src = gallery[currentIndex].src;
+        // keep alt for accessibility but don't display it visually
         lbImg.alt = gallery[currentIndex].alt;
-        lbCaption.textContent = gallery[currentIndex].alt;
         lightbox.classList.add('show');
         lightbox.setAttribute('aria-hidden', 'false');
-        // focus management
         closeBtn.focus();
         document.body.style.overflow = 'hidden'; // prevent background scroll
       }
@@ -318,7 +327,6 @@
         const img = new Image();
         img.src = url;
       }
-      // Preload next/prev on show
       const observer = new MutationObserver(() => {
         if (lightbox.classList.contains('show')) {
           preload(currentIndex + 1);
