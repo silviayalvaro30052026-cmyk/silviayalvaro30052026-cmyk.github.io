@@ -187,7 +187,7 @@
           <!-- Room options: shown only if willStay = si -->
           <div id="roomOptions" class="is-hidden" aria-hidden="true" style="margin-top:0.6rem;">
             <div style="margin-bottom:0.6rem;">
-              <strong>Habitación doble (2 personas)</strong>
+              <strong>Habitaci��n doble (2 personas)</strong>
               <div style="margin-top:0.45rem;">
                 <div class="choices">
                   <label class="choice-label"><input type="radio" name="roomType" value="double" checked> Habitación doble</label>
@@ -267,29 +267,33 @@
 
   <script>
     (function () {
-      // Form elements
+      // Form and UI elements
       const form = document.getElementById('rsvpForm');
       const statusEl = document.getElementById('formStatus');
       const submitBtn = form.querySelector('button[type="submit"]');
 
-      // Attendance & lodging visibility
-      const attendanceRadios = Array.from(form.elements['attendance'] || []);
+      // Use querySelector each time to ensure we get up-to-date nodes
+      function getAttendanceChecked() {
+        return document.querySelector('input[name="attendance"]:checked')?.value;
+      }
+      function getWillStayChecked() {
+        return document.querySelector('input[name="willStay"]:checked')?.value;
+      }
+
       const lodgingSection = document.getElementById('lodging-section');
-      const willStayRadios = Array.from(form.elements['willStay'] || []);
       const roomOptions = document.getElementById('roomOptions');
 
       function updateLodgingVisibility() {
-        const att = attendanceRadios.find(r => r.checked)?.value;
+        const att = getAttendanceChecked();
         if (att === 'si') {
           lodgingSection.classList.remove('is-hidden');
           lodgingSection.setAttribute('aria-hidden', 'false');
           // require willStay selection
-          willStayRadios.forEach(r => r.required = true);
+          document.querySelectorAll('input[name="willStay"]').forEach(i => i.required = true);
         } else {
           lodgingSection.classList.add('is-hidden');
           lodgingSection.setAttribute('aria-hidden', 'true');
-          willStayRadios.forEach(r => r.required = false);
-          // also hide room options
+          document.querySelectorAll('input[name="willStay"]').forEach(i => i.required = false);
           hideRoomOptions();
         }
       }
@@ -297,25 +301,29 @@
       function showRoomOptions() {
         roomOptions.classList.remove('is-hidden');
         roomOptions.setAttribute('aria-hidden', 'false');
-        // make roomType required
-        const roomTypeInputs = Array.from(form.elements['roomType'] || []);
-        roomTypeInputs.forEach(i => i.required = true);
+        document.querySelectorAll('input[name="roomType"]').forEach(i => i.required = true);
       }
       function hideRoomOptions() {
         roomOptions.classList.add('is-hidden');
         roomOptions.setAttribute('aria-hidden', 'true');
-        const roomTypeInputs = Array.from(form.elements['roomType'] || []);
-        roomTypeInputs.forEach(i => i.required = false);
+        document.querySelectorAll('input[name="roomType"]').forEach(i => i.required = false);
       }
 
-      // initialize
-      updateLodgingVisibility();
+      // Attach listeners via delegation for attendance radios (in case nodes change)
+      document.addEventListener('change', function (e) {
+        if (e.target && e.target.matches('input[name="attendance"]')) {
+          updateLodgingVisibility();
+        }
+        if (e.target && e.target.matches('input[name="willStay"]')) {
+          const val = getWillStayChecked();
+          if (val === 'si') showRoomOptions(); else hideRoomOptions();
+        }
+      }, { passive: true });
 
-      attendanceRadios.forEach(r => r.addEventListener('change', updateLodgingVisibility));
-      willStayRadios.forEach(r => r.addEventListener('change', function () {
-        const val = willStayRadios.find(x => x.checked)?.value;
-        if (val === 'si') showRoomOptions(); else hideRoomOptions();
-      }));
+      // Initialize visibility on load
+      updateLodgingVisibility();
+      // If user already chose willStay (e.g. returning), reflect room options
+      if (getWillStayChecked() === 'si') showRoomOptions();
 
       // Form submit via fetch to Formspree for custom message
       form.addEventListener('submit', async function (e) {
