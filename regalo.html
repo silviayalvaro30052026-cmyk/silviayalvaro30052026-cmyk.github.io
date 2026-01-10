@@ -1,38 +1,77 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <title>Regalo · Álvaro & Silvia</title>
+  <meta charset="utf-8" />
+  <title>Regalo — Silvia & Álvaro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Información sobre regalo y cuenta bancaria — Silvia & Álvaro" />
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <!-- Misma fuente que el resto del sitio -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet" />
 
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Pequeños ajustes locales para la página de regalo */
+    .card .bank {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: rgba(11,61,46,0.04);
+      border-radius: 10px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Helvetica Neue", monospace;
+      color: rgba(11,61,46,0.95);
+      box-shadow: 0 6px 18px rgba(11,61,46,0.04);
+    }
+    .card .bank .bank-name { font-weight: 800; letter-spacing: 0.02em; margin-bottom: 0.4rem; }
+    .card .bank pre {
+      margin: 0;
+      font-size: 1.05rem;
+      background: transparent;
+      white-space: pre-wrap;
+    }
+    .card .note { margin-top: 0.9rem; color: rgba(11,61,46,0.8); }
+    /* ensure the section-media image sizing matches other pages */
+    .section-media img { width:72px; height:72px; object-fit:cover; border-radius:8px; flex:0 0 72px; box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
+  </style>
 </head>
-<body>
+<body class="evento-page">
 
-  <header class="subnav">
-    <nav>
-      <a href="index.html">Inicio</a>
-      <a href="evento.html">Evento</a>
-      <a href="asistencia.html">Asistencia</a>
-      <a href="alojamiento.html">Alojamiento</a>
-      <a href="regalo.html">Regalo</a>
-    </nav>
-  </header>
-
-  <main class="section alt">
-    <h1>Regalo</h1>
-    <p>Lo más importante para nosotros es que nos acompañes. Si quieres tener un detalle, aquí tienes la información:</p>
-    <ul>
-      <li><strong>Número de cuenta:</strong> [Añadir]</li>
-      <li><strong>Concepto:</strong> Boda Álvaro & Silvia</li>
-      <li>Opcional: enlace a lista de regalos (Zankyou / Amazon)</li>
+  <!-- Navegación (igual que en evento.html / asistencia.html / alojamiento.html) -->
+  <nav class="top-nav" role="navigation" aria-label="Navegación de la boda">
+    <ul class="nav-list" role="menubar" aria-label="Secciones">
+      <li role="none"><a role="menuitem" class="nav-btn" href="index.html">Inicio</a></li>
+      <li role="none"><a role="menuitem" class="nav-btn" href="evento.html">Evento</a></li>
+      <li role="none"><a role="menuitem" class="nav-btn" href="asistencia.html">Asistencia</a></li>
+      <li role="none"><a role="menuitem" class="nav-btn" href="alojamiento.html">Alojamiento</a></li>
+      <li role="none"><span class="nav-current" aria-current="page">Regalo</span></li>
     </ul>
-    <p class="hint">Si prefieres Bizum o un código QR, te lo preparo.</p>
+  </nav>
+
+  <main id="main" class="section" role="main">
+    <h1>Regalo</h1>
+
+    <section class="card" aria-labelledby="regalo-heading">
+      <div class="section-media" style="align-items:center; gap:1rem;">
+        <img src="img/hotel.png" alt="Hotel" loading="lazy" width="72" height="72">
+        <div class="heading-wrap">
+          <h2 id="regalo-heading" style="margin:0;">Regalo</h2>
+        </div>
+      </div>
+
+      <div class="card-body" style="margin-top:0.8rem; line-height:1.6;">
+        <p>Que formes parte de nuestro día ya es un regalo. Si además te apetece acompañarnos un poquito más allá, en nuestra luna de miel y nuestros pequeños sueños, te dejamos este número de cuenta:</p>
+
+        <div class="bank" role="region" aria-label="Datos bancarios para regalo">
+          <div class="bank-name">BANCO SANTANDER</div>
+          <pre aria-hidden="false">ES44 0049 5131 1329 1608 2804</pre>
+        </div>
+
+        <p class="note">Si prefieres darnos el regalo en mano el día del evento o necesitar más información, escríbenos y te indicamos cómo hacerlo.</p>
+      </div>
+    </section>
   </main>
-  <footer class="footer">¡Gracias! ❤️</footer>
+
+  <footer class="footer" role="contentinfo">Álvaro & Silvia · 30/05/2026</footer>
 </body>
 </html>
