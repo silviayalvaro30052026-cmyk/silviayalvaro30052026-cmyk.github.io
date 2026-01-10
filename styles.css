@@ -1,21 +1,23 @@
-/* styles.css — archivo completo consolidado
-   Incluye: landing, ajustes tipográficos, CTA translúcidos, navegación (hamburguesa),
-   página de evento (.evento-page) y estilos del formulario + botón bonito.
+/* styles.css — archivo completo actualizado
+   Cambios principales:
+   - navegación fija arriba (no desplegable)
+   - tamaño de fuente global aumentado
+   - estilos conservados para landing, evento y formulario
 */
 
 /* ===========================
-   Variables
+   Variables (fuente base aumentada)
    =========================== */
 :root{
-  --base-font-size: 18px;
+  --base-font-size: 20px;           /* subido para aumentar todas las fuentes */
   --brand-green: #2a9d8f;
   --brand-green-dark: #167a63;
-  --nav-bar-height: 56px;
+  --nav-bar-height: 64px;           /* altura de la barra fija superior */
 
-  --cta-font-size: 1.5rem;
-  --cta-padding-vertical: 0.95rem;
-  --cta-padding-horizontal: 1.8rem;
-  --cta-min-width: 140px;
+  --cta-font-size: 1.6rem;
+  --cta-padding-vertical: 1rem;
+  --cta-padding-horizontal: 2rem;
+  --cta-min-width: 150px;
   --cta-gap: 1rem;
 }
 
@@ -29,8 +31,8 @@ body {
   color: #fff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  line-height: 1.45;
-  overflow-x: hidden; /* evita recortes/scroll horizontal en móviles */
+  line-height: 1.5;
+  overflow-x: hidden;
 }
 
 /* ===========================
@@ -42,7 +44,7 @@ body {
   align-items:center;
   justify-content:center;
   position:relative;
-  padding:2rem;
+  padding:2.25rem;
   text-align:center;
   background-image: url('img/hero.jpg');
   background-size:cover;
@@ -59,28 +61,28 @@ body {
 
 /* TÍTULO principal "¡Nos casamos!" — tamaño dominante en escritorio */
 .title{
-  font-size: clamp(3.8rem, 6.5vw, 5.2rem);
+  font-size: clamp(4.2rem, 6.8vw, 5.8rem);
   letter-spacing: 0.02em;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.8rem;
   font-weight: 700;
 }
 
 /* Subtítulo "Silvia & Álvaro" — algo menor que el título en escritorio */
 .subtitle{
-  font-size: clamp(2.6rem, 4.2vw, 4.6rem);
+  font-size: clamp(3rem, 4.6vw, 5rem);
   line-height: 1;
   margin: 0;
 }
 
 /* Fecha y ubicación — aumentadas en escritorio */
 .fecha{
-  font-size: clamp(1.8rem, 2.4vw, 2.4rem);
+  font-size: clamp(2rem, 2.6vw, 2.6rem);
   line-height: 1;
   opacity: 0.95;
   margin: 0;
 }
 .location{
-  font-size: clamp(1.6rem, 2.2vw, 2.2rem);
+  font-size: clamp(1.8rem, 2.4vw, 2.4rem);
   line-height: 1;
   margin: 0;
 }
@@ -90,11 +92,11 @@ body {
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:0.2rem;
-  margin-bottom:0.8rem;
+  gap:0.3rem;
+  margin-bottom:1rem;
 }
 
-/* CTA (botones) — más translúcidos en reposo */
+/* CTA (botones) — translúcidos en reposo */
 .cta-grid{ display:flex; gap:var(--cta-gap); flex-wrap:wrap; justify-content:center; }
 .cta{
   display:inline-block;
@@ -105,24 +107,19 @@ body {
   text-align:center;
   white-space:nowrap;
   border-radius:999px;
-  /* Fondo más translúcido: opacidad reducida para dejar ver más el fondo */
-  background: rgba(255,255,255,0.60); /* antes 0.85 */
+  background: rgba(255,255,255,0.58);
   color:#111;
   text-decoration:none;
-  font-weight:600;
+  font-weight:700;
   font-family:inherit;
-  box-shadow:0 4px 12px rgba(0,0,0,0.12);
+  box-shadow:0 6px 18px rgba(0,0,0,0.12);
   transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
   backdrop-filter: blur(4px);
 }
-.cta:hover, .cta:focus{
-  transform:translateY(-3px);
-  background: rgba(255,255,255,0.90);
-  box-shadow:0 8px 20px rgba(0,0,0,0.18);
-}
+.cta:hover, .cta:focus{ transform:translateY(-3px); background: rgba(255,255,255,0.92); box-shadow:0 12px 30px rgba(0,0,0,0.16); }
 
 /* ===========================
-   Página de evento (.evento-page)
+   Página de evento / estilos compartidos (.evento-page)
    =========================== */
 body.evento-page{
   background-image:none;
@@ -130,7 +127,7 @@ body.evento-page{
   color:#0b3d2e;
   min-height:100vh;
   font-size:1.125rem;
-  line-height:1.55;
+  line-height:1.6;
   text-align:center;
 }
 
@@ -141,53 +138,53 @@ body.evento-page .section{
   flex-direction:column;
   align-items:center;
   justify-content:flex-start;
-  padding:2rem 1rem 3rem;
+  padding:calc(var(--nav-bar-height) + 1.25rem) 1rem 3rem; /* deja espacio para la nav fija */
 }
 
 /* Card principal */
 body.evento-page .card{
   width:100%;
-  max-width:920px;
-  margin:0.9rem auto;
-  padding:1.6rem;
+  max-width:960px;
+  margin:1rem auto;
+  padding:1.8rem;
   border-radius:12px;
-  background:rgba(255,255,255,0.92);
+  background:rgba(255,255,255,0.94);
   backdrop-filter: blur(6px);
-  box-shadow:0 8px 24px rgba(11,61,46,0.08);
+  box-shadow:0 10px 30px rgba(11,61,46,0.08);
   color:inherit;
   text-align:left;
 }
 
-/* Evento: título de sección */
+/* Evento: título de sección (más grande por base más alta) */
 body.evento-page h1{
   margin:0 0 1rem 0;
-  font-size: clamp(2.2rem, 4.8vw, 3.2rem);
+  font-size: clamp(2.6rem, 5.2vw, 3.6rem);
   text-align:center;
 }
-body.evento-page h2{ margin-top:0; font-size:clamp(1.25rem,2.6vw,1.8rem); }
-body.evento-page .card p{ margin:0.35rem 0; font-size:clamp(0.95rem,1.8vw,1.05rem); }
+body.evento-page h2{ margin-top:0; font-size:clamp(1.35rem,2.8vw,2rem); }
+body.evento-page .card p{ margin:0.35rem 0; font-size:clamp(1rem,1.9vw,1.12rem); }
 
-/* Media section helper (imagen + texto alineados) */
+/* Media helper (imagen + texto alineados) */
 .section-media{ display:flex; align-items:center; gap:1rem; }
 
 /* Mapa dentro de las secciones */
 body.evento-page .map{ margin-top:0.6rem; }
-body.evento-page .map iframe{ width:100%; height:320px; border:0; border-radius:8px; display:block; }
+body.evento-page .map iframe{ width:100%; height:340px; border:0; border-radius:10px; display:block; }
 
 /* Lista de eventos (si se utiliza) */
-body.evento-page .event-list{ display:flex; flex-direction:column; gap:1rem; align-items:stretch; margin-top:0.6rem; }
+body.evento-page .event-list{ display:flex; flex-direction:column; gap:1rem; align-items:stretch; margin-top:0.8rem; }
 body.evento-page .event-item{
-  display:flex; align-items:flex-start; gap:0.85rem; max-width:780px; width:100%;
-  padding:0.6rem 0.8rem; border-radius:10px; background:rgba(232,246,232,0.35);
+  display:flex; align-items:flex-start; gap:1rem; max-width:820px; width:100%;
+  padding:0.8rem; border-radius:12px; background:rgba(232,246,232,0.36);
 }
 
 /* Icono/miniatura */
 body.evento-page .event-item .icon,
 body.evento-page .section-media img{
-  width:48px;
-  height:48px;
-  flex:0 0 48px;
-  border-radius:8px;
+  width:56px;
+  height:56px;
+  flex:0 0 56px;
+  border-radius:10px;
   overflow:hidden;
   background:transparent;
   display:inline-flex;
@@ -204,141 +201,88 @@ body.evento-page .section-media img{
 
 /* Contenido textual del item */
 body.evento-page .event-item .event-content{ flex:1 1 auto; }
-body.evento-page .event-item .event-content h3{ margin:0; font-size:1.05rem; color:inherit; }
-body.evento-page .event-item .event-content p{ margin:0.15rem 0 0 0; font-size:0.95rem; color:rgba(11,61,46,0.88); }
+body.evento-page .event-item .event-content h3{ margin:0; font-size:1.15rem; color:inherit; }
+body.evento-page .event-item .event-content p{ margin:0.2rem 0 0 0; font-size:1rem; color:rgba(11,61,46,0.88); }
 
 /* Enlaces y botones */
 body.evento-page a{ color:#064e2a; text-decoration:underline; }
 body.evento-page a:hover, body.evento-page a:focus{ color:#083826; text-decoration:none; }
-body.evento-page .btn-primary, body.evento-page button, body.evento-page input[type="submit"]{
-  /* fallback (overridden by .btn-primary more specific below) */
-  background-color:#0b3d2e; color:#fff; border:1px solid rgba(11,61,46,0.9); cursor:pointer;
-}
 body.evento-page .footer{ text-align:center; padding:1rem; color:rgba(11,61,46,0.9); }
 
 /* ===========================
-   Navegación / hamburguesa
+   Navegación fija arriba
    =========================== */
 .top-nav{
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
+  height: var(--nav-bar-height);
   z-index: 9999;
-  background: transparent;
-  width: 100%;
-  box-sizing: border-box;
-  padding-inline-start: 0.5rem;
-  padding-inline-end: 0.5rem;
-  border-bottom: 1px solid rgba(0,0,0,0.04);
   display:flex;
   align-items:center;
-  gap:0.25rem;
+  justify-content:center;
+  background: rgba(255,255,255,0.94); /* ligera base clara para legibilidad */
+  backdrop-filter: blur(6px) saturate(120%);
+  border-bottom: 1px solid rgba(11,61,46,0.06);
+  box-shadow: 0 6px 18px rgba(11,61,46,0.04);
 }
 
-/* Lista de navegación principal (cuando se usa como dropdown) */
+/* Lista de navegación horizontal */
 .nav-list{
   display:flex;
-  gap:0.75rem;
-  justify-content:center;
+  gap:1.1rem;
   align-items:center;
-  padding:0.75rem 1rem;
+  padding:0 1rem;
   margin:0;
   list-style:none;
   flex-wrap:wrap;
 }
 
-/* Nav items / botones */
-.nav-list a.nav-btn, .nav-list .nav-current{
+/* Estilos de los enlaces de la nav */
+.nav-list a.nav-btn {
   display:inline-block;
-  padding:0.6rem 0.9rem;
-  border-radius:6px;
-  text-decoration:none;
-  font-weight:600;
-  white-space:nowrap;
-  line-height:1;
-}
-.nav-list .nav-current{ background:rgba(0,0,0,0.04); pointer-events:none; }
-
-/* Controles (botón) */
-.nav-controls{ display:flex; justify-content:center; padding:0.6rem 1rem; }
-
-/* Ajustes: en evento-page el botón no tenga fondo y las barras usen color del texto */
-body.evento-page .nav-controls{ justify-content:flex-start; padding:0.4rem 0.4rem; }
-body.evento-page .nav-toggle{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:0.4rem;
+  padding:0.45rem 0.75rem;
   border-radius:8px;
-  cursor:pointer;
-  background: transparent;
-  border: none;
-  color: inherit;
-  line-height:0;
-  margin:0;
+  text-decoration:none;
+  color:var(--brand-green);
+  font-weight:700;
+  white-space:nowrap;
+  transition: background 160ms ease, color 160ms ease, transform 140ms ease;
+}
+.nav-list a.nav-btn:hover,
+.nav-list a.nav-btn:focus {
+  background: var(--brand-green-opaque, rgba(42,157,143,0.12));
+  color: var(--brand-green-dark);
+  transform: translateY(-2px);
+  outline: none;
+}
+.nav-list .nav-current {
+  display:inline-block;
+  padding:0.45rem 0.75rem;
+  border-radius:8px;
+  background: rgba(42,157,143,0.14);
+  color: var(--brand-green-dark);
+  font-weight:800;
+  pointer-events: none;
 }
 
-/* Texto sólo accesible */
-.sr-only{
-  position:absolute !important;
-  width:1px !important;
-  height:1px !important;
-  padding:0 !important;
-  margin:-1px !important;
-  overflow:hidden !important;
-  clip:rect(0 0 0 0) !important;
-  white-space:nowrap !important;
-  border:0 !important;
-}
-
-/* Hamburguesa (barras) */
-.hamburger{ display:inline-block; width:26px; height:18px; box-sizing:border-box; }
-.hamburger span{
-  display:block;
-  height:2px;
-  width:100%;
-  background: currentColor;
-  border-radius:2px;
-  margin:3.5px 0;
-  transform-origin:center;
-  transition: transform 240ms cubic-bezier(.2,.9,.2,1), opacity 180ms ease, background 180ms ease;
-}
-
-/* Transformación a cruz cuando está abierto */
-.nav-toggle[aria-expanded="true"] .hamburger span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
-.nav-toggle[aria-expanded="true"] .hamburger span:nth-child(2){ opacity:0; transform:scaleX(0); }
-.nav-toggle[aria-expanded="true"] .hamburger span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
-
-/* Dropdown menu (usado por JS): oculto por defecto, .show lo muestra */
-.nav-dropdown{ display:none; gap:0.5rem; justify-content:center; align-items:center; padding:0.35rem 0.6rem; margin: 0 0 0.1rem 0; list-style:none; background:transparent; border-bottom:none; box-shadow:none; }
-.nav-dropdown.show{ display:flex; flex-wrap:wrap; }
-.nav-dropdown a.nav-btn, .nav-dropdown .nav-current{
-  display:inline-block; padding:0.45rem 0.7rem; margin:0.1rem; border-radius:6px; text-decoration:none; white-space:nowrap; background:transparent; color: inherit;
-}
-.nav-dropdown .nav-current{ pointer-events:none; font-weight:700; color:inherit; }
-.nav-dropdown a.nav-btn:hover, .nav-dropdown a.nav-btn:focus{ color:var(--brand-green-dark); text-decoration:underline; outline:none; }
-
-/* Forzar transparencia para evitar cuadros blancos residuales */
-.top-nav, .nav-controls, .nav-toggle, .nav-dropdown, .nav-dropdown a.nav-btn, .nav-dropdown .nav-current { background:transparent; border:none; box-shadow:none; }
-
-/* Reducir el espacio entre la barra sticky y el contenido 'Evento' */
-body.evento-page main.section{ padding-top: calc(var(--nav-bar-height) - 0.75rem); }
-
-/* Asegura que el contenido principal no quede oculto bajo la barra (fallback global) */
-main.section{ padding-top: calc(var(--nav-bar-height) + 0.5rem); }
+/* Forzar transparencia de elementos internos si fuera necesario */
+.top-nav * { background: transparent; }
 
 /* ===========================
-   Botón bonito para envío de formulario (sobrescribe estilos previos)
+   Botón bonito para envío de formulario
    =========================== */
 .btn-primary {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.6rem 1.1rem;
+  padding: 0.7rem 1.25rem;
   border-radius: 999px;
-  background: linear-gradient(180deg, rgba(11,61,46,0.92), rgba(11,61,46,0.82));
+  background: linear-gradient(180deg, rgba(11,61,46,0.96), rgba(11,61,46,0.86));
   color: #fff;
   border: 1px solid rgba(255,255,255,0.06);
-  box-shadow: 0 8px 20px rgba(11,61,46,0.18);
+  box-shadow: 0 10px 28px rgba(11,61,46,0.18);
   font-weight: 700;
   font-size: 1rem;
   cursor: pointer;
@@ -356,68 +300,54 @@ main.section{ padding-top: calc(var(--nav-bar-height) + 0.5rem); }
 .btn-primary:hover,
 .btn-primary:focus {
   transform: translateY(-3px);
-  box-shadow: 0 12px 32px rgba(11,61,46,0.24);
-  background: linear-gradient(180deg, rgba(11,61,46,1), rgba(11,61,46,0.9));
+  box-shadow: 0 14px 36px rgba(11,61,46,0.28);
+  background: linear-gradient(180deg, rgba(11,61,46,1), rgba(11,61,46,0.95));
   outline: none;
 }
-.btn-primary:active {
-  transform: translateY(-1px) scale(.998);
-}
-.btn-primary:focus-visible {
-  outline: 3px solid rgba(42,157,143,0.18);
-  outline-offset: 3px;
-}
-@media (max-width: 640px) {
-  .btn-primary {
-    padding: 0.55rem 0.95rem;
-    font-size: 0.98rem;
-  }
-}
+.btn-primary:active { transform: translateY(-1px) scale(.998); }
+.btn-primary:focus-visible { outline: 3px solid rgba(42,157,143,0.18); outline-offset: 3px; }
 
 /* ===========================
-   Responsive
+   Responsive adjustments
    =========================== */
+@media (max-width: 840px) {
+  :root{ --nav-bar-height:68px; }
+
+  .title{ font-size: clamp(3.2rem, 8.5vw, 4.6rem); }
+  .subtitle{ font-size: clamp(2.2rem, 6.5vw, 3.6rem); }
+  .fecha{ font-size: clamp(1.6rem, 3.5vw, 2rem); }
+  .location{ font-size: clamp(1.4rem, 3.2vw, 1.8rem); }
+
+  .nav-list { gap: 0.6rem; padding: 0 0.6rem; }
+  .nav-list a.nav-btn, .nav-list .nav-current { padding: 0.45rem 0.6rem; font-size: 0.98rem; }
+}
+
 @media (max-width: 640px) {
   :root{ --nav-bar-height:72px; }
 
-  /* INDEX: en móvil disminuir "¡Nos casamos!" y subir "Silvia & Álvaro" y la fecha/ubicación */
-  .title{ font-size: clamp(1.9rem, 5.6vw, 2.4rem); }
-  .subtitle{ font-size: clamp(1.9rem, 5.8vw, 2.6rem); }
-  .fecha{ font-size: clamp(1.25rem, 2.8vw, 1.6rem); }
-  .location{ font-size: clamp(1.15rem, 2.6vw, 1.5rem); }
-  .meta { gap: 0.25rem; }
+  .landing { padding:1.5rem; }
+  .title{ font-size: clamp(1.9rem, 8vw, 2.6rem); }
+  .subtitle{ font-size: clamp(1.8rem, 7vw, 2.4rem); }
+  .fecha{ font-size: clamp(1.1rem, 3.6vw, 1.5rem); }
+  .location{ font-size: clamp(1rem, 3.4vw, 1.3rem); }
 
-  /* Top nav protections to avoid hamburger being cut off */
-  .top-nav{ padding-inline-start: 0.4rem; padding-inline-end: 0.4rem; }
-  .nav-controls{ padding-left: 0.35rem; padding-right: 0.35rem; }
+  /* Nav wraps on very narrow screens */
+  .nav-list { justify-content:center; gap:0.5rem; flex-wrap:wrap; padding: 0 0.5rem; }
+  .nav-list a.nav-btn, .nav-list .nav-current { white-space:normal; text-align:center; min-width:6rem; }
 
-  /* Ensure hamburger visible and left-aligned on evento page */
-  body.evento-page .nav-controls{ justify-content:flex-start; }
-  body.evento-page .nav-toggle{ margin-left: 0; margin-right: 0.25rem; }
-
-  /* Evento: ajustar layout of event items for narrow screens */
-  body.evento-page .event-item{
-    flex-direction: column;
-    align-items:flex-start;
-    gap:0.6rem;
-  }
-  body.evento-page .event-item .icon,
-  body.evento-page .section-media img{ width:44px; height:44px; flex:0 0 44px; }
-  body.evento-page .map iframe{ height:200px; }
-
-  .nav-dropdown.show{ width:100%; justify-content:center; margin-bottom:0.05rem; }
-  .nav-dropdown a.nav-btn, .nav-dropdown .nav-current{ white-space:normal; text-align:center; min-width:6rem; }
-
-  body.evento-page h1{ font-size:2rem; }
+  body.evento-page .section { padding-top: calc(var(--nav-bar-height) + 1rem); }
+  body.evento-page .event-item { flex-direction: column; align-items:flex-start; gap:0.6rem; }
+  body.evento-page .event-item .icon, body.evento-page .section-media img { width:44px; height:44px; flex:0 0 44px; }
+  body.evento-page .map iframe { height:200px; }
 }
 
 /* Pequeños ajustes visuales globales */
 h1,h2,h3{ line-height:1.15; }
 
 /* ===========================
-   Notas / fallbacks
+   Notas
    ===========================
-   - Si prefieres otra opacidad para los botones .cta (más o menos translúcido),
-     cambia rgba(255,255,255,0.60) por el valor deseado (ej. 0.5 ó 0.7).
-   - Si quieres que el icono del botón sea distinto, reemplaza el SVG inline en asistencia.html.
+ - Si quieres un color distinto para la barra fija, ajusta background en .top-nav.
+ - Si quieres que la barra sea translúcida sobre la imagen de portada, mantén background parcialmente transparente.
+ - main.section tiene padding-top suficiente para que el contenido no quede oculto bajo la nav fija.
 */
