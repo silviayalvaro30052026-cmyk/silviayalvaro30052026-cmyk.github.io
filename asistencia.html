@@ -13,12 +13,12 @@
 
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Estilos locales del formulario (complementan styles.css) */
+    /* Pequeños estilos específicos del formulario (complementan styles.css) */
     .rsvp-form { display:block; width:100%; }
     .form-row { display:flex; gap:1rem; margin:0.5rem 0 1rem; align-items:center; flex-wrap:wrap; }
     .form-row .field { flex:1 1 220px; min-width:180px; }
     label { display:block; font-weight:600; margin-bottom:0.35rem; color: inherit; font-family: inherit; }
-    input[type="text"], textarea {
+    input[type="text"], textarea, select {
       width:100%;
       padding:0.6rem 0.75rem;
       border-radius:8px;
@@ -39,6 +39,11 @@
     }
     input[type="radio"] { accent-color: var(--brand-green); }
 
+    /* Lodging specific */
+    #lodging-section { margin-top: 0.2rem; }
+    .supplements { display:flex; gap:0.8rem; flex-wrap:wrap; margin-top:0.5rem; }
+    .supplement-label { display:inline-flex; align-items:center; gap:0.45rem; padding:0.28rem 0.45rem; border-radius:8px; background: rgba(255,255,255,0.86); color: inherit; }
+
     /* Form actions: centrar botón y mensaje debajo */
     .form-actions {
       margin-top: 0.75rem;
@@ -49,9 +54,7 @@
       justify-content:center;
     }
 
-    .form-note { font-size:0.95rem; color: rgba(11,61,46,0.8); font-family: inherit; }
-
-    /* Mensaje de confirmación sin caja verde, con animación */
+    /* Mensaje de confirmación sin caja, con animación */
     .rsvp-message {
       opacity: 0;
       transform: translateY(10px);
@@ -62,11 +65,9 @@
       font-size: 1.05rem;
       text-align:center;
     }
-    .rsvp-message.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .rsvp-message.show { opacity: 1; transform: translateY(0); }
 
+    .is-hidden { display:none !important; }
     @media (max-width:640px) {
       .form-row { gap:0.5rem; }
       .form-row .field { flex:1 1 100%; min-width:0; }
@@ -94,6 +95,7 @@
 
       <!-- FORM: enviado a Formspree vía fetch para mostrar mensaje personalizado -->
       <form id="rsvpForm" class="rsvp-form" method="POST" action="https://formspree.io/f/mdaankgw" novalidate>
+        <!-- Hidden fields -->
         <input type="hidden" name="_subject" value="RSVP Silvia & Álvaro">
         <input type="text" name="_gotcha" style="display:none" aria-hidden="true">
 
@@ -126,14 +128,22 @@
           </div>
         </fieldset>
 
-        <!-- 3. Dieta (radios, selección única) -->
+        <!-- 3. Dieta (radios: selección única) -->
         <fieldset>
           <legend style="font-weight:700;margin-bottom:0.5rem;">¿Sigues alguna dieta especial?</legend>
           <div class="radio-group" role="radiogroup" aria-labelledby="dieta-legend" id="dieta-legend">
-            <label class="choice-label"><input type="radio" name="diet" value="no" checked> No</label>
-            <label class="choice-label"><input type="radio" name="diet" value="vegetariana"> Vegetariana</label>
-            <label class="choice-label"><input type="radio" name="diet" value="vegetariana-pescado"> Vegetariana (como pescado)</label>
-            <label class="choice-label"><input type="radio" name="diet" value="vegana"> Vegana</label>
+            <label class="choice-label">
+              <input type="radio" name="diet" value="no" checked> No
+            </label>
+            <label class="choice-label">
+              <input type="radio" name="diet" value="vegetariana"> Vegetariana
+            </label>
+            <label class="choice-label">
+              <input type="radio" name="diet" value="vegetariana-pescado"> Vegetariana (como pescado)
+            </label>
+            <label class="choice-label">
+              <input type="radio" name="diet" value="vegana"> Vegana
+            </label>
           </div>
         </fieldset>
 
@@ -157,7 +167,81 @@
           </div>
         </fieldset>
 
-        <!-- 6. Algo más que debamos saber -->
+        <!-- 6. Alojamiento (integrado desde alojamiento.html) -->
+        <fieldset id="lodging-section" class="is-hidden" aria-hidden="true">
+          <legend style="font-weight:700;margin-bottom:0.5rem;">Alojamiento (opcional — hotel reservado)</legend>
+
+          <p style="margin-top:0; margin-bottom:0.6rem;">
+            Por comodidad, el hotel estará reservado para los invitados. Si os interesa alojaros allí, indicadlo aquí y la opción que preferís.
+          </p>
+
+          <!-- ¿Te alojarás en el hotel? -->
+          <div style="margin-bottom:0.6rem;">
+            <div style="font-weight:700; margin-bottom:0.35rem;">¿Te alojarás en el hotel?</div>
+            <div class="choices">
+              <label class="choice-label"><input type="radio" name="willStay" value="si"> Sí</label>
+              <label class="choice-label"><input type="radio" name="willStay" value="no" checked> No</label>
+            </div>
+          </div>
+
+          <!-- Room options: shown only if willStay = si -->
+          <div id="roomOptions" class="is-hidden" aria-hidden="true" style="margin-top:0.6rem;">
+            <div style="margin-bottom:0.6rem;">
+              <strong>Habitación doble (2 personas)</strong>
+              <div style="margin-top:0.45rem;">
+                <div class="choices">
+                  <label class="choice-label"><input type="radio" name="roomType" value="double" checked> Habitación doble</label>
+                </div>
+
+                <div style="margin-top:0.45rem;">
+                  <div class="option-prices">
+                    <div><strong>2 noches (viernes a domingo):</strong> 187 €</div>
+                    <div style="margin-top:0.25rem;"><strong>1 noche:</strong> 95,50 €</div>
+                  </div>
+
+                  <div class="choices" style="margin-top:0.5rem;">
+                    <label class="choice-label"><input type="radio" name="double_nights" value="2n" checked> 2 noches (viernes a domingo)</label>
+                    <label class="choice-label"><input type="radio" name="double_nights" value="1n"> 1 noche</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-bottom:0.6rem;">
+              <strong>Habitación triple (3 personas)</strong>
+              <div style="margin-top:0.45rem;">
+                <div class="choices">
+                  <label class="choice-label"><input type="radio" name="roomType" value="triple"> Habitación triple</label>
+                </div>
+
+                <div style="margin-top:0.45rem;">
+                  <div class="option-prices">
+                    <div><strong>2 noches (viernes a domingo):</strong> 248 €</div>
+                  </div>
+
+                  <div class="choices" style="margin-top:0.5rem;">
+                    <label class="choice-label"><input type="radio" name="triple_nights" value="2n" checked> 2 noches (viernes a domingo)</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:0.4rem;">
+              <div style="font-weight:700; margin-bottom:0.35rem;">Suplementos opcionales (por habitación y noche)</div>
+              <div class="supplements">
+                <label class="supplement-label"><input type="checkbox" name="supplement_junior" value="junior"> Junior Suite → + 32 € / noche</label>
+                <label class="supplement-label"><input type="checkbox" name="supplement_suite" value="suite"> Suite → + 42 € / noche</label>
+              </div>
+            </div>
+
+            <div style="margin-top:0.6rem;">
+              <label for="lodgingComments" style="font-weight:700; display:block; margin-bottom:0.3rem;">📝 Comentarios o necesidades especiales (cuna, dudas, etc)</label>
+              <textarea id="lodgingComments" name="lodgingComments" placeholder="Escribe aquí…"></textarea>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- 7. Algo más que debamos saber (general) -->
         <fieldset>
           <legend style="font-weight:700;margin-bottom:0.5rem;">¿Algo más que debamos saber?</legend>
           <div class="form-row">
@@ -183,15 +267,62 @@
 
   <script>
     (function () {
-      // Mostrar/ocultar acompañante ya no necesario (campo eliminado)
-      // Envío por fetch a Formspree para poder mostrar mensaje personalizado con animación
+      // Form elements
       const form = document.getElementById('rsvpForm');
       const statusEl = document.getElementById('formStatus');
       const submitBtn = form.querySelector('button[type="submit"]');
 
+      // Attendance & lodging visibility
+      const attendanceRadios = Array.from(form.elements['attendance'] || []);
+      const lodgingSection = document.getElementById('lodging-section');
+      const willStayRadios = Array.from(form.elements['willStay'] || []);
+      const roomOptions = document.getElementById('roomOptions');
+
+      function updateLodgingVisibility() {
+        const att = attendanceRadios.find(r => r.checked)?.value;
+        if (att === 'si') {
+          lodgingSection.classList.remove('is-hidden');
+          lodgingSection.setAttribute('aria-hidden', 'false');
+          // require willStay selection
+          willStayRadios.forEach(r => r.required = true);
+        } else {
+          lodgingSection.classList.add('is-hidden');
+          lodgingSection.setAttribute('aria-hidden', 'true');
+          willStayRadios.forEach(r => r.required = false);
+          // also hide room options
+          hideRoomOptions();
+        }
+      }
+
+      function showRoomOptions() {
+        roomOptions.classList.remove('is-hidden');
+        roomOptions.setAttribute('aria-hidden', 'false');
+        // make roomType required
+        const roomTypeInputs = Array.from(form.elements['roomType'] || []);
+        roomTypeInputs.forEach(i => i.required = true);
+      }
+      function hideRoomOptions() {
+        roomOptions.classList.add('is-hidden');
+        roomOptions.setAttribute('aria-hidden', 'true');
+        const roomTypeInputs = Array.from(form.elements['roomType'] || []);
+        roomTypeInputs.forEach(i => i.required = false);
+      }
+
+      // initialize
+      updateLodgingVisibility();
+
+      attendanceRadios.forEach(r => r.addEventListener('change', updateLodgingVisibility));
+      willStayRadios.forEach(r => r.addEventListener('change', function () {
+        const val = willStayRadios.find(x => x.checked)?.value;
+        if (val === 'si') showRoomOptions(); else hideRoomOptions();
+      }));
+
+      // Form submit via fetch to Formspree for custom message
       form.addEventListener('submit', async function (e) {
         e.preventDefault();
-        statusEl.innerHTML = ''; // limpiar
+        statusEl.innerHTML = '';
+
+        // native validation
         if (!form.checkValidity()) {
           form.reportValidity();
           return;
@@ -211,23 +342,25 @@
           });
 
           if (resp.ok) {
-            // Insertar mensaje sin caja, con animación
+            // Show success message under button (animated)
             statusEl.innerHTML = '<div class="rsvp-message" id="rsvpMessage">Gracias, nos vemos el 30 de Mayo.</div>';
-            // Forzar repaint y añadir clase "show" para activar la transición
             const msg = document.getElementById('rsvpMessage');
             requestAnimationFrame(() => requestAnimationFrame(() => msg.classList.add('show')));
             form.reset();
-            // mantener botón deshabilitado para evitar envíos repetidos; si quieres reactivar lo podemos hacer tras X segundos
+            // reset visibility after clearing
+            updateLodgingVisibility();
+            hideRoomOptions();
+            // keep submit disabled to avoid duplicate sends
           } else {
             const data = await resp.json().catch(()=>null);
             let msg = 'Error al enviar. Por favor inténtalo de nuevo.';
             if (data && data.error) msg = data.error;
-            statusEl.innerHTML = '<div class="form-note" style="color:#b33">'+msg+'</div>';
+            statusEl.innerHTML = '<div class="form-note" style="color: #b33;">'+msg+'</div>';
             submitBtn.disabled = false;
             submitBtn.removeAttribute('aria-busy');
           }
         } catch (err) {
-          statusEl.innerHTML = '<div class="form-note" style="color:#b33">Error de conexión. Intenta de nuevo más tarde.</div>';
+          statusEl.innerHTML = '<div class="form-note" style="color: #b33;">Error de conexión. Intenta de nuevo más tarde.</div>';
           submitBtn.disabled = false;
           submitBtn.removeAttribute('aria-busy');
         }
