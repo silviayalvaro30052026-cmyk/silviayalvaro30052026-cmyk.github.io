@@ -1,9 +1,9 @@
 /* styles.css — archivo completo actualizado
    Cambios principales:
-   - navegación ya NO es fija (se desplaza con la página)
-   - la barra de navegación usa el mismo color verde claro de fondo
+   - navegación en flujo (se desplaza con scroll)
+   - botón "Enviar" usa la misma fuente (hereda) y texto "Enviar"
+   - dieta ahora es grupo de radios (selección única)
    - tamaño de fuente global elevado
-   - estilos conservados para landing, evento y formulario
 */
 
 /* ===========================
@@ -133,14 +133,14 @@ body.evento-page{
   text-align:center;
 }
 
-/* Contenedor principal: ahora no necesita compensar nav fija */
+/* Contenedor principal: nav ya en flujo, no reservar espacio */
 body.evento-page .section{
   min-height:100vh;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:flex-start;
-  padding:2rem 1rem 3rem; /* nav ya está en el flujo, no reservar más espacio */
+  padding:2rem 1rem 3rem;
 }
 
 /* Card principal */
@@ -157,7 +157,7 @@ body.evento-page .card{
   text-align:left;
 }
 
-/* Evento: título de sección (más grande por base más alta) */
+/* Evento: título de sección */
 body.evento-page h1{
   margin:0 0 1rem 0;
   font-size: clamp(2.6rem, 5.2vw, 3.6rem);
@@ -212,10 +212,10 @@ body.evento-page a:hover, body.evento-page a:focus{ color:#083826; text-decorati
 body.evento-page .footer{ text-align:center; padding:1rem; color:rgba(11,61,46,0.9); }
 
 /* ===========================
-   Navegación en flujo (no fija)
+   Navegación en flujo (no fija) — fondo mismo verde claro
    =========================== */
 .top-nav{
-  position: static; /* queda en el flujo normal y se desplaza al hacer scroll */
+  position: static; /* en el flujo normal, se desplaza al hacer scroll */
   display:flex;
   align-items:center;
   justify-content:center;
@@ -270,6 +270,7 @@ body.evento-page .footer{ text-align:center; padding:1rem; color:rgba(11,61,46,0
 .btn-primary {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.6rem;
   padding: 0.7rem 1.25rem;
   border-radius: 999px;
@@ -283,13 +284,8 @@ body.evento-page .footer{ text-align:center; padding:1rem; color:rgba(11,61,46,0
   transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
   backdrop-filter: blur(6px) saturate(120%);
   -webkit-tap-highlight-color: transparent;
-}
-.btn-primary .btn-icon {
-  width: 18px;
-  height: 18px;
-  display: inline-block;
-  flex: 0 0 18px;
-  line-height: 0;
+  font-family: inherit; /* asegura misma fuente que el sitio */
+  line-height: 1;
 }
 .btn-primary:hover,
 .btn-primary:focus {
@@ -337,7 +333,3 @@ body.evento-page .footer{ text-align:center; padding:1rem; color:rgba(11,61,46,0
 
 /* Pequeños ajustes visuales globales */
 h1,h2,h3{ line-height:1.15; }
- - Si quieres un color distinto para la barra fija, ajusta background en .top-nav.
- - Si quieres que la barra sea translúcida sobre la imagen de portada, mantén background parcialmente transparente.
- - main.section tiene padding-top suficiente para que el contenido no quede oculto bajo la nav fija.
-*/
