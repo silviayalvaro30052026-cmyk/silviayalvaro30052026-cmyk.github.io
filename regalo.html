@@ -35,51 +35,119 @@
     /* section-media image sizing consistent con otras páginas */
     .section-media img { width:72px; height:72px; object-fit:cover; border-radius:8px; flex:0 0 72px; box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
 
-    /* Gallery styles */
+    /* Gallery: quilt layout + larger images */
     .photo-gallery { margin-top: 1.25rem; }
-    .photo-gallery .gallery-grid {
+    .photo-gallery h3 { margin-bottom: 0.6rem; }
+
+    .gallery-grid {
       display: grid;
       gap: 12px;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      align-items: start;
-    }
-    .photo-gallery a {
-      display: block;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(11,61,46,0.06);
-      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.96));
-      transition: transform 180ms ease, box-shadow 180ms ease;
-      text-decoration: none;
-    }
-    .photo-gallery a:focus,
-    .photo-gallery a:hover {
-      transform: translateY(-4px) scale(1.01);
-      box-shadow: 0 18px 44px rgba(11,61,46,0.10);
-      outline: none;
-    }
-    .photo-gallery img {
-      display:block;
-      width:100%;
-      height:220px;
-      object-fit:cover;
-      -webkit-user-drag: none;
-      user-select: none;
-      background: #f6f6f6; /* placeholder visible while loading */
-    }
-    .photo-gallery .caption {
-      padding: 0.55rem 0.7rem;
-      font-size: 0.95rem;
-      color: rgba(11,61,46,0.85);
-      background: rgba(255,255,255,0.92);
-      border-top: 1px solid rgba(11,61,46,0.03);
+      grid-template-columns: repeat(12, 1fr);
+      grid-auto-rows: 12vw; /* base row height responsive to viewport */
+      align-items: stretch;
     }
 
-    @media (max-width: 840px) {
-      .photo-gallery img { height:180px; }
+    /* Item sizing: use column / row spans for variety */
+    .gallery-item { position: relative; display: block; border-radius: 12px; overflow: hidden; box-shadow: 0 12px 36px rgba(11,61,46,0.06); text-decoration: none; background:#f8f8f8; cursor: pointer; }
+    .gallery-item img { width:100%; height:100%; object-fit:cover; display:block; -webkit-user-drag: none; user-select: none; transition: transform 220ms ease; }
+    .gallery-item:hover img { transform: scale(1.03); }
+
+    /* Manual layout for 7 items — tweak spans for a pleasing mosaic */
+    /* Desktop / wide */
+    .item-1 { grid-column: 1 / span 5; grid-row: 1 / span 2; }
+    .item-2 { grid-column: 6 / span 4; grid-row: 1 / span 1; }
+    .item-3 { grid-column: 10 / span 3; grid-row: 1 / span 2; }
+    .item-4 { grid-column: 6 / span 4; grid-row: 2 / span 1; }
+    .item-5 { grid-column: 1 / span 4; grid-row: 3 / span 1; }
+    .item-6 { grid-column: 5 / span 4; grid-row: 3 / span 1; }
+    .item-7 { grid-column: 9 / span 4; grid-row: 3 / span 1; }
+
+    /* Make the images visually larger on wide screens */
+    @media (min-width: 1100px) {
+      .gallery-grid { grid-auto-rows: 12vw; }
     }
-    @media (max-width: 480px) {
-      .photo-gallery img { height:140px; }
+
+    /* Tablet: fewer columns and adjusted spans */
+    @media (max-width: 1099px) {
+      .gallery-grid { grid-template-columns: repeat(8, 1fr); grid-auto-rows: 18vw; }
+      .item-1 { grid-column: 1 / span 5; grid-row: 1 / span 2; }
+      .item-2 { grid-column: 6 / span 3; grid-row: 1 / span 1; }
+      .item-3 { grid-column: 6 / span 3; grid-row: 2 / span 1; }
+      .item-4 { grid-column: 1 / span 4; grid-row: 3 / span 1; }
+      .item-5 { grid-column: 5 / span 4; grid-row: 3 / span 1; }
+      .item-6 { grid-column: 1 / span 4; grid-row: 4 / span 1; }
+      .item-7 { grid-column: 5 / span 4; grid-row: 4 / span 1; }
+    }
+
+    /* Mobile: single column stacked but with nicer heights */
+    @media (max-width: 640px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 48vw; gap: 10px; }
+      .item-1, .item-2, .item-3, .item-4, .item-5, .item-6, .item-7 {
+        grid-column: auto / span 2;
+        grid-row: auto / span 1;
+      }
+    }
+
+    /* Lightbox modal */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(2, 6, 6, 0.6);
+      z-index: 1200;
+      padding: 24px;
+    }
+    .lightbox.show { display: flex; }
+    .lightbox-inner {
+      position: relative;
+      max-width: calc(100% - 48px);
+      max-height: calc(100% - 48px);
+      width: 100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .lightbox img {
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 10px;
+      box-shadow: 0 30px 80px rgba(2,6,6,0.5);
+      background: #111;
+      display:block;
+    }
+    .lightbox .close-btn, .lightbox .prev-btn, .lightbox .next-btn {
+      position: absolute;
+      background: rgba(255,255,255,0.08);
+      border: none;
+      color: #fff;
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      backdrop-filter: blur(4px);
+    }
+    .lightbox .close-btn { top: -22px; right: -22px; }
+    .lightbox .prev-btn { left: 8px; }
+    .lightbox .next-btn { right: 8px; }
+    .lightbox .caption {
+      position: absolute;
+      bottom: -48px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: rgba(255,255,255,0.95);
+      font-weight:600;
+    }
+
+    /* Accessibility focus styles */
+    .lightbox .close-btn:focus, .lightbox .prev-btn:focus, .lightbox .next-btn:focus {
+      outline: 2px solid rgba(255,255,255,0.18);
+      outline-offset: 4px;
     }
   </style>
 </head>
@@ -115,38 +183,39 @@
           <p class="iban" aria-hidden="false">ES44 0049 5131 1329 1608 2804</p>
         </div>
 
-        <!-- Photo gallery -->
+        <!-- Photo gallery (mosaic layout) -->
         <div class="photo-gallery" aria-labelledby="gallery-heading">
-          <h3 id="gallery-heading" style="margin:0.85rem 0 0.6rem 0; font-size:1.05rem;">Unas fotos nuestras</h3>
+          <h3 id="gallery-heading">Unas fotos nuestras</h3>
 
-          <div class="gallery-grid" role="list">
-            <a href="img/IMG_0130.jpeg" target="_blank" rel="noopener noreferrer" role="listitem">
-              <img src="img/IMG_0130.jpeg" alt="Silvia & Álvaro — foto 1" loading="lazy">
-            </a>
+          <div class="gallery-grid" role="list" aria-label="Galería de fotos">
+            <!-- Assign classes to shape the mosaic; names must match files in /img -->
+            <div class="gallery-item item-1" data-index="0" role="button" tabindex="0" aria-label="Abrir foto 1">
+              <img src="img/IMG_0130.jpg" alt="Silvia & Álvaro — foto 1" loading="lazy">
+            </div>
 
-            <a href="img/IMG_1001.jpeg" target="_blank" rel="noopener noreferrer" role="listitem">
-              <img src="img/IMG_1001.jpeg" alt="Silvia & Álvaro — foto 2" loading="lazy">
-            </a>
+            <div class="gallery-item item-2" data-index="1" role="button" tabindex="0" aria-label="Abrir foto 2">
+              <img src="img/IMG_1001.jpg" alt="Silvia & Álvaro — foto 2" loading="lazy">
+            </div>
 
-            <a href="img/IMG_1281.jpeg" target="_blank" rel="noopener noreferrer" role="listitem">
-              <img src="img/IMG_1281.jpeg" alt="Silvia & Álvaro — foto 3" loading="lazy">
-            </a>
+            <div class="gallery-item item-3" data-index="2" role="button" tabindex="0" aria-label="Abrir foto 3">
+              <img src="img/IMG_1281.jpg" alt="Silvia & Álvaro — foto 3" loading="lazy">
+            </div>
 
-            <a href="img/IMG_1445.jpeg" target="_blank" rel="noopener noreferrer" role="listitem">
-              <img src="img/IMG_1445.jpeg" alt="Silvia & Álvaro — foto 4" loading="lazy">
-            </a>
+            <div class="gallery-item item-4" data-index="3" role="button" tabindex="0" aria-label="Abrir foto 4">
+              <img src="img/IMG_1445.jpg" alt="Silvia & Álvaro — foto 4" loading="lazy">
+            </div>
 
-            <a href="img/IMG_1469.jpeg" target="_blank" rel="noopener noreferrer" role="listitem">
-              <img src="img/IMG_1469.jpeg" alt="Silvia & Álvaro — foto 5" loading="lazy">
-            </a>
+            <div class="gallery-item item-5" data-index="4" role="button" tabindex="0" aria-label="Abrir foto 5">
+              <img src="img/IMG_1469.jpg" alt="Silvia & Álvaro — foto 5" loading="lazy">
+            </div>
 
-            <a href="img/IMG_1627.jpeg" target="_blank" rel="noopener noreferrer" role="listitem">
-              <img src="img/IMG_1627.jpeg" alt="Silvia & Álvaro — foto 6" loading="lazy">
-            </a>
+            <div class="gallery-item item-6" data-index="5" role="button" tabindex="0" aria-label="Abrir foto 6">
+              <img src="img/IMG_1627.jpg" alt="Silvia & Álvaro — foto 6" loading="lazy">
+            </div>
 
-            <a href="img/IMG_6288.jpeg" target="_blank" rel="noopener noreferrer" role="listitem">
-              <img src="img/IMG_6288.jpeg" alt="Silvia & Álvaro — foto 7" loading="lazy">
-            </a>
+            <div class="gallery-item item-7" data-index="6" role="button" tabindex="0" aria-label="Abrir foto 7">
+              <img src="img/IMG_6288.jpg" alt="Silvia & Álvaro — foto 7" loading="lazy">
+            </div>
           </div>
         </div>
         <!-- /photo-gallery -->
@@ -155,6 +224,109 @@
     </section>
   </main>
 
+  <!-- Lightbox modal -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Visor de imágenes">
+    <div class="lightbox-inner" role="document">
+      <button class="close-btn" aria-label="Cerrar (Esc)" title="Cerrar">&times;</button>
+      <button class="prev-btn" aria-label="Foto anterior" title="Anterior" aria-hidden="false">&#8249;</button>
+      <img id="lightboxImg" src="" alt="">
+      <button class="next-btn" aria-label="Foto siguiente" title="Siguiente" aria-hidden="false">&#8250;</button>
+      <div class="caption" id="lightboxCaption" aria-hidden="false"></div>
+    </div>
+  </div>
+
   <footer class="footer" role="contentinfo">Álvaro & Silvia · 30/05/2026</footer>
+
+  <script>
+    (function () {
+      const items = Array.from(document.querySelectorAll('.gallery-item'));
+      const lightbox = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lightboxImg');
+      const lbCaption = document.getElementById('lightboxCaption');
+      const closeBtn = lightbox.querySelector('.close-btn');
+      const prevBtn = lightbox.querySelector('.prev-btn');
+      const nextBtn = lightbox.querySelector('.next-btn');
+
+      // Build array of image srcs & alts from the gallery (keeps order)
+      const gallery = items.map(i => {
+        const img = i.querySelector('img');
+        return { src: img.getAttribute('src'), alt: img.getAttribute('alt') || '' };
+      });
+
+      let currentIndex = 0;
+
+      function showLightbox(index) {
+        currentIndex = (index + gallery.length) % gallery.length;
+        lbImg.src = gallery[currentIndex].src;
+        lbImg.alt = gallery[currentIndex].alt;
+        lbCaption.textContent = gallery[currentIndex].alt;
+        lightbox.classList.add('show');
+        lightbox.setAttribute('aria-hidden', 'false');
+        // focus management
+        closeBtn.focus();
+        document.body.style.overflow = 'hidden'; // prevent background scroll
+      }
+
+      function hideLightbox() {
+        lightbox.classList.remove('show');
+        lightbox.setAttribute('aria-hidden', 'true');
+        lbImg.src = '';
+        lbImg.alt = '';
+        document.body.style.overflow = '';
+      }
+
+      function showNext() { showLightbox(currentIndex + 1); }
+      function showPrev() { showLightbox(currentIndex - 1); }
+
+      // Open on click / keyboard Enter/Space
+      items.forEach((item, idx) => {
+        item.addEventListener('click', function (e) {
+          e.preventDefault();
+          showLightbox(idx);
+        });
+        item.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            showLightbox(idx);
+          }
+        });
+      });
+
+      // Controls
+      closeBtn.addEventListener('click', hideLightbox);
+      nextBtn.addEventListener('click', showNext);
+      prevBtn.addEventListener('click', showPrev);
+
+      // Close when clicking outside the image (on backdrop)
+      lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) hideLightbox();
+      });
+
+      // Keyboard navigation
+      document.addEventListener('keydown', function (e) {
+        if (lightbox.classList.contains('show')) {
+          if (e.key === 'Escape') hideLightbox();
+          if (e.key === 'ArrowRight') showNext();
+          if (e.key === 'ArrowLeft') showPrev();
+        }
+      });
+
+      // Preload neighbor images for smoother navigation
+      function preload(index) {
+        const idx = (index + gallery.length) % gallery.length;
+        const url = gallery[idx].src;
+        const img = new Image();
+        img.src = url;
+      }
+      // Preload next/prev on show
+      const observer = new MutationObserver(() => {
+        if (lightbox.classList.contains('show')) {
+          preload(currentIndex + 1);
+          preload(currentIndex - 1);
+        }
+      });
+      observer.observe(lightbox, { attributes: true, attributeFilter: ['class'] });
+    })();
+  </script>
 </body>
 </html>
