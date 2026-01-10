@@ -181,30 +181,64 @@
             <div style="margin-bottom:0.6rem;">
               <div style="font-weight:700; margin-bottom:0.35rem;">Opciones disponibles (selecciona una)</div>
 
-              <div class="choices" style="flex-direction:column; align-items:flex-start;">
-                <label class="choice-label" style="display:flex;align-items:flex-start;gap:0.8rem;">
-                  <input type="radio" name="roomChoice" value="double_2n">
-                  <div>
-                    <strong>Habitación doble — 2 noches (viernes a domingo)</strong><br>
-                    Precio total: 187 € — Precio por persona y noche: 46,75 €
-                  </div>
-                </label>
+              <!-- Con desayuno (buffet incluido) -->
+              <div style="margin-bottom:0.45rem;">
+                <div style="font-weight:700; margin-bottom:0.35rem;">Con desayuno (buffet incluido)</div>
+                <div class="choices" style="flex-direction:column; align-items:flex-start;">
+                  <label class="choice-label" style="display:flex;align-items:flex-start;gap:0.8rem;">
+                    <input type="radio" name="roomChoice" value="double_2n_bb">
+                    <div>
+                      <strong>Habitación doble — 2 noches (viernes a domingo)</strong><br>
+                      Precio total: 187 € — Precio por persona y noche: 46,75 €
+                    </div>
+                  </label>
 
-                <label class="choice-label" style="display:flex;align-items:flex-start;gap:0.8rem;">
-                  <input type="radio" name="roomChoice" value="double_1n">
-                  <div>
-                    <strong>Habitación doble — 1 noche</strong><br>
-                    Precio total: 95,50 € — Precio por persona y noche: 47,75 €
-                  </div>
-                </label>
+                  <label class="choice-label" style="display:flex;align-items:flex-start;gap:0.8rem;">
+                    <input type="radio" name="roomChoice" value="double_1n_bb">
+                    <div>
+                      <strong>Habitación doble — 1 noche</strong><br>
+                      Precio total: 95,50 € — Precio por persona y noche: 47,75 €
+                    </div>
+                  </label>
 
-                <label class="choice-label" style="display:flex;align-items:flex-start;gap:0.8rem;">
-                  <input type="radio" name="roomChoice" value="triple_2n">
-                  <div>
-                    <strong>Habitación triple — 2 noches (viernes a domingo)</strong><br>
-                    Precio total: 248 € — Precio por persona y noche: 41,33 €
-                  </div>
-                </label>
+                  <label class="choice-label" style="display:flex;align-items:flex-start;gap:0.8rem;">
+                    <input type="radio" name="roomChoice" value="triple_2n_bb">
+                    <div>
+                      <strong>Habitación triple — 2 noches (viernes a domingo)</strong><br>
+                      Precio total: 248 € — Precio por persona y noche: 41,33 €
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Sin desayuno -->
+              <div style="margin-top:0.75rem;">
+                <div style="font-weight:700; margin-bottom:0.35rem;">Sin desayuno</div>
+                <div class="choices" style="flex-direction:column; align-items:flex-start;">
+                  <label class="choice-label" style="display:flex;align-items:flex-start;gap:0.8rem;">
+                    <input type="radio" name="roomChoice" value="double_2n_nb">
+                    <div>
+                      <strong>Habitación doble — 2 noches (viernes a domingo)</strong><br>
+                      Precio total: 150 € 
+                    </div>
+                  </label>
+
+                  <label class="choice-label" style="display:flex;align-items:flex-start;gap:0.8rem;">
+                    <input type="radio" name="roomChoice" value="double_1n_nb">
+                    <div>
+                      <strong>Habitación doble — 1 noche</strong><br>
+                      Precio total: 76,50 €
+                    </div>
+                  </label>
+
+                  <label class="choice-label" style="display:flex;align-items:flex-start;gap:0.8rem;">
+                    <input type="radio" name="roomChoice" value="triple_2n_nb">
+                    <div>
+                      <strong>Habitación triple — 2 noches (viernes a domingo)</strong><br>
+                      Precio total: 212 €
+                    </div>
+                  </label>
+                </div>
               </div>
             </div>
 
@@ -268,7 +302,9 @@
       const willStayRadios = Array.from(document.querySelectorAll('input[name="willStay"]'));
       const roomOptions = document.getElementById('roomOptions');
       const otherLodging = document.getElementById('otherLodging');
-      const roomChoiceInputs = () => Array.from(document.querySelectorAll('input[name="roomChoice"]'));
+
+      const roomChoiceSelector = 'input[name="roomChoice"]';
+      function roomChoiceInputs() { return Array.from(document.querySelectorAll(roomChoiceSelector)); }
 
       function updateLodgingSubfields() {
         const will = document.querySelector('input[name="willStay"]:checked')?.value;
