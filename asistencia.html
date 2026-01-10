@@ -105,7 +105,7 @@
           <legend id="asistiras-legend" style="font-weight:700;margin-bottom:0.5rem;">¿Asistirás a la boda?</legend>
           <div class="choices" role="radiogroup" aria-labelledby="asistiras-legend">
             <label class="choice-label">
-              <input type="radio" name="attendance" value="si" required> Sí
+              <input type="radio" name="attendance" value="si"> Sí
             </label>
 
             <label class="choice-label">
@@ -129,7 +129,7 @@
           </div>
         </fieldset>
 
-        <!-- 3. Dieta (radios: selección única) -->
+        <!-- 3. Dieta (radios: sin preselección) -->
         <fieldset>
           <legend style="font-weight:700;margin-bottom:0.5rem;">¿Sigues alguna dieta especial?</legend>
           <div class="radio-group" role="radiogroup" aria-labelledby="dieta-legend" id="dieta-legend">
@@ -162,7 +162,7 @@
 
         <!-- 6. Alojamiento (AHORA: pregunta siempre visible; no opciones marcadas por defecto) -->
         <fieldset id="lodging-section" aria-labelledby="lodging-legend">
-          <legend id="lodging-legend" style="font-weight:700;margin-bottom:0.5rem;">¿Te alojarás en el hotel bloqueado?</legend>
+          <legend id="lodging-legend" style="font-weight:700;margin-bottom:0.5rem;">¿Te alojarás en el hotel reservado?</legend>
 
           <p style="margin-top:0; margin-bottom:0.6rem;">
             Por comodidad, el hotel estará reservado para los invitados. Indica aquí si os quedaréis y la opción preferida.
@@ -216,7 +216,7 @@
               </div>
             </div>
 
-            <!-- Nueva caja: con quién te vas a alojar -->
+            <!-- Nueva caja: con quién te vas a alojar (aparece bajo opciones cuando willStay = si) -->
             <div style="margin-top:0.6rem;">
               <label for="roomWith" style="font-weight:700; display:block; margin-bottom:0.35rem;">¿Con quién te alojarás? (nombres)</label>
               <input id="roomWith" name="roomWith" type="text" placeholder="Nombre(s) de la(s) persona(s) con las que te alojas">
@@ -226,6 +226,12 @@
               <label for="lodgingComments" style="font-weight:700; display:block; margin-bottom:0.3rem;">📝 Comentarios o necesidades especiales (cuna, dudas, etc)</label>
               <textarea id="lodgingComments" name="lodgingComments" placeholder="Escribe aquí…"></textarea>
             </div>
+          </div>
+
+          <!-- Other lodging input: appears when willStay = no -->
+          <div id="otherLodging" class="is-hidden" aria-hidden="true" style="margin-top:0.6rem;">
+            <label for="otherAccommodation" style="font-weight:700; display:block; margin-bottom:0.35rem;">¿Dónde te alojarás? (hotel / casa rural / hostal)</label>
+            <input id="otherAccommodation" name="otherAccommodation" type="text" placeholder="Nombre y dirección del alojamiento">
           </div>
         </fieldset>
 
@@ -261,34 +267,42 @@
 
       const willStayRadios = Array.from(document.querySelectorAll('input[name="willStay"]'));
       const roomOptions = document.getElementById('roomOptions');
+      const otherLodging = document.getElementById('otherLodging');
       const roomChoiceInputs = () => Array.from(document.querySelectorAll('input[name="roomChoice"]'));
 
-      function updateRoomOptionsVisibility() {
+      function updateLodgingSubfields() {
         const will = document.querySelector('input[name="willStay"]:checked')?.value;
         if (will === 'si') {
+          // show room options, hide "other lodging"
           roomOptions.classList.remove('is-hidden');
           roomOptions.setAttribute('aria-hidden', 'false');
+          otherLodging.classList.add('is-hidden');
+          otherLodging.setAttribute('aria-hidden', 'true');
           // make roomChoice required when visible
           roomChoiceInputs().forEach(i => i.required = true);
-        } else {
+        } else if (will === 'no') {
+          // show "other lodging" input, hide room options
+          otherLodging.classList.remove('is-hidden');
+          otherLodging.setAttribute('aria-hidden', 'false');
           roomOptions.classList.add('is-hidden');
           roomOptions.setAttribute('aria-hidden', 'true');
-          // remove required and uncheck room choice
+          // remove required from roomChoice and clear selection
           roomChoiceInputs().forEach(i => { i.required = false; i.checked = false; });
-          // clear roomWith and lodgingComments
-          const roomWith = document.getElementById('roomWith');
-          if (roomWith) roomWith.value = '';
-          const lodgingComments = document.getElementById('lodgingComments');
-          if (lodgingComments) lodgingComments.value = '';
+        } else {
+          // neither selected: hide both
+          roomOptions.classList.add('is-hidden');
+          roomOptions.setAttribute('aria-hidden', 'true');
+          otherLodging.classList.add('is-hidden');
+          otherLodging.setAttribute('aria-hidden', 'true');
+          roomChoiceInputs().forEach(i => { i.required = false; i.checked = false; });
         }
       }
 
       // Add listeners to willStay radios
-      willStayRadios.forEach(r => r.addEventListener('change', updateRoomOptionsVisibility));
+      willStayRadios.forEach(r => r.addEventListener('change', updateLodgingSubfields));
 
-      // Initialize: ensure no radio is preselected (should be by markup), and set visibility accordingly
-      // (If user navigates back and browser restores state, code will reflect current selections.)
-      updateRoomOptionsVisibility();
+      // Initialize visibility on load (no preselected options => both hidden)
+      updateLodgingSubfields();
 
       // Submit handler using fetch to Formspree for custom confirmation
       form.addEventListener('submit', async function (e) {
@@ -320,9 +334,8 @@
             const msg = document.getElementById('rsvpMessage');
             requestAnimationFrame(() => requestAnimationFrame(() => msg.classList.add('show')));
             form.reset();
-            // After reset, ensure room options hidden and no preselected inputs
-            updateRoomOptionsVisibility();
-            // re-enable submit if needed
+            // After reset, hide both lodging subfields
+            updateLodgingSubfields();
             submitBtn.disabled = false;
             submitBtn.removeAttribute('aria-busy');
           } else {
