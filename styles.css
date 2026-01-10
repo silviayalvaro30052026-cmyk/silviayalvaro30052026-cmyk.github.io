@@ -1,7 +1,8 @@
 /* styles.css — archivo completo actualizado
    Cambios principales:
-   - navegación fija arriba (no desplegable)
-   - tamaño de fuente global aumentado
+   - navegación ya NO es fija (se desplaza con la página)
+   - la barra de navegación usa el mismo color verde claro de fondo
+   - tamaño de fuente global elevado
    - estilos conservados para landing, evento y formulario
 */
 
@@ -12,7 +13,8 @@
   --base-font-size: 20px;           /* subido para aumentar todas las fuentes */
   --brand-green: #2a9d8f;
   --brand-green-dark: #167a63;
-  --nav-bar-height: 64px;           /* altura de la barra fija superior */
+  --evento-bg: #eaf6ea;             /* verde claro usado como fondo de la página de evento */
+  --nav-bar-height: 64px;
 
   --cta-font-size: 1.6rem;
   --cta-padding-vertical: 1rem;
@@ -123,7 +125,7 @@ body {
    =========================== */
 body.evento-page{
   background-image:none;
-  background-color:#eaf6ea;
+  background-color:var(--evento-bg);
   color:#0b3d2e;
   min-height:100vh;
   font-size:1.125rem;
@@ -131,14 +133,14 @@ body.evento-page{
   text-align:center;
 }
 
-/* Contenedor principal */
+/* Contenedor principal: ahora no necesita compensar nav fija */
 body.evento-page .section{
   min-height:100vh;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:flex-start;
-  padding:calc(var(--nav-bar-height) + 1.25rem) 1rem 3rem; /* deja espacio para la nav fija */
+  padding:2rem 1rem 3rem; /* nav ya está en el flujo, no reservar más espacio */
 }
 
 /* Card principal */
@@ -210,22 +212,17 @@ body.evento-page a:hover, body.evento-page a:focus{ color:#083826; text-decorati
 body.evento-page .footer{ text-align:center; padding:1rem; color:rgba(11,61,46,0.9); }
 
 /* ===========================
-   Navegación fija arriba
+   Navegación en flujo (no fija)
    =========================== */
 .top-nav{
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: var(--nav-bar-height);
-  z-index: 9999;
+  position: static; /* queda en el flujo normal y se desplaza al hacer scroll */
   display:flex;
   align-items:center;
   justify-content:center;
-  background: rgba(255,255,255,0.94); /* ligera base clara para legibilidad */
-  backdrop-filter: blur(6px) saturate(120%);
-  border-bottom: 1px solid rgba(11,61,46,0.06);
-  box-shadow: 0 6px 18px rgba(11,61,46,0.04);
+  background: var(--evento-bg); /* mismo color que el fondo de la página */
+  border-bottom: 1px solid rgba(11,61,46,0.04);
+  box-shadow: none;
+  padding: 0.5rem 0;
 }
 
 /* Lista de navegación horizontal */
@@ -252,7 +249,7 @@ body.evento-page .footer{ text-align:center; padding:1rem; color:rgba(11,61,46,0
 }
 .nav-list a.nav-btn:hover,
 .nav-list a.nav-btn:focus {
-  background: var(--brand-green-opaque, rgba(42,157,143,0.12));
+  background: rgba(42,157,143,0.12);
   color: var(--brand-green-dark);
   transform: translateY(-2px);
   outline: none;
@@ -266,9 +263,6 @@ body.evento-page .footer{ text-align:center; padding:1rem; color:rgba(11,61,46,0
   font-weight:800;
   pointer-events: none;
 }
-
-/* Forzar transparencia de elementos internos si fuera necesario */
-.top-nav * { background: transparent; }
 
 /* ===========================
    Botón bonito para envío de formulario
@@ -335,7 +329,7 @@ body.evento-page .footer{ text-align:center; padding:1rem; color:rgba(11,61,46,0
   .nav-list { justify-content:center; gap:0.5rem; flex-wrap:wrap; padding: 0 0.5rem; }
   .nav-list a.nav-btn, .nav-list .nav-current { white-space:normal; text-align:center; min-width:6rem; }
 
-  body.evento-page .section { padding-top: calc(var(--nav-bar-height) + 1rem); }
+  body.evento-page .section { padding-top: 2rem; }
   body.evento-page .event-item { flex-direction: column; align-items:flex-start; gap:0.6rem; }
   body.evento-page .event-item .icon, body.evento-page .section-media img { width:44px; height:44px; flex:0 0 44px; }
   body.evento-page .map iframe { height:200px; }
@@ -343,10 +337,6 @@ body.evento-page .footer{ text-align:center; padding:1rem; color:rgba(11,61,46,0
 
 /* Pequeños ajustes visuales globales */
 h1,h2,h3{ line-height:1.15; }
-
-/* ===========================
-   Notas
-   ===========================
  - Si quieres un color distinto para la barra fija, ajusta background en .top-nav.
  - Si quieres que la barra sea translúcida sobre la imagen de portada, mantén background parcialmente transparente.
  - main.section tiene padding-top suficiente para que el contenido no quede oculto bajo la nav fija.
