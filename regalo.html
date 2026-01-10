@@ -33,6 +33,52 @@
     }
     /* ensure the section-media image sizing matches other pages */
     .section-media img { width:72px; height:72px; object-fit:cover; border-radius:8px; flex:0 0 72px; box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
+
+    /* Gallery styles */
+    .photo-gallery { margin-top: 1.25rem; }
+    .photo-gallery .gallery-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      align-items: start;
+    }
+    .photo-gallery a {
+      display: block;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(11,61,46,0.06);
+      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.96));
+      transition: transform 180ms ease, box-shadow 180ms ease;
+      text-decoration: none;
+    }
+    .photo-gallery a:focus,
+    .photo-gallery a:hover {
+      transform: translateY(-4px) scale(1.01);
+      box-shadow: 0 18px 44px rgba(11,61,46,0.10);
+      outline: none;
+    }
+    .photo-gallery img {
+      display:block;
+      width:100%;
+      height:220px;
+      object-fit:cover;
+      -webkit-user-drag: none;
+      user-select: none;
+    }
+    .photo-gallery .caption {
+      padding: 0.55rem 0.7rem;
+      font-size: 0.95rem;
+      color: rgba(11,61,46,0.85);
+      background: rgba(255,255,255,0.92);
+      border-top: 1px solid rgba(11,61,46,0.03);
+    }
+
+    @media (max-width: 840px) {
+      .photo-gallery img { height:180px; }
+    }
+    @media (max-width: 480px) {
+      .photo-gallery img { height:140px; }
+    }
   </style>
 </head>
 <body class="evento-page">
@@ -53,20 +99,56 @@
 
     <section class="card" aria-labelledby="regalo-heading">
       <div class="section-media" style="align-items:center; gap:1rem;">
-        <img src="img/Regalo.png" alt="Hotel" loading="lazy" width="72" height="72">
+        <img src="img/hotel.png" alt="Hotel" loading="lazy" width="72" height="72">
         <div class="heading-wrap">
           <h2 id="regalo-heading" style="margin:0;">Regalo</h2>
         </div>
       </div>
 
       <div class="card-body" style="margin-top:0.8rem; line-height:1.6;">
-        <p>Que formes parte de nuestro día ya es un regalo.</p>
-        <p>Si además te apetece acompañarnos un poquito más allá, en nuestra luna de miel y nuestros pequeños sueños, te dejamos este número de cuenta:</p>
+        <p>Que formes parte de nuestro día ya es un regalo. Si además te apetece acompañarnos un poquito más allá, en nuestra luna de miel y nuestros pequeños sueños, te dejamos este número de cuenta:</p>
 
         <div class="bank" role="region" aria-label="Datos bancarios para regalo">
           <div class="bank-name">BANCO SANTANDER</div>
           <p class="iban" aria-hidden="false">ES44 0049 5131 1329 1608 2804</p>
         </div>
+
+        <!-- Photo gallery: replace filenames below (photo1.jpg ... photo7.jpg) with your actual filenames in /img -->
+        <div class="photo-gallery" aria-labelledby="gallery-heading">
+          <h3 id="gallery-heading" style="margin:0.85rem 0 0.6rem 0; font-size:1.05rem;">Unas fotos nuestras</h3>
+
+          <div class="gallery-grid" role="list">
+            <a href="IMG_0130.HEIC" target="_blank" rel="noopener noreferrer" role="listitem">
+              <img src="img/photo1.jpg" alt="Silvia & Álvaro — foto 1" loading="lazy">
+            </a>
+
+            <a href="img/IMG_1001.HEIC" target="_blank" rel="noopener noreferrer" role="listitem">
+              <img src="img/photo2.jpg" alt="Silvia & Álvaro — foto 2" loading="lazy">
+            </a>
+
+            <a href="img/IMG_1281.heic" target="_blank" rel="noopener noreferrer" role="listitem">
+              <img src="img/photo3.jpg" alt="Silvia & Álvaro — foto 3" loading="lazy">
+            </a>
+
+            <a href="img/IMG_1445.HEIC" target="_blank" rel="noopener noreferrer" role="listitem">
+              <img src="img/photo4.jpg" alt="Silvia & Álvaro — foto 4" loading="lazy">
+            </a>
+
+            <a href="img/IMG_1469.HEIC" target="_blank" rel="noopener noreferrer" role="listitem">
+              <img src="img/photo5.jpg" alt="Silvia & Álvaro — foto 5" loading="lazy">
+            </a>
+
+            <a href="img/IMG_1627.HEIC" target="_blank" rel="noopener noreferrer" role="listitem">
+              <img src="img/photo6.jpg" alt="Silvia & Álvaro — foto 6" loading="lazy">
+            </a>
+
+            <a href="img/IMG_6288.heic" target="_blank" rel="noopener noreferrer" role="listitem">
+              <img src="img/photo7.jpg" alt="Silvia & Álvaro — foto 7" loading="lazy">
+            </a>
+          </div>
+        </div>
+        <!-- /photo-gallery -->
+
       </div>
     </section>
   </main>
