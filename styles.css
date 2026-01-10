@@ -1,21 +1,22 @@
-/* styles.css — archivo completo
-   Última versión consolidada:
-   - navegación en flujo (se desplaza con la página)
-   - botón "Enviar" centrado y mensaje animado debajo (sin caja)
-   - dieta como radios (selección única)
-   - tamaños de fuente global aumentados
-   - CTA en la portada reducidos (ajuste final)
+/* styles.css — archivo completo consolidado
+   Última versión integrada:
+   - Estilos globales, landing, CTA, navegación en flujo (no fija)
+   - Página evento (.evento-page) con cards, sección preboda y mapas en modo satélite
+   - Página asistencia: formulario, botones, confirmación animada
+   - Ajustes específicos para los botones de la portada:
+       * Escritorio: tamaño por defecto (variables)
+       * Móvil: aumentado respecto a la versión previa
 */
 
 /* ===========================
-   Variables (fuente base aumentada)
+   Variables
    =========================== */
 :root{
-  --base-font-size: 20px;
+  --base-font-size: 20px;           /* base aumentada */
   --brand-green: #2a9d8f;
   --brand-green-dark: #167a63;
   --brand-green-opaque: rgba(42,157,143,0.12);
-  --evento-bg: #eaf6ea;
+  --evento-bg: #eaf6ea;             /* verde claro usado como fondo de la página de evento */
   --nav-bar-height: 64px;
 
   --cta-font-size: 1.6rem;
@@ -99,7 +100,7 @@ body {
 .cta:hover, .cta:focus{ transform:translateY(-3px); background: rgba(255,255,255,0.92); box-shadow:0 12px 30px rgba(0,0,0,0.16); }
 
 /* ===========================
-   Página de evento / estilos compartidos (.evento-page)
+   Página de evento (.evento-page)
    =========================== */
 body.evento-page{
   background-image:none;
@@ -148,8 +149,37 @@ body.evento-page .card p{ margin:0.35rem 0; font-size:clamp(1rem,1.9vw,1.12rem);
 .section-media{ display:flex; align-items:center; gap:1rem; }
 
 /* Map */
-body.evento-page .map{ margin-top:0.6rem; }
-body.evento-page .map iframe{ width:100%; height:340px; border:0; border-radius:10px; display:block; }
+.map{ margin-top:0.9rem; position: relative; overflow: visible; }
+.map iframe{
+  width: 100%;
+  height: 360px;
+  border: 0;
+  border-radius: 12px;
+  box-shadow: 0 12px 34px rgba(11,61,46,0.08);
+  transition: transform 240ms ease, filter 240ms ease;
+  display: block;
+  filter: contrast(1.02) saturate(1.06);
+}
+.map:hover iframe{ transform: translateY(-4px) scale(1.002); filter: contrast(1.04) saturate(1.08); }
+.map-controls { position: absolute; right: 12px; bottom: 12px; z-index: 5; }
+.map-controls a{
+  display:inline-block;
+  background: rgba(255,255,255,0.94);
+  color: #0b3d2e;
+  padding: 0.42rem 0.7rem;
+  border-radius: 999px;
+  font-weight:600;
+  font-family: inherit;
+  text-decoration:none;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  transition: transform 140ms ease, box-shadow 140ms ease;
+}
+.map-controls a:hover, .map-controls a:focus{
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+  outline: none;
+}
+.map-controls a:focus{ box-shadow: 0 0 0 4px rgba(42,157,143,0.12); }
 
 /* Event list */
 body.evento-page .event-list{ display:flex; flex-direction:column; gap:1rem; align-items:stretch; margin-top:0.8rem; }
@@ -158,39 +188,25 @@ body.evento-page .event-item{
   padding:0.8rem; border-radius:12px; background:rgba(232,246,232,0.36);
 }
 
-/* Icons */
-body.evento-page .event-item .icon,
-body.evento-page .section-media img{
-  width:56px;
-  height:56px;
-  flex:0 0 56px;
-  border-radius:10px;
-  overflow:hidden;
-  background:transparent;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-}
-body.evento-page .event-item .icon img,
-body.evento-page .section-media img{
-  width:100%;
-  height:100%;
-  display:block;
+/* Iconos en cards (sombra, tamaño) */
+.section-media img{
+  width:72px;
+  height:72px;
   object-fit:cover;
+  border-radius:8px;
+  flex:0 0 72px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
 }
 
-/* Text content */
-body.evento-page .event-item .event-content{ flex:1 1 auto; }
-body.evento-page .event-item .event-content h3{ margin:0; font-size:1.15rem; color:inherit; }
-body.evento-page .event-item .event-content p{ margin:0.2rem 0 0 0; font-size:1rem; color:rgba(11,61,46,0.88); }
+/* Alineación del heading junto a la imagen */
+.heading-wrap h2 { margin:0; font-size: clamp(1.25rem, 2.6vw, 1.8rem); line-height: 1.05; }
 
-/* Links */
-body.evento-page a{ color:#064e2a; text-decoration:underline; }
-body.evento-page a:hover, body.evento-page a:focus{ color:#083826; text-decoration:none; }
-body.evento-page .footer{ text-align:center; padding:1rem; color:rgba(11,61,46,0.9); }
+/* Card body: texto completo debajo del heading */
+.card-body { margin-top: 0.6rem; color: inherit; line-height: 1.5; }
+.card-body .lead { margin: 0 0 0.45rem 0; font-weight: 700; }
 
 /* ===========================
-   Navegación en flujo (no fija) — fondo mismo verde claro
+   Navegación en flujo (no fija)
    =========================== */
 .top-nav{
   position: static; /* en el flujo normal, se desplaza al hacer scroll */
@@ -225,8 +241,7 @@ body.evento-page .footer{ text-align:center; padding:1rem; color:rgba(11,61,46,0
   white-space:nowrap;
   transition: background 160ms ease, color 160ms ease, transform 140ms ease;
 }
-.nav-list a.nav-btn:hover,
-.nav-list a.nav-btn:focus {
+.nav-list a.nav-btn:hover, .nav-list a.nav-btn:focus {
   background: var(--brand-green-opaque);
   color: var(--brand-green-dark);
   transform: translateY(-2px);
@@ -243,7 +258,47 @@ body.evento-page .footer{ text-align:center; padding:1rem; color:rgba(11,61,46,0
 }
 
 /* ===========================
-   Botón "Enviar" (centrado) — hereda la fuente del sitio
+   Formulario (asistencia.html)
+   =========================== */
+/* Form layout */
+.rsvp-form { display:block; width:100%; }
+.form-row { display:flex; gap:1rem; margin:0.5rem 0 1rem; align-items:center; flex-wrap:wrap; }
+.form-row .field { flex:1 1 220px; min-width:180px; }
+label { display:block; font-weight:600; margin-bottom:0.35rem; color: inherit; font-family: inherit; }
+input[type="text"], textarea, select {
+  width:100%;
+  padding:0.6rem 0.75rem;
+  border-radius:8px;
+  border:1px solid rgba(0,0,0,0.12);
+  background: rgba(255,255,255,0.96);
+  font-family: inherit;
+  font-size: 1rem;
+  color: inherit;
+  box-sizing: border-box;
+}
+textarea { min-height: 100px; resize: vertical; }
+fieldset { border: 0; padding: 0; margin: 0 0 1rem 0; }
+.choices, .radio-group { display:flex; gap:0.6rem; flex-wrap:wrap; align-items:center; }
+.choice-label {
+  display:inline-flex; align-items:center; gap:0.45rem; padding:0.35rem 0.6rem;
+  border-radius:8px; background: rgba(255,255,255,0.72); cursor: pointer; font-weight:600; color: #0b3d2e;
+  font-family: inherit;
+}
+input[type="radio"] { accent-color: var(--brand-green); }
+.form-note { font-size:0.95rem; color: rgba(11,61,46,0.8); font-family: inherit; }
+
+/* Form actions: center button and message below */
+.form-actions {
+  margin-top: 0.75rem;
+  display:flex;
+  flex-direction:column;
+  gap:0.6rem;
+  align-items:center;
+  justify-content:center;
+}
+
+/* ===========================
+   Botón "Enviar" (estético)
    =========================== */
 .btn-primary {
   display: inline-flex;
@@ -262,7 +317,7 @@ body.evento-page .footer{ text-align:center; padding:1rem; color:rgba(11,61,46,0
   transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
   backdrop-filter: blur(6px) saturate(120%);
   -webkit-tap-highlight-color: transparent;
-  font-family: inherit; /* asegura misma fuente que el sitio */
+  font-family: inherit;
   line-height: 1;
 }
 .btn-primary:hover, .btn-primary:focus { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(11,61,46,0.28); background: linear-gradient(180deg, rgba(11,61,46,1), rgba(11,61,46,0.95)); outline: none; }
@@ -285,28 +340,29 @@ body.evento-page .footer{ text-align:center; padding:1rem; color:rgba(11,61,46,0
 .rsvp-message.show { opacity: 1; transform: translateY(0); }
 
 /* ===========================
-   Ajuste específico: reducir tamaño de los botones en la portada (index.html)
-   Añadido al final para que sobreescriba reglas generales de .cta en la portada
+   Ajuste específico: botones de la portada
+   - Escritorio: volver al tamaño por defecto (variables)
+   - Móvil: mayor legibilidad (más grande que la versión previa)
    =========================== */
 .landing .cta,
 .cta-grid.small .cta {
-  font-size: clamp(0.95rem, 2.2vw, 1.05rem);
-  padding: 0.55rem 0.95rem;
-  min-width: 110px;
+  font-size: var(--cta-font-size);
+  padding: var(--cta-padding-vertical) var(--cta-padding-horizontal);
+  min-width: var(--cta-min-width);
 }
-.landing .cta { min-width: 120px; }
 
+/* Mobile increase */
 @media (max-width: 640px) {
   .landing .cta,
   .cta-grid.small .cta {
-    font-size: clamp(0.9rem, 4.2vw, 1rem);
-    padding: 0.48rem 0.85rem;
-    min-width: 96px;
+    font-size: clamp(1.15rem, 4.8vw, 1.4rem);
+    padding: 0.7rem 1.1rem;
+    min-width: 110px;
   }
 }
 
 /* ===========================
-   Responsive adjustments
+   Map / section-media responsive tweaks
    =========================== */
 @media (max-width: 840px) {
   :root{ --nav-bar-height:68px; }
@@ -332,36 +388,16 @@ body.evento-page .footer{ text-align:center; padding:1rem; color:rgba(11,61,46,0
   .nav-list { justify-content:center; gap:0.5rem; flex-wrap:wrap; padding: 0 0.5rem; }
   .nav-list a.nav-btn, .nav-list .nav-current { white-space:normal; text-align:center; min-width:6rem; }
 
-  body.evento-page .section { padding-top: 2rem; }
-  body.evento-page .event-item { flex-direction: column; align-items:flex-start; gap:0.6rem; }
-  body.evento-page .event-item .icon, body.evento-page .section-media img { width:44px; height:44px; flex:0 0 44px; }
-  body.evento-page .map iframe { height:200px; }
+  /* section media smaller image and map heights */
+  .section-media { gap: 0.75rem; align-items:center; }
+  .section-media img { width:56px; height:56px; flex:0 0 56px; }
+  .heading-wrap h2 { font-size: clamp(1.1rem, 5.6vw, 1.4rem); }
+  .map iframe { height: 260px; border-radius: 10px; }
+  .map-controls { right:8px; bottom:8px; }
+
+  .form-row { gap:0.5rem; }
+  .form-row .field { flex:1 1 100%; min-width:0; }
 }
 
 /* Pequeños ajustes visuales globales */
 h1,h2,h3{ line-height:1.15; }
-
-/* ---------- Ajuste: botones portada
-   - Escritorio: conservar tamaño "original" (variables)
-   - Móvil: aumentar respecto al comportamiento actual
-   Colocar AL FINAL de styles.css para sobreescribir reglas previas
----------- */
-.landing .cta,
-.cta-grid.small .cta {
-  /* Volver al tamaño por defecto del sitio (antes del cambio) */
-  font-size: var(--cta-font-size);
-  padding: var(--cta-padding-vertical) var(--cta-padding-horizontal);
-  min-width: var(--cta-min-width);
-}
-
-/* Mobile: aumentar tamaño respecto al que había (más legible en pantallas pequeñas) */
-@media (max-width: 640px) {
-  .landing .cta,
-  .cta-grid.small .cta {
-    /* Mayor que el valor anterior en móvil */
-    font-size: clamp(1.15rem, 4.8vw, 1.4rem);
-    padding: 0.7rem 1.1rem;
-    min-width: 110px;
-  }
-}
-
