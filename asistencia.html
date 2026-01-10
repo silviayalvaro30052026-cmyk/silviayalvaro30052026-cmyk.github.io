@@ -13,7 +13,7 @@
 
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Estilos del formulario (componentes específicos, mantén esto junto a styles.css) */
+    /* Pequeños estilos específicos del formulario (se cargan además de styles.css) */
     .rsvp-form { display:block; width:100%; }
     .form-row { display:flex; gap:1rem; margin:0.5rem 0 1rem; align-items:center; flex-wrap:wrap; }
     .form-row .field { flex:1 1 220px; min-width:180px; }
@@ -52,24 +52,14 @@
 </head>
 <body class="evento-page">
 
-  <nav class="top-nav" aria-label="Navegación de la boda">
-    <div class="nav-controls">
-      <button id="sectionsToggle" class="nav-toggle" aria-expanded="false" aria-controls="navDropdown" aria-label="Abrir menú de secciones">
-        <span class="sr-only">Abrir menú de secciones</span>
-        <span class="hamburger" aria-hidden="true">
-          <span></span>
-          <span></span>
-          <span></span>
-        </span>
-      </button>
-    </div>
-
-    <ul id="navDropdown" class="nav-list nav-dropdown" role="menu" hidden>
-      <li role="none"><a role="menuitem" href="index.html" class="nav-btn">Inicio</a></li>
-      <li role="none"><a role="menuitem" href="evento.html" class="nav-btn">Evento</a></li>
+  <!-- Navegación fija arriba (no desplegable) -->
+  <nav class="top-nav" role="navigation" aria-label="Navegación de la boda">
+    <ul class="nav-list" role="menubar" aria-label="Secciones">
+      <li role="none"><a role="menuitem" class="nav-btn" href="index.html">Inicio</a></li>
+      <li role="none"><a role="menuitem" class="nav-btn" href="evento.html">Evento</a></li>
       <li role="none"><span class="nav-current" aria-current="page">Asistencia</span></li>
-      <li role="none"><a role="menuitem" href="alojamiento.html" class="nav-btn">Alojamiento</a></li>
-      <li role="none"><a role="menuitem" href="regalo.html" class="nav-btn">Regalo</a></li>
+      <li role="none"><a role="menuitem" class="nav-btn" href="alojamiento.html">Alojamiento</a></li>
+      <li role="none"><a role="menuitem" class="nav-btn" href="regalo.html">Regalo</a></li>
     </ul>
   </nav>
 
@@ -83,7 +73,7 @@
       <form id="rsvpForm" class="rsvp-form" method="POST" action="https://formspree.io/f/mdaankgw">
         <!-- Hidden fields para Formspree -->
         <input type="hidden" name="_subject" value="RSVP Silvia & Álvaro">
-        <!-- Opcional: descomenta y pon la URL completa de tu gracias.html para redirigir -->
+        <!-- Si quieres redirigir tras el envío, descomenta y pon tu URL -->
         <!-- <input type="hidden" name="_next" value="https://tusitio.com/gracias.html"> -->
         <!-- Honeypot anti-spam (Formspree ignora si está relleno) -->
         <input type="text" name="_gotcha" style="display:none">
@@ -205,18 +195,7 @@
 
   <script>
     (function () {
-      // NAV TOGGLE
-      const toggle = document.getElementById('sectionsToggle');
-      const dropdown = document.getElementById('navDropdown');
-      function openMenu() { dropdown.hidden = false; toggle.setAttribute('aria-expanded', 'true'); dropdown.classList.add('show'); }
-      function closeMenu() { dropdown.hidden = true; toggle.setAttribute('aria-expanded', 'false'); dropdown.classList.remove('show'); }
-      function toggleMenu() { if (dropdown.hidden) openMenu(); else closeMenu(); }
-      toggle.addEventListener('click', function (e) { e.stopPropagation(); toggleMenu(); if (!dropdown.hidden) { const first = dropdown.querySelector('[role="menuitem"]'); if (first) first.focus(); }});
-      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
-      document.addEventListener('click', function (e) { if (!dropdown.contains(e.target) && e.target !== toggle) closeMenu(); });
-      dropdown.addEventListener('click', function (e) { const target = e.target.closest('[role="menuitem"]'); if (target) closeMenu(); });
-
-      // FORM: mostrar/ocultar campos de acompañante
+      // Mostrar/ocultar campos de acompañante
       const form = document.getElementById('rsvpForm');
       const attendanceRadios = Array.from(form.elements['attendance'] || []);
       const companionFieldset = document.getElementById('acompanante-fieldset');
@@ -241,10 +220,6 @@
       // inicializar y escuchar cambios
       updateCompanionVisibility();
       attendanceRadios.forEach(r => r.addEventListener('change', updateCompanionVisibility));
-
-      // NOTA: no interceptamos el submit; el formulario se envía directamente a Formspree.
-      // Si quieres una confirmación en la misma página con fetch() en lugar de redirección,
-      // dímelo y te lo implemento.
     })();
   </script>
 </body>
