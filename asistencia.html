@@ -100,7 +100,7 @@
         <input type="hidden" name="_subject" value="RSVP Silvia & Álvaro">
         <input type="text" name="_gotcha" style="display:none" aria-hidden="true">
 
-        <!-- 1. ¿Asistirás? (solo Sí / No) -->
+        <!-- 1. SOLO VISIBLE AL INICIO: ¿Asistirás? -->
         <fieldset aria-labelledby="asistiras-legend">
           <legend id="asistiras-legend" style="font-weight:700;margin-bottom:0.5rem;">¿Asistirás a la boda?</legend>
           <div class="choices" role="radiogroup" aria-labelledby="asistiras-legend">
@@ -114,171 +114,204 @@
           </div>
         </fieldset>
 
-        <!-- 2. ¿Quién eres? -->
-        <fieldset>
-          <legend style="font-weight:700;margin-bottom:0.5rem;">¿Quién eres?</legend>
-          <div class="form-row">
-            <div class="field">
-              <label for="firstName">Nombre</label>
-              <input id="firstName" name="firstName" type="text" placeholder="Nombre" required>
+        <!-- 2. RESTO DEL FORMULARIO: solo aparece si attendance = "si" -->
+        <div id="fullForm" class="is-hidden" aria-hidden="true">
+
+          <!-- ¿Quién eres? -->
+          <fieldset>
+            <legend style="font-weight:700;margin-bottom:0.5rem;">¿Quién eres?</legend>
+            <div class="form-row">
+              <div class="field">
+                <label for="firstName">Nombre</label>
+                <input id="firstName" name="firstName" type="text" placeholder="Nombre" required>
+              </div>
+              <div class="field">
+                <label for="lastName">Apellido</label>
+                <input id="lastName" name="lastName" type="text" placeholder="Apellido" required>
+              </div>
             </div>
-            <div class="field">
-              <label for="lastName">Apellido</label>
-              <input id="lastName" name="lastName" type="text" placeholder="Apellido" required>
+          </fieldset>
+
+          <!-- Dieta -->
+          <fieldset>
+            <legend style="font-weight:700;margin-bottom:0.5rem;">¿Sigues alguna dieta especial?</legend>
+            <div class="radio-group" role="radiogroup" aria-labelledby="dieta-legend" id="dieta-legend">
+              <label class="choice-label"><input type="radio" name="diet" value="no"> No</label>
+              <label class="choice-label"><input type="radio" name="diet" value="vegetariana"> Vegetariana</label>
+              <label class="choice-label"><input type="radio" name="diet" value="vegetariana-pescado"> Vegetariana (como pescado)</label>
+              <label class="choice-label"><input type="radio" name="diet" value="vegana"> Vegana</label>
             </div>
-          </div>
-        </fieldset>
+          </fieldset>
 
-        <!-- 3. Dieta (radios: sin preselección) -->
-        <fieldset>
-          <legend style="font-weight:700;margin-bottom:0.5rem;">¿Sigues alguna dieta especial?</legend>
-          <div class="radio-group" role="radiogroup" aria-labelledby="dieta-legend" id="dieta-legend">
-            <label class="choice-label"><input type="radio" name="diet" value="no"> No</label>
-            <label class="choice-label"><input type="radio" name="diet" value="vegetariana"> Vegetariana</label>
-            <label class="choice-label"><input type="radio" name="diet" value="vegetariana-pescado"> Vegetariana (como pescado)</label>
-            <label class="choice-label"><input type="radio" name="diet" value="vegana"> Vegana</label>
-          </div>
-        </fieldset>
-
-        <!-- 4. Intolerancias / alergias -->
-        <fieldset>
-          <legend style="font-weight:700;margin-bottom:0.5rem;">¿Alguna intolerancia o alergia?</legend>
-          <div class="form-row">
-            <div class="field" style="flex:1 1 100%;">
-              <label for="allergies" class="form-note">Indica aquí si tienes alguna intolerancia o alergia</label>
-              <textarea id="allergies" name="allergies" placeholder="Escribe aquí intolerancias o alergias…"></textarea>
+          <!-- Intolerancias / alergias -->
+          <fieldset>
+            <legend style="font-weight:700;margin-bottom:0.5rem;">¿Alguna intolerancia o alergia?</legend>
+            <div class="form-row">
+              <div class="field" style="flex:1 1 100%;">
+                <label for="allergies" class="form-note">Indica aquí si tienes alguna intolerancia o alergia</label>
+                <textarea id="allergies" name="allergies" placeholder="Escribe aquí intolerancias o alergias…"></textarea>
+              </div>
             </div>
-          </div>
-        </fieldset>
+          </fieldset>
 
-        <!-- 5. Preboda -->
-        <fieldset aria-labelledby="preboda-legend">
-          <legend id="preboda-legend" style="font-weight:700;margin-bottom:0.5rem;">¿Vendrás a la preboda?</legend>
-          <div class="choices" role="radiogroup" aria-labelledby="preboda-legend">
-            <label class="choice-label"><input type="radio" name="preboda" value="si"> Sí</label>
-            <label class="choice-label"><input type="radio" name="preboda" value="no"> No</label>
-          </div>
-        </fieldset>
-
-        <!-- 6. Alojamiento (AHORA: pregunta siempre visible; no opciones marcadas por defecto) -->
-        <fieldset id="lodging-section" aria-labelledby="lodging-legend">
-          <legend id="lodging-legend" style="font-weight:700;margin-bottom:0.5rem;">¿Te alojarás en el hotel reservado?</legend>
-
-          <p style="margin-top:0; margin-bottom:0.6rem;">
-            Por comodidad, el hotel estará reservado para los invitados. Indica aquí si os quedaréis y la opción preferida.
-          </p>
-
-          <!-- willStay always visible; no pre-checked options -->
-          <div style="margin-bottom:0.6rem;">
-            <div class="choices" role="radiogroup" aria-label="¿Te alojarás en el hotel?">
-              <label class="choice-label"><input type="radio" name="willStay" value="si"> Sí</label>
-              <label class="choice-label"><input type="radio" name="willStay" value="no"> No</label>
+          <!-- Preboda -->
+          <fieldset aria-labelledby="preboda-legend">
+            <legend id="preboda-legend" style="font-weight:700;margin-bottom:0.5rem;">¿Vendrás a la preboda?</legend>
+            <div class="choices" role="radiogroup" aria-labelledby="preboda-legend">
+              <label class="choice-label"><input type="radio" name="preboda" value="si"> Sí</label>
+              <label class="choice-label"><input type="radio" name="preboda" value="no"> No</label>
             </div>
-          </div>
+          </fieldset>
 
-          <!-- Room options: appear only when willStay = si; no preselection -->
-          <div id="roomOptions" class="is-hidden" aria-hidden="true" style="margin-top:0.6rem;">
+          <!-- Alojamiento (solo para asistentes) -->
+          <fieldset id="lodging-section" aria-labelledby="lodging-legend">
+            <legend id="lodging-legend" style="font-weight:700;margin-bottom:0.5rem;">¿Te alojarás en el hotel reservado?</legend>
+
+            <p style="margin-top:0; margin-bottom:0.6rem;">
+              Por comodidad, el hotel estará reservado para los invitados. Indica aquí si os quedaréis y la opción preferida.
+            </p>
+
             <div style="margin-bottom:0.6rem;">
-              <div style="font-weight:700; margin-bottom:0.35rem;">Opciones disponibles (selecciona una)</div>
+              <div class="choices" role="radiogroup" aria-label="¿Te alojarás en el hotel?">
+                <label class="choice-label"><input type="radio" name="willStay" value="si"> Sí</label>
+                <label class="choice-label"><input type="radio" name="willStay" value="no"> No</label>
+              </div>
+            </div>
 
-              <!-- Con desayuno (buffet incluido) -->
-              <div style="margin-bottom:0.45rem;">
-                <div style="font-weight:700; margin-bottom:0.35rem;">Con desayuno (buffet incluido)</div>
-                <div class="choices" style="flex-direction:column; align-items:flex-start;">
-                  <label class="choice-label" style="display:flex;align-items:flex-start;gap:0.8rem;">
-                    <input type="radio" name="roomChoice" value="double_2n_bb">
-                    <div>
-                      <strong>Habitación doble — 2 noches (viernes a domingo)</strong><br>
-                      Precio total: 187 €
-                    </div>
-                  </label>
+            <!-- Room options (appear only when willStay = si) -->
+            <div id="roomOptions" class="is-hidden" aria-hidden="true" style="margin-top:0.6rem;">
+              <div style="margin-bottom:0.6rem;">
+                <div style="font-weight:700; margin-bottom:0.35rem;">Opciones disponibles (selecciona una)</div>
 
-                  <label class="choice-label" style="display:flex;align-items:flex-start;gap:0.8rem;">
-                    <input type="radio" name="roomChoice" value="double_1n_bb">
-                    <div>
-                      <strong>Habitación doble — 1 noche</strong><br>
-                      Precio total: 95,50 €
-                    </div>
-                  </label>
+                <!-- Con desayuno (buffet incluido) -->
+                <div style="margin-bottom:0.45rem;">
+                  <div style="font-weight:700; margin-bottom:0.35rem;">Con desayuno (buffet incluido)</div>
+                  <div class="choices" style="flex-direction:column; align-items:flex-start;">
+                    <label class="choice-label" style="display:flex;align-items:flex-start;gap:0.8rem;">
+                      <input type="radio" name="roomChoice" value="double_2n_bb">
+                      <div>
+                        <strong>Habitación doble — 2 noches (viernes a domingo)</strong><br>
+                        Precio total: 187 €
+                      </div>
+                    </label>
 
-                  <label class="choice-label" style="display:flex;align-items:flex-start;gap:0.8rem;">
-                    <input type="radio" name="roomChoice" value="triple_2n_bb">
-                    <div>
-                      <strong>Habitación triple — 2 noches (viernes a domingo)</strong><br>
-                      Precio total: 248 €
-                    </div>
-                  </label>
+                    <label class="choice-label" style="display:flex;align-items:flex-start;gap:0.8rem;">
+                      <input type="radio" name="roomChoice" value="double_1n_bb">
+                      <div>
+                        <strong>Habitación doble — 1 noche</strong><br>
+                        Precio total: 95,50 €
+                      </div>
+                    </label>
+
+                    <label class="choice-label" style="display:flex;align-items:flex-start;gap:0.8rem;">
+                      <input type="radio" name="roomChoice" value="triple_2n_bb">
+                      <div>
+                        <strong>Habitación triple — 2 noches (viernes a domingo)</strong><br>
+                        Precio total: 248 €
+                      </div>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Sin desayuno -->
+                <div style="margin-top:0.75rem;">
+                  <div style="font-weight:700; margin-bottom:0.35rem;">Sin desayuno</div>
+                  <div class="choices" style="flex-direction:column; align-items:flex-start;">
+                    <label class="choice-label" style="display:flex;align-items:flex-start;gap:0.8rem;">
+                      <input type="radio" name="roomChoice" value="double_2n_nb">
+                      <div>
+                        <strong>Habitación doble — 2 noches (viernes a domingo)</strong><br>
+                        Precio total: 150 €
+                      </div>
+                    </label>
+
+                    <label class="choice-label" style="display:flex;align-items:flex-start;gap:0.8rem;">
+                      <input type="radio" name="roomChoice" value="double_1n_nb">
+                      <div>
+                        <strong>Habitación doble — 1 noche</strong><br>
+                        Precio total: 76,50 €
+                      </div>
+                    </label>
+
+                    <label class="choice-label" style="display:flex;align-items:flex-start;gap:0.8rem;">
+                      <input type="radio" name="roomChoice" value="triple_2n_nb">
+                      <div>
+                        <strong>Habitación triple — 2 noches (viernes a domingo)</strong><br>
+                        Precio total: 212 €
+                      </div>
+                    </label>
+                  </div>
                 </div>
               </div>
 
-              <!-- Sin desayuno -->
-              <div style="margin-top:0.75rem;">
-                <div style="font-weight:700; margin-bottom:0.35rem;">Sin desayuno</div>
-                <div class="choices" style="flex-direction:column; align-items:flex-start;">
-                  <label class="choice-label" style="display:flex;align-items:flex-start;gap:0.8rem;">
-                    <input type="radio" name="roomChoice" value="double_2n_nb">
-                    <div>
-                      <strong>Habitación doble — 2 noches (viernes a domingo)</strong><br>
-                      Precio total: 150 € 
-                    </div>
-                  </label>
-
-                  <label class="choice-label" style="display:flex;align-items:flex-start;gap:0.8rem;">
-                    <input type="radio" name="roomChoice" value="double_1n_nb">
-                    <div>
-                      <strong>Habitación doble — 1 noche</strong><br>
-                      Precio total: 76,50 €
-                    </div>
-                  </label>
-
-                  <label class="choice-label" style="display:flex;align-items:flex-start;gap:0.8rem;">
-                    <input type="radio" name="roomChoice" value="triple_2n_nb">
-                    <div>
-                      <strong>Habitación triple — 2 noches (viernes a domingo)</strong><br>
-                      Precio total: 212 €
-                    </div>
-                  </label>
+              <div style="margin-top:0.45rem;">
+                <div style="font-weight:700; margin-bottom:0.35rem;">Suplementos opcionales (por habitación y noche)</div>
+                <div class="supplements">
+                  <label class="supplement-label"><input type="checkbox" name="supplement_junior" value="junior"> Junior Suite → + 32 € / noche</label>
+                  <label class="supplement-label"><input type="checkbox" name="supplement_suite" value="suite"> Suite → + 42 € / noche</label>
                 </div>
               </div>
-            </div>
 
-            <div style="margin-top:0.45rem;">
-              <div style="font-weight:700; margin-bottom:0.35rem;">Suplementos opcionales (por habitación y noche)</div>
-              <div class="supplements">
-                <label class="supplement-label"><input type="checkbox" name="supplement_junior" value="junior"> Junior Suite → + 32 € / noche</label>
-                <label class="supplement-label"><input type="checkbox" name="supplement_suite" value="suite"> Suite → + 42 € / noche</label>
+              <!-- Con quién te alojarás -->
+              <div style="margin-top:0.6rem;">
+                <label for="roomWith" style="font-weight:700; display:block; margin-bottom:0.35rem;">¿Con quién te alojarás? (nombres)</label>
+                <input id="roomWith" name="roomWith" type="text" placeholder="Nombre(s) de la(s) persona(s) con las que te alojas">
+              </div>
+
+              <div style="margin-top:0.6rem;">
+                <label for="lodgingComments" style="font-weight:700; display:block; margin-bottom:0.3rem;">📝 Comentarios o necesidades especiales (cuna, dudas, etc)</label>
+                <textarea id="lodgingComments" name="lodgingComments" placeholder="Escribe aquí…"></textarea>
               </div>
             </div>
 
-            <!-- Nueva caja: con quién te vas a alojar (aparece bajo opciones cuando willStay = si) -->
-            <div style="margin-top:0.6rem;">
-              <label for="roomWith" style="font-weight:700; display:block; margin-bottom:0.35rem;">¿Con quién te alojarás? (nombres)</label>
-              <input id="roomWith" name="roomWith" type="text" placeholder="Nombre(s) de la(s) persona(s) con las que te alojas">
+            <!-- Other lodging input: appears when willStay = no -->
+            <div id="otherLodging" class="is-hidden" aria-hidden="true" style="margin-top:0.6rem;">
+              <label for="otherAccommodation" style="font-weight:700; display:block; margin-bottom:0.35rem;">¿Dónde te alojarás? (hotel / casa rural / hostal)</label>
+              <input id="otherAccommodation" name="otherAccommodation" type="text" placeholder="Nombre y dirección del alojamiento">
             </div>
+          </fieldset>
 
-            <div style="margin-top:0.6rem;">
-              <label for="lodgingComments" style="font-weight:700; display:block; margin-bottom:0.3rem;">📝 Comentarios o necesidades especiales (cuna, dudas, etc)</label>
-              <textarea id="lodgingComments" name="lodgingComments" placeholder="Escribe aquí…"></textarea>
+          <!-- Última pregunta y notas -->
+          <fieldset>
+            <legend style="font-weight:700;margin-bottom:0.5rem;">¿Algo más que debamos saber?</legend>
+            <div class="form-row">
+              <div class="field" style="flex:1 1 100%;">
+                <label for="notes" class="form-note">Comentarios adicionales (transporte, horarios, etc.)</label>
+                <textarea id="notes" name="notes" placeholder="Escribe aquí…"></textarea>
+              </div>
             </div>
-          </div>
+          </fieldset>
+        </div>
 
-          <!-- Other lodging input: appears when willStay = no -->
-          <div id="otherLodging" class="is-hidden" aria-hidden="true" style="margin-top:0.6rem;">
-            <label for="otherAccommodation" style="font-weight:700; display:block; margin-bottom:0.35rem;">¿Dónde te alojarás? (hotel / casa rural / hostal)</label>
-            <input id="otherAccommodation" name="otherAccommodation" type="text" placeholder="Nombre y dirección del alojamiento">
-          </div>
-        </fieldset>
+        <!-- 3. SECCIÓN PARA "NO": solo aparece si attendance = "no" -->
+        <div id="noSection" class="is-hidden" aria-hidden="true" style="margin-top:0.6rem;">
+          <p style="font-weight:700; color: #b33;">¡Qué pena que te pierdas este día!</p>
+          <p>Si quieres, déjanos tus datos para poder despedirnos o enviarte información posteriormente.</p>
 
-        <!-- 7. Algo más que debamos saber (general) -->
-        <fieldset>
-          <legend style="font-weight:700;margin-bottom:0.5rem;">¿Algo más que debamos saber?</legend>
-          <div class="form-row">
-            <div class="field" style="flex:1 1 100%;">
-              <label for="notes" class="form-note">Comentarios adicionales (transporte, horarios, etc.)</label>
-              <textarea id="notes" name="notes" placeholder="Escribe aquí…"></textarea>
+          <fieldset style="margin-top:0.6rem;">
+            <legend style="font-weight:700;margin-bottom:0.5rem;">Tu nombre</legend>
+            <div class="form-row">
+              <div class="field">
+                <label for="no_firstName">Nombre</label>
+                <input id="no_firstName" name="no_firstName" type="text" placeholder="Nombre" required>
+              </div>
+              <div class="field">
+                <label for="no_lastName">Apellido</label>
+                <input id="no_lastName" name="no_lastName" type="text" placeholder="Apellido" required>
+              </div>
             </div>
-          </div>
-        </fieldset>
+          </fieldset>
+
+          <fieldset>
+            <legend style="font-weight:700;margin-bottom:0.5rem;">Mensaje (opcional)</legend>
+            <div class="form-row">
+              <div class="field" style="flex:1 1 100%;">
+                <label for="no_message" class="form-note">Si quieres, deja un mensaje para los novios</label>
+                <textarea id="no_message" name="no_message" placeholder="Escribe aquí…"></textarea>
+              </div>
+            </div>
+          </fieldset>
+        </div>
 
         <div class="form-actions">
           <!-- Botón centrado con solo "Enviar" -->
@@ -299,33 +332,103 @@
       const statusEl = document.getElementById('formStatus');
       const submitBtn = form.querySelector('button[type="submit"]');
 
-      const willStayRadios = Array.from(document.querySelectorAll('input[name="willStay"]'));
+      // Sections
+      const fullForm = document.getElementById('fullForm');        // shown when attendance = yes
+      const noSection = document.getElementById('noSection');      // shown when attendance = no
+
+      // Lodging-specific controls inside fullForm
+      const willStayRadiosSelector = 'input[name="willStay"]';
+      const willStayRadios = () => Array.from(document.querySelectorAll(willStayRadiosSelector));
       const roomOptions = document.getElementById('roomOptions');
       const otherLodging = document.getElementById('otherLodging');
-
       const roomChoiceSelector = 'input[name="roomChoice"]';
       function roomChoiceInputs() { return Array.from(document.querySelectorAll(roomChoiceSelector)); }
 
+      // Helper: enable/disable all form controls inside a container
+      function setControlsDisabled(container, disabled) {
+        if (!container) return;
+        const controls = container.querySelectorAll('input, textarea, select, button');
+        controls.forEach(c => {
+          if (disabled) {
+            c.setAttribute('disabled', 'disabled');
+          } else {
+            c.removeAttribute('disabled');
+          }
+        });
+      }
+
+      // Initially hide both sub-forms (only attendance visible)
+      function hideAllSubsections() {
+        fullForm.classList.add('is-hidden');
+        fullForm.setAttribute('aria-hidden', 'true');
+        setControlsDisabled(fullForm, true);
+
+        noSection.classList.add('is-hidden');
+        noSection.setAttribute('aria-hidden', 'true');
+        setControlsDisabled(noSection, true);
+
+        // Also hide lodging subparts
+        roomOptions.classList.add('is-hidden');
+        roomOptions.setAttribute('aria-hidden', 'true');
+        otherLodging.classList.add('is-hidden');
+        otherLodging.setAttribute('aria-hidden', 'true');
+      }
+
+      hideAllSubsections();
+
+      // React to attendance change
+      function handleAttendanceChange() {
+        const att = document.querySelector('input[name="attendance"]:checked')?.value;
+        if (att === 'si') {
+          // show full form, enable controls
+          fullForm.classList.remove('is-hidden');
+          fullForm.setAttribute('aria-hidden', 'false');
+          setControlsDisabled(fullForm, false);
+
+          // hide "no" section and disable its inputs
+          noSection.classList.add('is-hidden');
+          noSection.setAttribute('aria-hidden', 'true');
+          setControlsDisabled(noSection, true);
+        } else if (att === 'no') {
+          // show "no" section and enable its inputs
+          noSection.classList.remove('is-hidden');
+          noSection.setAttribute('aria-hidden', 'false');
+          setControlsDisabled(noSection, false);
+
+          // hide full form and disable its inputs
+          fullForm.classList.add('is-hidden');
+          fullForm.setAttribute('aria-hidden', 'true');
+          setControlsDisabled(fullForm, true);
+
+          // also hide lodging subparts inside fullForm
+          roomOptions.classList.add('is-hidden');
+          roomOptions.setAttribute('aria-hidden', 'true');
+          otherLodging.classList.add('is-hidden');
+          otherLodging.setAttribute('aria-hidden', 'true');
+        } else {
+          // none selected -> hide both
+          hideAllSubsections();
+        }
+      }
+
+      // Handle lodging subfields when user is attending and answers willStay
       function updateLodgingSubfields() {
         const will = document.querySelector('input[name="willStay"]:checked')?.value;
         if (will === 'si') {
-          // show room options, hide "other lodging"
           roomOptions.classList.remove('is-hidden');
           roomOptions.setAttribute('aria-hidden', 'false');
           otherLodging.classList.add('is-hidden');
           otherLodging.setAttribute('aria-hidden', 'true');
-          // make roomChoice required when visible
+          // require a roomChoice when visible
           roomChoiceInputs().forEach(i => i.required = true);
         } else if (will === 'no') {
-          // show "other lodging" input, hide room options
           otherLodging.classList.remove('is-hidden');
           otherLodging.setAttribute('aria-hidden', 'false');
           roomOptions.classList.add('is-hidden');
           roomOptions.setAttribute('aria-hidden', 'true');
-          // remove required from roomChoice and clear selection
           roomChoiceInputs().forEach(i => { i.required = false; i.checked = false; });
         } else {
-          // neither selected: hide both
+          // none selected - hide both
           roomOptions.classList.add('is-hidden');
           roomOptions.setAttribute('aria-hidden', 'true');
           otherLodging.classList.add('is-hidden');
@@ -334,10 +437,18 @@
         }
       }
 
-      // Add listeners to willStay radios
-      willStayRadios.forEach(r => r.addEventListener('change', updateLodgingSubfields));
+      // Event listeners
+      document.addEventListener('change', function (e) {
+        if (e.target && e.target.matches('input[name="attendance"]')) {
+          handleAttendanceChange();
+        }
+        if (e.target && e.target.matches(willStayRadiosSelector)) {
+          updateLodgingSubfields();
+        }
+      }, { passive: true });
 
-      // Initialize visibility on load (no preselected options => both hidden)
+      // Initialize (in case browser restores state, reflect current selections)
+      handleAttendanceChange();
       updateLodgingSubfields();
 
       // Submit handler using fetch to Formspree for custom confirmation
@@ -366,12 +477,12 @@
 
           if (resp.ok) {
             // Show success message under button (animated)
-            statusEl.innerHTML = '<div class="rsvp-message" id="rsvpMessage">Gracias, nos vemos el 30 de Mayo.</div>';
+            statusEl.innerHTML = '<div class="rsvp-message" id="rsvpMessage">Gracias — hemos recibido tu respuesta.</div>';
             const msg = document.getElementById('rsvpMessage');
             requestAnimationFrame(() => requestAnimationFrame(() => msg.classList.add('show')));
             form.reset();
-            // After reset, hide both lodging subfields
-            updateLodgingSubfields();
+            // After reset: hide sub-sections and disable their controls so only attendance shows
+            hideAllSubsections();
             submitBtn.disabled = false;
             submitBtn.removeAttribute('aria-busy');
           } else {
