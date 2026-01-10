@@ -17,7 +17,7 @@
     .rsvp-form { display:block; width:100%; }
     .form-row { display:flex; gap:1rem; margin:0.5rem 0 1rem; align-items:center; flex-wrap:wrap; }
     .form-row .field { flex:1 1 220px; min-width:180px; }
-    label { display:block; font-weight:600; margin-bottom:0.35rem; color: inherit; }
+    label { display:block; font-weight:600; margin-bottom:0.35rem; color: inherit; font-family: inherit; }
     input[type="text"], select, textarea {
       width:100%;
       padding:0.6rem 0.75rem;
@@ -31,18 +31,18 @@
     }
     textarea { min-height: 100px; resize: vertical; }
     fieldset { border: 0; padding: 0; margin: 0 0 1rem 0; }
-    .choices { display:flex; gap:0.6rem; flex-wrap:wrap; align-items:center; }
+    .choices, .radio-group { display:flex; gap:0.6rem; flex-wrap:wrap; align-items:center; }
     .choice-label {
       display:inline-flex; align-items:center; gap:0.45rem; padding:0.35rem 0.6rem;
       border-radius:8px; background: rgba(255,255,255,0.72); cursor: pointer; font-weight:600; color: #0b3d2e;
+      font-family: inherit;
     }
     input[type="radio"], input[type="checkbox"] { accent-color: var(--brand-green); }
     .form-actions { margin-top: 0.75rem; display:flex; gap:0.6rem; align-items:center; justify-content:flex-start; }
-    .form-note { font-size:0.95rem; color: rgba(11,61,46,0.8); }
-    .is-hidden { display:none !important; }
+    .form-note { font-size:0.95rem; color: rgba(11,61,46,0.8); font-family: inherit; }
     .rsvp-success {
       margin-top:1rem; padding:0.9rem 1rem; border-radius:8px; background: rgba(42,157,143,0.12);
-      color: var(--brand-green-dark); font-weight:600;
+      color: var(--brand-green-dark); font-weight:600; font-family: inherit;
     }
     @media (max-width:640px) {
       .form-row { gap:0.5rem; }
@@ -69,25 +69,19 @@
     <section class="card" aria-labelledby="asistencia-heading">
       <h2 id="asistencia-heading" style="margin-top:0;">Formulario de asistencia</h2>
 
-      <!-- FORM: enviado a Formspree (tu endpoint) -->
-      <form id="rsvpForm" class="rsvp-form" method="POST" action="https://formspree.io/f/mdaankgw">
+      <!-- FORM: enviado a Formspree (tu endpoint). Se envía por fetch en JS para mostrar mensaje personalizado -->
+      <form id="rsvpForm" class="rsvp-form" method="POST" action="https://formspree.io/f/mdaankgw" novalidate>
         <!-- Hidden fields para Formspree -->
         <input type="hidden" name="_subject" value="RSVP Silvia & Álvaro">
-        <!-- Si quieres redirigir tras el envío, descomenta y pon tu URL -->
-        <!-- <input type="hidden" name="_next" value="https://tusitio.com/gracias.html"> -->
-        <!-- Honeypot anti-spam (Formspree ignora si está relleno) -->
-        <input type="text" name="_gotcha" style="display:none">
+        <!-- Honeypot anti-spam -->
+        <input type="text" name="_gotcha" style="display:none" aria-hidden="true">
 
-        <!-- 1. ¿Asistirás? -->
+        <!-- 1. ¿Asistirás? --> 
         <fieldset aria-labelledby="asistiras-legend">
           <legend id="asistiras-legend" style="font-weight:700;margin-bottom:0.5rem;">¿Asistirás a la boda?</legend>
           <div class="choices" role="radiogroup" aria-labelledby="asistiras-legend">
             <label class="choice-label">
-              <input type="radio" name="attendance" value="si-solo" required> Sí, yo solo/a
-            </label>
-
-            <label class="choice-label">
-              <input type="radio" name="attendance" value="si-acompanante"> Sí, con acompañante
+              <input type="radio" name="attendance" value="si" required> Sí
             </label>
 
             <label class="choice-label">
@@ -111,38 +105,26 @@
           </div>
         </fieldset>
 
-        <!-- 3. ¿Quién es tu acompañante? (solo si trae acompañante) -->
-        <fieldset id="acompanante-fieldset" class="is-hidden" aria-hidden="true">
-          <legend style="font-weight:700;margin-bottom:0.5rem;">¿Quién es tu acompañante?</legend>
-          <div class="form-row">
-            <div class="field">
-              <label for="compFirst">Nombre</label>
-              <input id="compFirst" name="compFirst" type="text" placeholder="Nombre del acompañante">
-            </div>
-            <div class="field">
-              <label for="compLast">Apellido</label>
-              <input id="compLast" name="compLast" type="text" placeholder="Apellido del acompañante">
-            </div>
-          </div>
-        </fieldset>
-
-        <!-- 4. Dieta -->
+        <!-- 3. Dieta (ahora radios: solo 1 opción) -->
         <fieldset>
           <legend style="font-weight:700;margin-bottom:0.5rem;">¿Sigues alguna dieta especial?</legend>
-          <div class="form-row">
-            <div class="field">
-              <label for="diet">Selecciona</label>
-              <select id="diet" name="diet">
-                <option value="no">No</option>
-                <option value="vegetariana">Vegetariana</option>
-                <option value="vegetariana-pescado">Vegetariana (como pescado)</option>
-                <option value="vegana">Vegana</option>
-              </select>
-            </div>
+          <div class="radio-group" role="radiogroup" aria-labelledby="dieta-legend" id="dieta-legend">
+            <label class="choice-label">
+              <input type="radio" name="diet" value="no" checked> No
+            </label>
+            <label class="choice-label">
+              <input type="radio" name="diet" value="vegetariana"> Vegetariana
+            </label>
+            <label class="choice-label">
+              <input type="radio" name="diet" value="vegetariana-pescado"> Vegetariana (como pescado)
+            </label>
+            <label class="choice-label">
+              <input type="radio" name="diet" value="vegana"> Vegana
+            </label>
           </div>
         </fieldset>
 
-        <!-- 5. Intolerancias / alergias -->
+        <!-- 4. Intolerancias / alergias -->
         <fieldset>
           <legend style="font-weight:700;margin-bottom:0.5rem;">¿Alguna intolerancia o alergia?</legend>
           <div class="form-row">
@@ -153,7 +135,7 @@
           </div>
         </fieldset>
 
-        <!-- 6. Preboda -->
+        <!-- 5. Preboda -->
         <fieldset aria-labelledby="preboda-legend">
           <legend id="preboda-legend" style="font-weight:700;margin-bottom:0.5rem;">¿Vendrás a la preboda?</legend>
           <div class="choices" role="radiogroup" aria-labelledby="preboda-legend">
@@ -166,7 +148,7 @@
           </div>
         </fieldset>
 
-        <!-- 7. Algo más que debamos saber -->
+        <!-- 6. Algo más que debamos saber -->
         <fieldset>
           <legend style="font-weight:700;margin-bottom:0.5rem;">¿Algo más que debamos saber?</legend>
           <div class="form-row">
@@ -178,12 +160,8 @@
         </fieldset>
 
         <div class="form-actions">
-          <button type="submit" class="btn-primary" aria-label="Enviar respuesta">
-            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-              <path d="M2 12L22 3L9 14L14 9L17 20L2 12Z" fill="currentColor"/>
-            </svg>
-            <span>Enviar respuesta</span>
-          </button>
+          <!-- Botón con la misma fuente que el sitio; solo pone "Enviar" -->
+          <button type="submit" class="btn-primary" aria-label="Enviar">Enviar</button>
 
           <div id="formStatus" role="status" aria-live="polite" style="margin-left:0.6rem;"></div>
         </div>
@@ -195,31 +173,58 @@
 
   <script>
     (function () {
-      // Mostrar/ocultar campos de acompañante
+      // Mostrar/ocultar no necesario para acompañante (ya se eliminó)
+      // Form submit via AJAX (fetch) to Formspree so we can show a custom message
       const form = document.getElementById('rsvpForm');
-      const attendanceRadios = Array.from(form.elements['attendance'] || []);
-      const companionFieldset = document.getElementById('acompanante-fieldset');
-      const compFirst = document.getElementById('compFirst');
-      const compLast = document.getElementById('compLast');
+      const statusEl = document.getElementById('formStatus');
+      const submitBtn = form.querySelector('button[type="submit"]');
 
-      function updateCompanionVisibility() {
-        const value = attendanceRadios.find(r => r.checked)?.value;
-        if (value === 'si-acompanante') {
-          companionFieldset.classList.remove('is-hidden');
-          companionFieldset.setAttribute('aria-hidden', 'false');
-          compFirst.required = true;
-          compLast.required = true;
-        } else {
-          companionFieldset.classList.add('is-hidden');
-          companionFieldset.setAttribute('aria-hidden', 'true');
-          compFirst.required = false;
-          compLast.required = false;
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        statusEl.textContent = '';
+
+        // native validation
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
         }
-      }
 
-      // inicializar y escuchar cambios
-      updateCompanionVisibility();
-      attendanceRadios.forEach(r => r.addEventListener('change', updateCompanionVisibility));
+        // Prepare form data
+        const action = form.action;
+        const formData = new FormData(form);
+
+        // Send to Formspree using fetch and expecting JSON response
+        try {
+          submitBtn.disabled = true;
+          submitBtn.setAttribute('aria-busy', 'true');
+
+          const resp = await fetch(action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+              'Accept': 'application/json'
+            }
+          });
+
+          if (resp.ok) {
+            // Show the requested custom message
+            statusEl.innerHTML = '<div class="rsvp-success">Gracias, nos vemos el 30 de Mayo.</div>';
+            form.reset();
+            // keep submit disabled to avoid duplicate sends
+          } else {
+            const data = await resp.json().catch(()=>null);
+            let msg = 'Error al enviar. Por favor inténtalo de nuevo.';
+            if (data && data.error) msg = data.error;
+            statusEl.innerHTML = '<div class="form-note" style="color: #b33;">'+msg+'</div>';
+            submitBtn.disabled = false;
+            submitBtn.removeAttribute('aria-busy');
+          }
+        } catch (err) {
+          statusEl.innerHTML = '<div class="form-note" style="color: #b33;">Error de conexión. Intenta de nuevo más tarde.</div>';
+          submitBtn.disabled = false;
+          submitBtn.removeAttribute('aria-busy');
+        }
+      });
     })();
   </script>
 </body>
