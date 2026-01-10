@@ -13,12 +13,12 @@
 
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Pequeños estilos específicos del formulario (se cargan además de styles.css) */
+    /* Estilos locales del formulario (complementan styles.css) */
     .rsvp-form { display:block; width:100%; }
     .form-row { display:flex; gap:1rem; margin:0.5rem 0 1rem; align-items:center; flex-wrap:wrap; }
     .form-row .field { flex:1 1 220px; min-width:180px; }
     label { display:block; font-weight:600; margin-bottom:0.35rem; color: inherit; font-family: inherit; }
-    input[type="text"], select, textarea {
+    input[type="text"], textarea {
       width:100%;
       padding:0.6rem 0.75rem;
       border-radius:8px;
@@ -37,13 +37,36 @@
       border-radius:8px; background: rgba(255,255,255,0.72); cursor: pointer; font-weight:600; color: #0b3d2e;
       font-family: inherit;
     }
-    input[type="radio"], input[type="checkbox"] { accent-color: var(--brand-green); }
-    .form-actions { margin-top: 0.75rem; display:flex; gap:0.6rem; align-items:center; justify-content:flex-start; }
-    .form-note { font-size:0.95rem; color: rgba(11,61,46,0.8); font-family: inherit; }
-    .rsvp-success {
-      margin-top:1rem; padding:0.9rem 1rem; border-radius:8px; background: rgba(42,157,143,0.12);
-      color: var(--brand-green-dark); font-weight:600; font-family: inherit;
+    input[type="radio"] { accent-color: var(--brand-green); }
+
+    /* Form actions: centrar botón y mensaje debajo */
+    .form-actions {
+      margin-top: 0.75rem;
+      display:flex;
+      flex-direction:column;
+      gap:0.6rem;
+      align-items:center;
+      justify-content:center;
     }
+
+    .form-note { font-size:0.95rem; color: rgba(11,61,46,0.8); font-family: inherit; }
+
+    /* Mensaje de confirmación sin caja verde, con animación */
+    .rsvp-message {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 420ms ease, transform 420ms cubic-bezier(.2,.9,.2,1);
+      color: var(--brand-green-dark);
+      font-weight:700;
+      font-family: inherit;
+      font-size: 1.05rem;
+      text-align:center;
+    }
+    .rsvp-message.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     @media (max-width:640px) {
       .form-row { gap:0.5rem; }
       .form-row .field { flex:1 1 100%; min-width:0; }
@@ -69,14 +92,12 @@
     <section class="card" aria-labelledby="asistencia-heading">
       <h2 id="asistencia-heading" style="margin-top:0;">Formulario de asistencia</h2>
 
-      <!-- FORM: enviado a Formspree (tu endpoint). Se envía por fetch en JS para mostrar mensaje personalizado -->
+      <!-- FORM: enviado a Formspree vía fetch para mostrar mensaje personalizado -->
       <form id="rsvpForm" class="rsvp-form" method="POST" action="https://formspree.io/f/mdaankgw" novalidate>
-        <!-- Hidden fields para Formspree -->
         <input type="hidden" name="_subject" value="RSVP Silvia & Álvaro">
-        <!-- Honeypot anti-spam -->
         <input type="text" name="_gotcha" style="display:none" aria-hidden="true">
 
-        <!-- 1. ¿Asistirás? --> 
+        <!-- 1. ¿Asistirás? (solo Sí / No) -->
         <fieldset aria-labelledby="asistiras-legend">
           <legend id="asistiras-legend" style="font-weight:700;margin-bottom:0.5rem;">¿Asistirás a la boda?</legend>
           <div class="choices" role="radiogroup" aria-labelledby="asistiras-legend">
@@ -105,22 +126,14 @@
           </div>
         </fieldset>
 
-        <!-- 3. Dieta (ahora radios: solo 1 opción) -->
+        <!-- 3. Dieta (radios, selección única) -->
         <fieldset>
           <legend style="font-weight:700;margin-bottom:0.5rem;">¿Sigues alguna dieta especial?</legend>
           <div class="radio-group" role="radiogroup" aria-labelledby="dieta-legend" id="dieta-legend">
-            <label class="choice-label">
-              <input type="radio" name="diet" value="no" checked> No
-            </label>
-            <label class="choice-label">
-              <input type="radio" name="diet" value="vegetariana"> Vegetariana
-            </label>
-            <label class="choice-label">
-              <input type="radio" name="diet" value="vegetariana-pescado"> Vegetariana (como pescado)
-            </label>
-            <label class="choice-label">
-              <input type="radio" name="diet" value="vegana"> Vegana
-            </label>
+            <label class="choice-label"><input type="radio" name="diet" value="no" checked> No</label>
+            <label class="choice-label"><input type="radio" name="diet" value="vegetariana"> Vegetariana</label>
+            <label class="choice-label"><input type="radio" name="diet" value="vegetariana-pescado"> Vegetariana (como pescado)</label>
+            <label class="choice-label"><input type="radio" name="diet" value="vegana"> Vegana</label>
           </div>
         </fieldset>
 
@@ -139,12 +152,8 @@
         <fieldset aria-labelledby="preboda-legend">
           <legend id="preboda-legend" style="font-weight:700;margin-bottom:0.5rem;">¿Vendrás a la preboda?</legend>
           <div class="choices" role="radiogroup" aria-labelledby="preboda-legend">
-            <label class="choice-label">
-              <input type="radio" name="preboda" value="si"> Sí
-            </label>
-            <label class="choice-label">
-              <input type="radio" name="preboda" value="no" checked> No
-            </label>
+            <label class="choice-label"><input type="radio" name="preboda" value="si"> Sí</label>
+            <label class="choice-label"><input type="radio" name="preboda" value="no" checked> No</label>
           </div>
         </fieldset>
 
@@ -160,10 +169,11 @@
         </fieldset>
 
         <div class="form-actions">
-          <!-- Botón con la misma fuente que el sitio; solo pone "Enviar" -->
+          <!-- Botón centrado con solo "Enviar" -->
           <button type="submit" class="btn-primary" aria-label="Enviar">Enviar</button>
 
-          <div id="formStatus" role="status" aria-live="polite" style="margin-left:0.6rem;"></div>
+          <!-- Mensaje aparecerá aquí debajo del botón con efecto -->
+          <div id="formStatus" role="status" aria-live="polite"></div>
         </div>
       </form>
     </section>
@@ -173,27 +183,23 @@
 
   <script>
     (function () {
-      // Mostrar/ocultar no necesario para acompañante (ya se eliminó)
-      // Form submit via AJAX (fetch) to Formspree so we can show a custom message
+      // Mostrar/ocultar acompañante ya no necesario (campo eliminado)
+      // Envío por fetch a Formspree para poder mostrar mensaje personalizado con animación
       const form = document.getElementById('rsvpForm');
       const statusEl = document.getElementById('formStatus');
       const submitBtn = form.querySelector('button[type="submit"]');
 
       form.addEventListener('submit', async function (e) {
         e.preventDefault();
-        statusEl.textContent = '';
-
-        // native validation
+        statusEl.innerHTML = ''; // limpiar
         if (!form.checkValidity()) {
           form.reportValidity();
           return;
         }
 
-        // Prepare form data
         const action = form.action;
         const formData = new FormData(form);
 
-        // Send to Formspree using fetch and expecting JSON response
         try {
           submitBtn.disabled = true;
           submitBtn.setAttribute('aria-busy', 'true');
@@ -201,26 +207,27 @@
           const resp = await fetch(action, {
             method: 'POST',
             body: formData,
-            headers: {
-              'Accept': 'application/json'
-            }
+            headers: { 'Accept': 'application/json' }
           });
 
           if (resp.ok) {
-            // Show the requested custom message
-            statusEl.innerHTML = '<div class="rsvp-success">Gracias, nos vemos el 30 de Mayo.</div>';
+            // Insertar mensaje sin caja, con animación
+            statusEl.innerHTML = '<div class="rsvp-message" id="rsvpMessage">Gracias, nos vemos el 30 de Mayo.</div>';
+            // Forzar repaint y añadir clase "show" para activar la transición
+            const msg = document.getElementById('rsvpMessage');
+            requestAnimationFrame(() => requestAnimationFrame(() => msg.classList.add('show')));
             form.reset();
-            // keep submit disabled to avoid duplicate sends
+            // mantener botón deshabilitado para evitar envíos repetidos; si quieres reactivar lo podemos hacer tras X segundos
           } else {
             const data = await resp.json().catch(()=>null);
             let msg = 'Error al enviar. Por favor inténtalo de nuevo.';
             if (data && data.error) msg = data.error;
-            statusEl.innerHTML = '<div class="form-note" style="color: #b33;">'+msg+'</div>';
+            statusEl.innerHTML = '<div class="form-note" style="color:#b33">'+msg+'</div>';
             submitBtn.disabled = false;
             submitBtn.removeAttribute('aria-busy');
           }
         } catch (err) {
-          statusEl.innerHTML = '<div class="form-note" style="color: #b33;">Error de conexión. Intenta de nuevo más tarde.</div>';
+          statusEl.innerHTML = '<div class="form-note" style="color:#b33">Error de conexión. Intenta de nuevo más tarde.</div>';
           submitBtn.disabled = false;
           submitBtn.removeAttribute('aria-busy');
         }
