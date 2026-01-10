@@ -64,6 +64,7 @@
       object-fit:cover;
       -webkit-user-drag: none;
       user-select: none;
+      background: #f6f6f6; /* visible placeholder while loading or if image missing */
     }
     .photo-gallery .caption {
       padding: 0.55rem 0.7rem;
@@ -71,6 +72,13 @@
       color: rgba(11,61,46,0.85);
       background: rgba(255,255,255,0.92);
       border-top: 1px solid rgba(11,61,46,0.03);
+    }
+
+    .photo-gallery .fallback-note {
+      margin-top: 0.6rem;
+      color: rgba(11,61,46,0.7);
+      font-size: 0.95rem;
+      text-align: center;
     }
 
     @media (max-width: 840px) {
@@ -99,7 +107,7 @@
 
     <section class="card" aria-labelledby="regalo-heading">
       <div class="section-media" style="align-items:center; gap:1rem;">
-        <img src="img/Regalo.png" alt="Hotel" loading="lazy" width="72" height="72">
+        <img src="img/Regalo.png" alt="Regalo" loading="lazy" width="72" height="72">
         <div class="heading-wrap">
           <h2 id="regalo-heading" style="margin:0;">Regalo</h2>
         </div>
@@ -113,38 +121,16 @@
           <p class="iban" aria-hidden="false">ES44 0049 5131 1329 1608 2804</p>
         </div>
 
-        <!-- Photo gallery: replace filenames below (photo1.jpg ... photo7.jpg) with your actual filenames in /img -->
+        <!-- Photo gallery (populated by JS): insert your basenames below -->
         <div class="photo-gallery" aria-labelledby="gallery-heading">
           <h3 id="gallery-heading" style="margin:0.85rem 0 0.6rem 0; font-size:1.05rem;">Unas fotos nuestras</h3>
 
-          <div class="gallery-grid" role="list">
-            <a href="IMG_0130.PNG" target="_blank" rel="noopener noreferrer" role="listitem">
-              <img src="img/photo1.jpg" alt="Silvia & Álvaro — foto 1" loading="lazy">
-            </a>
+          <div class="gallery-grid" id="galleryGrid" role="list" aria-live="polite">
+            <!-- JS will insert images here. -->
+          </div>
 
-            <a href="img/IMG_1001.PNG" target="_blank" rel="noopener noreferrer" role="listitem">
-              <img src="img/photo2.jpg" alt="Silvia & Álvaro — foto 2" loading="lazy">
-            </a>
-
-            <a href="img/IMG_1281.PNG" target="_blank" rel="noopener noreferrer" role="listitem">
-              <img src="img/photo3.jpg" alt="Silvia & Álvaro — foto 3" loading="lazy">
-            </a>
-
-            <a href="img/IMG_1445.PNG" target="_blank" rel="noopener noreferrer" role="listitem">
-              <img src="img/photo4.jpg" alt="Silvia & Álvaro — foto 4" loading="lazy">
-            </a>
-
-            <a href="img/IMG_1469.PNG" target="_blank" rel="noopener noreferrer" role="listitem">
-              <img src="img/photo5.jpg" alt="Silvia & Álvaro — foto 5" loading="lazy">
-            </a>
-
-            <a href="img/IMG_1627.PNG" target="_blank" rel="noopener noreferrer" role="listitem">
-              <img src="img/photo6.jpg" alt="Silvia & Álvaro — foto 6" loading="lazy">
-            </a>
-
-            <a href="img/IMG_6288.PNG" target="_blank" rel="noopener noreferrer" role="listitem">
-              <img src="img/photo7.jpg" alt="Silvia & Álvaro — foto 7" loading="lazy">
-            </a>
+          <div id="galleryFallback" class="fallback-note" aria-hidden="true" style="display:none;">
+            No se han podido cargar las imágenes. Comprueba que los ficheros están en la carpeta <code>/img</code> y que tienen una extensión web compatible (.jpg, .jpeg, .png, .webp).
           </div>
         </div>
         <!-- /photo-gallery -->
@@ -154,5 +140,95 @@
   </main>
 
   <footer class="footer" role="contentinfo">Álvaro & Silvia · 30/05/2026</footer>
+
+  <script>
+    (function () {
+      // Lista de nombres base (sin extensión) que quieres mostrar.
+      // Modifícalos si tus archivos se llaman diferente.
+      const basenames = [
+        'IMG_0130',
+        'IMG_1001',
+        'IMG_1281',
+        'IMG_1445',
+        'IMG_1469',
+        'IMG_1627',
+        'IMG_6288'
+      ];
+
+      // Extensiones a intentar, en orden preferido (web-friendly).
+      const exts = ['webp', 'jpg', 'jpeg', 'png', 'gif'];
+
+      const galleryGrid = document.getElementById('galleryGrid');
+      const fallbackNote = document.getElementById('galleryFallback');
+
+      let loadedCount = 0;
+      let attempted = 0;
+
+      // Try to load an image by trying several extensions.
+      function tryLoadImage(basename, index = 0) {
+        if (index >= exts.length) {
+          // nothing found for this basename
+          attempted++;
+          checkAllDone();
+          return;
+        }
+        const ext = exts[index];
+        const url = `img/${basename}.${ext}`;
+
+        const imgTest = new Image();
+        imgTest.onload = function () {
+          // success: create anchor + img in the grid
+          const a = document.createElement('a');
+          a.href = url;
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+          a.role = 'listitem';
+          a.title = basename;
+
+          const img = document.createElement('img');
+          img.src = url;
+          img.alt = `Silvia & Álvaro — ${basename}`;
+          img.loading = 'lazy';
+
+          // when the displayed image actually loads, improve counters
+          img.addEventListener('load', function () {
+            // nothing required
+          });
+
+          a.appendChild(img);
+          galleryGrid.appendChild(a);
+
+          loadedCount++;
+          attempted++;
+          checkAllDone();
+        };
+        imgTest.onerror = function () {
+          // try next extension
+          tryLoadImage(basename, index + 1);
+        };
+        // start test
+        imgTest.src = url;
+      }
+
+      function checkAllDone() {
+        // once we've attempted for all basenames, if none loaded show fallback
+        if (attempted >= basenames.length) {
+          if (loadedCount === 0) {
+            fallbackNote.style.display = 'block';
+            fallbackNote.setAttribute('aria-hidden','false');
+          } else {
+            fallbackNote.style.display = 'none';
+            fallbackNote.setAttribute('aria-hidden','true');
+          }
+        }
+      }
+
+      // Kick off loading for each basename
+      basenames.forEach(b => tryLoadImage(b));
+
+      // Accessibility & graceful fallback: if JS disabled, show a short note
+      // (No action needed here; server-side could render fallback text)
+    })();
+  </script>
 </body>
 </html>
