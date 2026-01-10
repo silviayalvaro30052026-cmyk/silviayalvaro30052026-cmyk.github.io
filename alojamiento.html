@@ -12,10 +12,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Pequeños estilos locales para el formulario de alojamiento */
+    .lodging-form { display:block; width:100%; }
+    .option-prices { margin-top: 0.45rem; color: rgba(11,61,46,0.9); font-weight:600; }
+    .supplements { display:flex; gap:0.8rem; flex-wrap:wrap; margin-top:0.5rem; }
+    .supplement-label { display:inline-flex; align-items:center; gap:0.45rem; padding:0.28rem 0.45rem; border-radius:8px; background: rgba(255,255,255,0.86); color: inherit; }
+    .price-summary { margin-top:0.6rem; font-weight:700; color: var(--brand-green-dark); }
+    .is-hidden { display:none !important; }
+    textarea[name="comments"] { min-height:100px; width:100%; padding:0.6rem; border-radius:8px; border:1px solid rgba(0,0,0,0.12); box-sizing:border-box; background: rgba(255,255,255,0.96); font-family: inherit; }
+  </style>
 </head>
 <body class="evento-page">
 
-  <!-- Navegación (igual que en evento.html / asistencia.html) -->
+  <!-- Navegación (igual que en las otras páginas) -->
   <nav class="top-nav" role="navigation" aria-label="Navegación de la boda">
     <ul class="nav-list" role="menubar" aria-label="Secciones">
       <li role="none"><a role="menuitem" class="nav-btn" href="index.html">Inicio</a></li>
@@ -32,128 +42,228 @@
     <section class="card" aria-labelledby="intro-heading">
       <h2 id="intro-heading" style="margin-top:0;">Opciones cercanas</h2>
       <p style="margin-top:0.4rem;">
-        Hemos seleccionado varias opciones de alojamiento cerca del lugar de celebración. Si necesitas ayuda con reservas o transporte, escríbenos en la sección de contacto de la web.
+        Hemos seleccionado varias opciones de alojamiento cerca del lugar de celebración. Si necesitáis ayuda con reservas o transporte, escribidnos en el formulario.
       </p>
     </section>
 
-    <!-- Hotel recomendado -->
-    <section class="card" aria-labelledby="hotel-izan-heading">
-      <div class="section-media">
+    <!-- Reserva exclusiva + formulario de preferencia -->
+    <section class="card" aria-labelledby="hotel-info-heading">
+      <div class="section-media" style="align-items:flex-start;">
         <img src="img/Banquete.png" alt="Hotel Izán Puerta de Gredos" loading="lazy" width="72" height="72">
         <div class="heading-wrap">
-          <h2 id="hotel-izan-heading">Hotel Izán Puerta de Gredos</h2>
+          <h2 id="hotel-info-heading">Hotel reservado para invitados</h2>
         </div>
       </div>
 
       <div class="card-body">
-        <p class="lead"><strong>Dirección:</strong> Av. de la Estación, El Barco de Ávila</p>
-        <p><strong>Distancia al banquete:</strong> aprox. 1.2 km (5 min en coche)</p>
-        <p><strong>Teléfono / Reserva:</strong> <a href="tel:+34900000000">+34 900 000 000</a></p>
-        <p style="margin-top:0.4rem;">Ofrecen tarifa de grupo (menciona "Silvia & Álvaro") — pregunta por disponibilidad y precios.</p>
-
-        <p style="margin-top:0.6rem;">
-          <a class="cta" href="https://www.hotelizan.com" target="_blank" rel="noopener noreferrer">Ver web / reservar</a>
+        <p style="margin-top:0.4rem;">
+          El hotel estará reservado en exclusiva para los invitados de la boda.
+          Por favor, indicad a continuación si vais a alojaros en el hotel y qué opción preferís.
         </p>
-      </div>
 
-      <div class="map" aria-label="Mapa: Hotel Izán Puerta de Gredos">
-        <iframe
-          src="https://www.google.com/maps?q=Hotel+Iz%C3%A1n+Puerta+de+Gredos+El+Barco+de+%C3%81vila&z=16&t=k&output=embed"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          title="Mapa: Hotel Izán Puerta de Gredos"
-          style="border:0; width:100%; height:320px;"
-          aria-hidden="false">
-        </iframe>
-        <div class="map-controls">
-          <a href="https://www.google.com/maps?q=Hotel+Iz%C3%A1n+Puerta+de+Gredos+El+Barco+de+%C3%81vila" target="_blank" rel="noopener noreferrer">Abrir en Google Maps</a>
-        </div>
+        <!-- Formulario: envía a Formspree (opcional: cambia action si prefieres otro endpoint) -->
+        <form id="lodgingForm" class="lodging-form" method="POST" action="https://formspree.io/f/mdaankgw" novalidate>
+          <input type="hidden" name="_subject" value="Alojamiento — Silvia & Álvaro">
+          <!-- Honeypot anti-spam -->
+          <input type="text" name="_gotcha" style="display:none" aria-hidden="true">
+
+          <!-- ¿Te alojarás en el hotel? -->
+          <fieldset>
+            <legend style="font-weight:700;margin-bottom:0.5rem;">¿Te alojarás en el hotel?</legend>
+            <div class="choices" role="radiogroup" aria-labelledby="">
+              <label class="choice-label">
+                <input type="radio" name="willStay" value="si" required> Sí
+              </label>
+              <label class="choice-label">
+                <input type="radio" name="willStay" value="no"> No
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- Opciones de alojamiento (depende de willStay) -->
+          <fieldset id="roomOptions" class="is-hidden" aria-hidden="true">
+            <legend style="font-weight:700;margin-bottom:0.5rem;">Opciones de alojamiento</legend>
+
+            <!-- Habitación doble -->
+            <div style="margin-bottom:0.6rem;">
+              <div style="display:flex;align-items:center;gap:0.75rem;">
+                <div style="flex:0 0 auto;">
+                  <strong>🛏 Habitación doble (2 personas)</strong>
+                </div>
+                <div style="flex:1 1 auto;"></div>
+              </div>
+
+              <div class="choices" style="margin-top:0.5rem;">
+                <label class="choice-label">
+                  <input type="radio" name="roomType" value="double" checked> Seleccionar habitación doble
+                </label>
+              </div>
+
+              <div style="margin-top:0.5rem;">
+                <div class="option-prices">
+                  <div><strong>2 noches (viernes a domingo)</strong> — Precio total por habitación: 187 € (Precio por persona y noche: 46,75 €)</div>
+                  <div style="margin-top:0.25rem;"><strong>1 noche</strong> — Precio total por habitación: 95,50 € (Precio por persona y noche: 47,75 €)</div>
+                </div>
+
+                <div style="margin-top:0.5rem;" aria-hidden="true">
+                  <label class="choice-label" style="font-weight:600;">
+                    <input type="radio" name="double_nights" value="2n" checked> 2 noches (viernes a domingo)
+                  </label>
+                  <label class="choice-label" style="font-weight:600;">
+                    <input type="radio" name="double_nights" value="1n"> 1 noche
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Habitación triple -->
+            <div style="margin-top:0.8rem; margin-bottom:0.6rem;">
+              <div style="display:flex;align-items:center;gap:0.75rem;">
+                <div style="flex:0 0 auto;">
+                  <strong>🛏 Habitación triple (3 personas)</strong>
+                </div>
+                <div style="flex:1 1 auto;"></div>
+              </div>
+
+              <div class="choices" style="margin-top:0.5rem;">
+                <label class="choice-label">
+                  <input type="radio" name="roomType" value="triple"> Seleccionar habitación triple
+                </label>
+              </div>
+
+              <div style="margin-top:0.5rem;">
+                <div class="option-prices">
+                  <div><strong>2 noches (viernes a domingo)</strong> — Precio total por habitación: 248 € (Precio por persona y noche: 41,33 €)</div>
+                </div>
+
+                <div style="margin-top:0.5rem;" aria-hidden="true">
+                  <label class="choice-label" style="font-weight:600;">
+                    <input type="radio" name="triple_nights" value="2n" checked> 2 noches (viernes a domingo)
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Suplementos opcionales -->
+            <div style="margin-top:0.6rem;">
+              <div style="font-weight:700; margin-bottom:0.4rem;">Suplementos opcionales (por habitación y noche)</div>
+              <div class="supplements">
+                <label class="supplement-label">
+                  <input type="checkbox" name="supplement_junior" value="junior"> Junior Suite → + 32 € / noche
+                </label>
+                <label class="supplement-label">
+                  <input type="checkbox" name="supplement_suite" value="suite"> Suite → + 42 € / noche
+                </label>
+              </div>
+            </div>
+
+            <!-- Información adicional / comentarios -->
+            <div style="margin-top:0.8rem;">
+              <label for="comments" style="font-weight:700; display:block; margin-bottom:0.3rem;">📝 Comentarios o necesidades especiales (cuna, dudas, etc)</label>
+              <textarea id="comments" name="comments" placeholder="Escribe aquí…"></textarea>
+            </div>
+          </fieldset>
+
+          <div class="form-actions" style="margin-top:1rem;">
+            <button type="submit" class="btn-primary" aria-label="Enviar preferencia de alojamiento">Enviar</button>
+            <div id="lodgingStatus" role="status" aria-live="polite" style="margin-top:0.25rem;"></div>
+          </div>
+        </form>
       </div>
     </section>
 
-    <!-- Casa rural / alternativa -->
-    <section class="card" aria-labelledby="casa-rural-heading">
-      <div class="section-media">
-        <img src="img/CasaRural.png" alt="Casa rural" loading="lazy" width="72" height="72">
-        <div class="heading-wrap">
-          <h2 id="casa-rural-heading">Casa Rural La Ribera</h2>
-        </div>
+    <!-- Otras opciones de alojamiento (informativas) -->
+    <section class="card" aria-labelledby="other-heading">
+      <h2 id="other-heading" style="margin-top:0;">Otras opciones</h2>
+      <p style="margin-top:0.4rem;">Si no deseáis alojaros en el hotel reservado, hay otras alternativas cercanas:</p>
+
+      <div style="margin-top:0.8rem;">
+        <h3 style="margin:0 0 0.3rem 0;">Casa Rural La Ribera</h3>
+        <p style="margin:0 0 0.4rem 0;">Dirección: C/ Río. Ideal para grupos pequeños.</p>
+
+        <h3 style="margin:0 0 0.3rem 0;">Hostal La Plaza</h3>
+        <p style="margin:0 0 0.4rem 0;">Dirección: Plaza Mayor. Opción céntrica y económica.</p>
       </div>
-
-      <div class="card-body">
-        <p class="lead"><strong>Dirección:</strong> C/ Río, El Barco de Ávila</p>
-        <p><strong>Distancia:</strong> aprox. 850 m (10 min a pie)</p>
-        <p><strong>Contacto:</strong> <a href="mailto:reservas@casarural.example">reservas@casarural.example</a></p>
-        <p style="margin-top:0.4rem;">Agradable para grupos pequeños. Ideal si buscáis algo tranquilo cerca del río.</p>
-
-        <p style="margin-top:0.6rem;">
-          <a class="cta" href="#" target="_blank" rel="noopener noreferrer">Ver detalles</a>
-        </p>
-      </div>
-
-      <div class="map" aria-label="Mapa: Casa Rural La Ribera">
-        <iframe
-          src="https://www.google.com/maps?q=El+Barco+de+%C3%81vila+r%C3%ADo&z=16&t=k&output=embed"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          title="Mapa: Casa Rural La Ribera"
-          style="border:0; width:100%; height:320px;"
-          aria-hidden="false">
-        </iframe>
-        <div class="map-controls">
-          <a href="https://www.google.com/maps?q=El+Barco+de+%C3%81vila+r%C3%ADo" target="_blank" rel="noopener noreferrer">Abrir en Google Maps</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Hostal / opción económica -->
-    <section class="card" aria-labelledby="hostal-heading">
-      <div class="section-media">
-        <img src="img/Hostal.png" alt="Hostal" loading="lazy" width="72" height="72">
-        <div class="heading-wrap">
-          <h2 id="hostal-heading">Hostal La Plaza</h2>
-        </div>
-      </div>
-
-      <div class="card-body">
-        <p class="lead"><strong>Dirección:</strong> Plaza Mayor, El Barco de Ávila</p>
-        <p><strong>Distancia:</strong> aprox. 900 m (12 min a pie)</p>
-        <p><strong>Teléfono:</strong> <a href="tel:+34911111111">+34 911 111 111</a></p>
-        <p style="margin-top:0.4rem;">Opción cómoda y económica para quienes busquen algo céntrico.</p>
-
-        <p style="margin-top:0.6rem;">
-          <a class="cta" href="#" target="_blank" rel="noopener noreferrer">Reservar / Ver</a>
-        </p>
-      </div>
-
-      <div class="map" aria-label="Mapa: Hostal La Plaza">
-        <iframe
-          src="https://www.google.com/maps?q=El+Barco+de+%C3%81vila+Plaza+Mayor&z=16&t=k&output=embed"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          title="Mapa: Plaza Mayor, El Barco de Ávila"
-          style="border:0; width:100%; height:320px;"
-          aria-hidden="false">
-        </iframe>
-        <div class="map-controls">
-          <a href="https://www.google.com/maps?q=El+Barco+de+%C3%81vila+Plaza+Mayor" target="_blank" rel="noopener noreferrer">Abrir en Google Maps</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="card" aria-labelledby="transport-heading">
-      <h2 id="transport-heading" style="margin-top:0;">Transporte y recomendaciones</h2>
-      <p style="margin-top:0.4rem;">
-        Si necesitáis traslados desde los alojamientos al lugar del banquete podemos organizar taxis compartidos. Indicadlo en el formulario de asistencia o escribidnos y os gestionamos opciones.
-      </p>
-      <p style="margin-top:0.4rem;">
-        Para grupos que reserven varias habitaciones, recomendamos mencionar que venís a la boda de Silvia & Álvaro para consultar tarifas especiales.
-      </p>
     </section>
 
   </main>
 
   <footer class="footer" role="contentinfo">Álvaro & Silvia · 30/05/2026</footer>
 
+  <script>
+    (function () {
+      // Mostrar/ocultar opciones de habitación según respuesta willStay
+      const form = document.getElementById('lodgingForm');
+      const willStayRadios = Array.from(form.elements['willStay'] || []);
+      const roomOptions = document.getElementById('roomOptions');
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const statusEl = document.getElementById('lodgingStatus');
+
+      function updateRoomOptionsVisibility() {
+        const val = willStayRadios.find(r => r.checked)?.value;
+        if (val === 'si') {
+          roomOptions.classList.remove('is-hidden');
+          roomOptions.setAttribute('aria-hidden', 'false');
+          // make some fields required if needed
+          // e.g. require selection of roomType
+          const roomTypeInputs = Array.from(form.elements['roomType'] || []);
+          roomTypeInputs.forEach(i => i.required = true);
+        } else {
+          roomOptions.classList.add('is-hidden');
+          roomOptions.setAttribute('aria-hidden', 'true');
+          const roomTypeInputs = Array.from(form.elements['roomType'] || []);
+          roomTypeInputs.forEach(i => i.required = false);
+        }
+      }
+
+      updateRoomOptionsVisibility();
+      willStayRadios.forEach(r => r.addEventListener('change', updateRoomOptionsVisibility));
+
+      // Submit via fetch to Formspree so we can show a friendly confirmation below
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        statusEl.textContent = '';
+
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+
+        const action = form.action;
+        const data = new FormData(form);
+
+        try {
+          submitBtn.disabled = true;
+          submitBtn.setAttribute('aria-busy', 'true');
+
+          const resp = await fetch(action, {
+            method: 'POST',
+            body: data,
+            headers: { 'Accept': 'application/json' }
+          });
+
+          if (resp.ok) {
+            // show a confirmation message (no green box) with subtle animation
+            statusEl.innerHTML = '<div class="rsvp-message" id="lodgingMessage">Gracias — hemos recibido vuestra preferencia de alojamiento.</div>';
+            const msg = document.getElementById('lodgingMessage');
+            requestAnimationFrame(() => requestAnimationFrame(() => msg.classList.add('show')));
+            form.reset();
+            updateRoomOptionsVisibility();
+          } else {
+            const json = await resp.json().catch(()=>null);
+            let err = 'Error al enviar. Intenta de nuevo.';
+            if (json && json.error) err = json.error;
+            statusEl.innerHTML = '<div class="form-note" style="color:#b33;">'+err+'</div>';
+            submitBtn.disabled = false;
+            submitBtn.removeAttribute('aria-busy');
+          }
+        } catch (err) {
+          statusEl.innerHTML = '<div class="form-note" style="color:#b33;">Error de conexión. Intenta más tarde.</div>';
+          submitBtn.disabled = false;
+          submitBtn.removeAttribute('aria-busy');
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
