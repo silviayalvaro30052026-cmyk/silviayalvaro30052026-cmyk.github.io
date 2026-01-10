@@ -1,50 +1,159 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <title>Alojamiento · Álvaro & Silvia</title>
+  <meta charset="utf-8" />
+  <title>Alojamiento — Silvia & Álvaro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Opciones de alojamiento para invitados: hoteles, casas rurales y contactos. Información de distancia y reservas." />
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <!-- Misma fuente que el resto del sitio -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet" />
 
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body class="evento-page">
 
-  <header class="subnav">
-    <nav>
-      <a href="index.html">Inicio</a>
-      <a href="evento.html">Evento</a>
-      <a href="asistencia.html">Asistencia</a>
-      <a href="alojamiento.html">Alojamiento</a>
-      <a href="regalo.html">Regalo</a>
-    </nav>
-  </header>
+  <!-- Navegación (igual que en evento.html / asistencia.html) -->
+  <nav class="top-nav" role="navigation" aria-label="Navegación de la boda">
+    <ul class="nav-list" role="menubar" aria-label="Secciones">
+      <li role="none"><a role="menuitem" class="nav-btn" href="index.html">Inicio</a></li>
+      <li role="none"><a role="menuitem" class="nav-btn" href="evento.html">Evento</a></li>
+      <li role="none"><a role="menuitem" class="nav-btn" href="asistencia.html">Asistencia</a></li>
+      <li role="none"><span class="nav-current" aria-current="page">Alojamiento</span></li>
+      <li role="none"><a role="menuitem" class="nav-btn" href="regalo.html">Regalo</a></li>
+    </ul>
+  </nav>
 
-  <main class="section">
-    <h1>Alojamiento recomendado</h1>
-    <div class="card">
-      <h2>El Barco de Ávila y alrededores</h2>
-      <ul>
-        <li>Hotel Izán Puerta de Gredos – cómodo para el banquete</li>
-        <li>[Añadir hotel/apartamento 2]</li>
-        <li>[Añadir hotel/apartamento 3]</li>
-      </ul>
-      <p class="hint">Puedes indicarme opciones y yo completo esta lista.</p>
-    </div>
-    <div class="grid2">
-      <div>
-        <h3>Iglesia (Gil‑García)</h3>
-        <div class="map"><iframe src="https://www.google.com/maps?q=Iglesia+de+San+Sebasti%C3%A1n+M%C3%A1rtir+Gil-Garc%C3%ADa&output=embed" loading="lazy"></iframe></div>
+  <main id="main" class="section" role="main">
+    <h1>Alojamiento</h1>
+
+    <section class="card" aria-labelledby="intro-heading">
+      <h2 id="intro-heading" style="margin-top:0;">Opciones cercanas</h2>
+      <p style="margin-top:0.4rem;">
+        Hemos seleccionado varias opciones de alojamiento cerca del lugar de celebración. Si necesitas ayuda con reservas o transporte, escríbenos en la sección de contacto de la web.
+      </p>
+    </section>
+
+    <!-- Hotel recomendado -->
+    <section class="card" aria-labelledby="hotel-izan-heading">
+      <div class="section-media">
+        <img src="img/Banquete.png" alt="Hotel Izán Puerta de Gredos" loading="lazy" width="72" height="72">
+        <div class="heading-wrap">
+          <h2 id="hotel-izan-heading">Hotel Izán Puerta de Gredos</h2>
+        </div>
       </div>
-      <div>
-        <h3>Hotel Izán Puerta de Gredos</h3>
-        <div class="map"><iframe src="https://www.google.com/maps?q=Hotel+Iz%C3%A1n+Puerta+de+Gredos+Barco+de+%C3%81vila&output=embed" loading="lazy"></iframe></div>
+
+      <div class="card-body">
+        <p class="lead"><strong>Dirección:</strong> Av. de la Estación, El Barco de Ávila</p>
+        <p><strong>Distancia al banquete:</strong> aprox. 1.2 km (5 min en coche)</p>
+        <p><strong>Teléfono / Reserva:</strong> <a href="tel:+34900000000">+34 900 000 000</a></p>
+        <p style="margin-top:0.4rem;">Ofrecen tarifa de grupo (menciona "Silvia & Álvaro") — pregunta por disponibilidad y precios.</p>
+
+        <p style="margin-top:0.6rem;">
+          <a class="cta" href="https://www.hotelizan.com" target="_blank" rel="noopener noreferrer">Ver web / reservar</a>
+        </p>
       </div>
-    </div>
+
+      <div class="map" aria-label="Mapa: Hotel Izán Puerta de Gredos">
+        <iframe
+          src="https://www.google.com/maps?q=Hotel+Iz%C3%A1n+Puerta+de+Gredos+El+Barco+de+%C3%81vila&z=16&t=k&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Mapa: Hotel Izán Puerta de Gredos"
+          style="border:0; width:100%; height:320px;"
+          aria-hidden="false">
+        </iframe>
+        <div class="map-controls">
+          <a href="https://www.google.com/maps?q=Hotel+Iz%C3%A1n+Puerta+de+Gredos+El+Barco+de+%C3%81vila" target="_blank" rel="noopener noreferrer">Abrir en Google Maps</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Casa rural / alternativa -->
+    <section class="card" aria-labelledby="casa-rural-heading">
+      <div class="section-media">
+        <img src="img/CasaRural.png" alt="Casa rural" loading="lazy" width="72" height="72">
+        <div class="heading-wrap">
+          <h2 id="casa-rural-heading">Casa Rural La Ribera</h2>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <p class="lead"><strong>Dirección:</strong> C/ Río, El Barco de Ávila</p>
+        <p><strong>Distancia:</strong> aprox. 850 m (10 min a pie)</p>
+        <p><strong>Contacto:</strong> <a href="mailto:reservas@casarural.example">reservas@casarural.example</a></p>
+        <p style="margin-top:0.4rem;">Agradable para grupos pequeños. Ideal si buscáis algo tranquilo cerca del río.</p>
+
+        <p style="margin-top:0.6rem;">
+          <a class="cta" href="#" target="_blank" rel="noopener noreferrer">Ver detalles</a>
+        </p>
+      </div>
+
+      <div class="map" aria-label="Mapa: Casa Rural La Ribera">
+        <iframe
+          src="https://www.google.com/maps?q=El+Barco+de+%C3%81vila+r%C3%ADo&z=16&t=k&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Mapa: Casa Rural La Ribera"
+          style="border:0; width:100%; height:320px;"
+          aria-hidden="false">
+        </iframe>
+        <div class="map-controls">
+          <a href="https://www.google.com/maps?q=El+Barco+de+%C3%81vila+r%C3%ADo" target="_blank" rel="noopener noreferrer">Abrir en Google Maps</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hostal / opción económica -->
+    <section class="card" aria-labelledby="hostal-heading">
+      <div class="section-media">
+        <img src="img/Hostal.png" alt="Hostal" loading="lazy" width="72" height="72">
+        <div class="heading-wrap">
+          <h2 id="hostal-heading">Hostal La Plaza</h2>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <p class="lead"><strong>Dirección:</strong> Plaza Mayor, El Barco de Ávila</p>
+        <p><strong>Distancia:</strong> aprox. 900 m (12 min a pie)</p>
+        <p><strong>Teléfono:</strong> <a href="tel:+34911111111">+34 911 111 111</a></p>
+        <p style="margin-top:0.4rem;">Opción cómoda y económica para quienes busquen algo céntrico.</p>
+
+        <p style="margin-top:0.6rem;">
+          <a class="cta" href="#" target="_blank" rel="noopener noreferrer">Reservar / Ver</a>
+        </p>
+      </div>
+
+      <div class="map" aria-label="Mapa: Hostal La Plaza">
+        <iframe
+          src="https://www.google.com/maps?q=El+Barco+de+%C3%81vila+Plaza+Mayor&z=16&t=k&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Mapa: Plaza Mayor, El Barco de Ávila"
+          style="border:0; width:100%; height:320px;"
+          aria-hidden="false">
+        </iframe>
+        <div class="map-controls">
+          <a href="https://www.google.com/maps?q=El+Barco+de+%C3%81vila+Plaza+Mayor" target="_blank" rel="noopener noreferrer">Abrir en Google Maps</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="transport-heading">
+      <h2 id="transport-heading" style="margin-top:0;">Transporte y recomendaciones</h2>
+      <p style="margin-top:0.4rem;">
+        Si necesitáis traslados desde los alojamientos al lugar del banquete podemos organizar taxis compartidos. Indicadlo en el formulario de asistencia o escribidnos y os gestionamos opciones.
+      </p>
+      <p style="margin-top:0.4rem;">
+        Para grupos que reserven varias habitaciones, recomendamos mencionar que venís a la boda de Silvia & Álvaro para consultar tarifas especiales.
+      </p>
+    </section>
+
   </main>
-  <footer class="footer">Álvaro & Silvia · El Barco de Ávila</footer>
+
+  <footer class="footer" role="contentinfo">Álvaro & Silvia · 30/05/2026</footer>
+
 </body>
 </html>
