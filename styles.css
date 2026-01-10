@@ -340,3 +340,28 @@ body.evento-page .footer{ text-align:center; padding:1rem; color:rgba(11,61,46,0
 
 /* Pequeños ajustes visuales globales */
 h1,h2,h3{ line-height:1.15; }
+
+/* ---------- Ajuste: botones portada
+   - Escritorio: conservar tamaño "original" (variables)
+   - Móvil: aumentar respecto al comportamiento actual
+   Colocar AL FINAL de styles.css para sobreescribir reglas previas
+---------- */
+.landing .cta,
+.cta-grid.small .cta {
+  /* Volver al tamaño por defecto del sitio (antes del cambio) */
+  font-size: var(--cta-font-size);
+  padding: var(--cta-padding-vertical) var(--cta-padding-horizontal);
+  min-width: var(--cta-min-width);
+}
+
+/* Mobile: aumentar tamaño respecto al que había (más legible en pantallas pequeñas) */
+@media (max-width: 640px) {
+  .landing .cta,
+  .cta-grid.small .cta {
+    /* Mayor que el valor anterior en móvil */
+    font-size: clamp(1.15rem, 4.8vw, 1.4rem);
+    padding: 0.7rem 1.1rem;
+    min-width: 110px;
+  }
+}
+
