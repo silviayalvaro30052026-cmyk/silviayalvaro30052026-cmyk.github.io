@@ -479,11 +479,23 @@
             statusEl.innerHTML = '<div class="rsvp-message" id="rsvpMessage">Gracias — hemos recibido tu respuesta.</div>';
             const msg = document.getElementById('rsvpMessage');
             requestAnimationFrame(() => requestAnimationFrame(() => msg.classList.add('show')));
-            form.reset();
-            // After reset: hide sub-sections and disable their controls so only attendance shows
-            hideAllSubsections();
-            submitBtn.disabled = false;
-            submitBtn.removeAttribute('aria-busy');
+
+            // IMPORTANT: keep the initial attendance question hidden after submit.
+            // That way the first question will not reappear until the user reloads / re-enters the page.
+            const attendanceFieldset = document.querySelector('fieldset[aria-labelledby="asistiras-legend"]');
+            if (attendanceFieldset) {
+              attendanceFieldset.classList.add('is-hidden');
+              attendanceFieldset.setAttribute('aria-hidden', 'true');
+              setControlsDisabled(attendanceFieldset, true);
+            }
+
+            // Disable the rest of the form to prevent further edits/submissions on this visit
+            setControlsDisabled(form, true);
+
+            // leave submit disabled so user can't resubmit; status message remains visible
+            submitBtn.disabled = true;
+            submitBtn.setAttribute('aria-busy', 'false');
+
           } else {
             const data = await resp.json().catch(()=>null);
             let msg = 'Error al enviar. Por favor inténtalo de nuevo.';
